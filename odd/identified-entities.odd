@@ -36,7 +36,7 @@
          <p>This customization loads the normal four core modules, plus <name>figures</name>; in the latter it adjusts the content model of <gi>figure</gi> to allow the <gi>math</gi> element from MathML (see <ptr target="http://www.w3.org/Math/"/>).</p>
          <p>Example: <eg xml:space="preserve">&lt;formula&gt; &lt;math xmlns="http://www.w3.org/1998/Math/MathML"&gt; &lt;mrow&gt;&lt;mi&gt;e&lt;/mi&gt;&lt;/mrow&gt; &lt;/math&gt; &lt;/formula&gt;</eg> </p>
          <schemaSpec ident="identified-entities" prefix="tei_" start="person personGrp org" defaultExceptions="http://www.tei-c.org/ns/1.0 http://www.w3.org/1998/Math/MathML teix:egXML">
-            <moduleRef url="../P5/Exemplars/mathml2-main.rng"/>
+            <moduleRef url="https://www.tei-c.org/release/xml/tei/Exemplars/mathml2-main.rng"/>
             <moduleRef key="tei"/>
             <moduleRef n="03" key="core" include="choice date hi lb note p ref term">
                <!--Unused elements: abbr add addrLine address analytic author bibl biblScope biblStruct binaryObject cb cit citedRange corr del desc distinct divGen editor ellipsis email emph expan foreign gap gb gloss graphic head headItem headLabel imprint index item l label lg list listBibl measure measureGrp media meeting mentioned milestone monogr name noteGrp num orig pb postBox postCode ptr pubPlace publisher q quote rb reg relatedItem resp respStmt rs rt ruby said series sic soCalled sp speaker stage street teiCorpus textLang time title unclear unit-->

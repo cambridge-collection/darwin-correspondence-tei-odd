@@ -36,7 +36,7 @@
          <p>This customization loads the normal four core modules, plus <name>figures</name>; in the latter it adjusts the content model of <gi>figure</gi> to allow the <gi>math</gi> element from MathML (see <ptr target="http://www.w3.org/Math/"/>).</p>
          <p>Example: <eg xml:space="preserve">&lt;formula&gt; &lt;math xmlns="http://www.w3.org/1998/Math/MathML"&gt; &lt;mrow&gt;&lt;mi&gt;e&lt;/mi&gt;&lt;/mrow&gt; &lt;/math&gt; &lt;/formula&gt;</eg> </p>
          <schemaSpec ident="bibliographies" prefix="tei_" start="bibl">
-            <moduleRef url="../P5/Exemplars/mathml2-main.rng"/>
+            <moduleRef url="https://www.tei-c.org/release/xml/tei/Exemplars/mathml2-main.rng"/>
             <moduleRef key="tei"/>
             <moduleRef n="02" key="header" include="idno">
                <!--Unused elements: abstract appInfo application authority availability biblFull cRefPattern calendar calendarDesc catDesc catRef category change citeData citeStructure classCode classDecl conversion correction correspAction correspContext correspDesc creation distributor edition editionStmt editorialDecl encodingDesc extent fileDesc funder geoDecl handNote hyphenation interpretation keywords langUsage language licence listChange listPrefixDef namespace normalization notesStmt prefixDef principal profileDesc projectDesc publicationStmt punctuation quotation refState refsDecl rendition revisionDesc samplingDecl schemaRef scriptNote segmentation seriesStmt sourceDesc sponsor stdVals styleDefDecl tagUsage tagsDecl taxonomy teiHeader textClass titleStmt unitDecl unitDef xenoData-->
