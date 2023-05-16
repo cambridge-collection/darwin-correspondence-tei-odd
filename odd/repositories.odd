@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:teix="http://www.tei-c.org/ns/Examples" xmlns:xi="http://www.w3.org/2001/XInclude" xml:lang="en">
+   <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>Element Set (Repositories)</title>
+            <author>Michael Hawkins</author>
+         </titleStmt>
+         <publicationStmt>
+            <publisher>Darwin Correspondence Project</publisher>
+            <pubPlace>Cambridge</pubPlace>
+            <date when="2022">2022</date>
+            <availability status="free">
+               <licence target="http://creativecommons.org/licenses/by-sa/3.0/"> Distributed under a
+            Creative Commons Attribution-ShareAlike 3.0 Unported License </licence>
+               <licence target="http://www.opensource.org/licenses/BSD-2-Clause">
+                  <p>Copyright 2013 TEI Consortium.</p>
+                  <p>All rights reserved.</p>
+                  <p>Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:</p>
+                  <list>
+                     <item>Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.</item>
+                     <item>Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.</item>
+                  </list>
+                  <p>This software is provided by the copyright holders and contributors "as is" and any express or implied warranties, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are disclaimed. In no event shall the copyright holder or contributors be liable for any direct, indirect, incidental, special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability, whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use of this software, even if advised of the possibility of such damage.</p>
+               </licence>
+               <p>TEI material can be licensed differently depending on the use you intend to make of it. Hence it is made available under both the CC+BY and BSD-2 licences. The CC+BY licence is generally appropriate for usages which treat TEI content as data or documentation. The BSD-2 licence is generally appropriate for usage of TEI content in a software environment. For further information or clarification, please contact the <ref target="mailto:info@tei-c.org">TEI Consortium</ref>. </p>
+            </availability>
+         </publicationStmt>
+         <sourceDesc>
+            <p>Born digital</p>
+         </sourceDesc>
+      </fileDesc>
+   </teiHeader>
+   <text>
+      <body>
+         <p>This customization loads the normal four core modules, plus <name>figures</name>; in the latter it adjusts the content model of <gi>figure</gi> to allow the <gi>math</gi> element from MathML (see <ptr target="http://www.w3.org/Math/"/>).</p>
+         <p>Example: <eg xml:space="preserve">&lt;formula&gt; &lt;math xmlns="http://www.w3.org/1998/Math/MathML"&gt; &lt;mrow&gt;&lt;mi&gt;e&lt;/mi&gt;&lt;/mrow&gt; &lt;/math&gt; &lt;/formula&gt;</eg> </p>
+         <schemaSpec ident="repositories" prefix="tei_" start="sourceDesc">
+            <moduleRef url="../P5/Exemplars/mathml2-main.rng"/>
+            <moduleRef key="tei"/>
+            <moduleRef n="02" key="header" include="sourceDesc">
+               <!--Unused elements: abstract appInfo application authority availability biblFull cRefPattern calendar calendarDesc catDesc catRef category change citeData citeStructure classCode classDecl conversion correction correspAction correspContext correspDesc creation distributor edition editionStmt editorialDecl encodingDesc extent fileDesc funder geoDecl handNote hyphenation idno interpretation keywords langUsage language licence listChange listPrefixDef namespace normalization notesStmt prefixDef principal profileDesc projectDesc publicationStmt punctuation quotation refState refsDecl rendition revisionDesc samplingDecl schemaRef scriptNote segmentation seriesStmt sponsor stdVals styleDefDecl tagUsage tagsDecl taxonomy teiHeader textClass titleStmt unitDecl unitDef xenoData-->
+            </moduleRef>
+            <moduleRef n="10" key="msdescription" include="msDesc msIdentifier repository">
+               <!--Unused elements: accMat acquisition additional additions adminInfo altIdentifier binding bindingDesc catchwords collation collection colophon condition custEvent custodialHist decoDesc decoNote depth dim dimensions explicit filiation finalRubric foliation handDesc height heraldry history incipit institution layout layoutDesc locus locusGrp material msContents msFrag msItem msItemStruct msName msPart musicNotation objectDesc objectType origDate origPlace origin physDesc provenance recordHist rubric scriptDesc seal sealDesc secFol signatures source stamp summary support supportDesc surrogates typeDesc typeNote watermark width-->
+            </moduleRef>
+            <classSpec module="tei" type="atts" ident="att.docStatus" mode="change">
+               <attList>
+                  <attDef ident="status" mode="change">
+                     <valList type="closed" mode="replace">
+                        <valItem ident="deprecated"/>
+                        <valItem ident="cancelled"/>
+                        <valItem ident="draft"/>
+                        <valItem ident="released"/>
+                        <valItem ident="submitted"/>
+                     </valList>
+                  </attDef>
+               </attList>
+            </classSpec>
+
+            <!--Element definitions-->
+
+            <!--Elements from header-->
+
+            <elementSpec ident="sourceDesc" module="header" mode="change">
+               <classes mode="change">
+                  <memberOf key="att.docStatus" mode="add"/>
+                  <memberOf key="att.declarable" mode="delete"/>
+               </classes>
+               <constraintSpec ident="sourceDesc-xml-id-value-must-match-filename" scheme="schematron" mode="add">
+                  <constraint>
+                     <rule xmlns="http://purl.oclc.org/dsdl/schematron" context="tei:sourceDesc">
+                        <report test="not(concat(replace(@xml:id,'^DCP-REPO-','repo_'),'.xml') = tokenize(document-uri(/),'/')[last()])">@xml:id number must match repo file number.</report>
+                     </rule>
+                  </constraint>
+               </constraintSpec>
+               <attList>
+                  <attDef ident="status" usage="opt" mode="change">
+                     <valList type="closed" mode="replace">
+                        <valItem ident="draft"/>
+                        <valItem ident="released"/>
+                     </valList>
+                  </attDef>
+                  <attDef ident="xml:id" usage="req" mode="change"/>
+                  <!--REMOVE-->
+                  <attDef ident="ana" mode="delete"/>
+                  <attDef ident="cert" mode="delete"/>
+                  <attDef ident="change" mode="delete"/>
+                  <attDef ident="copyOf" mode="delete"/>
+                  <attDef ident="corresp" mode="delete"/>
+                  <attDef ident="exclude" mode="delete"/>
+                  <attDef ident="facs" mode="delete"/>
+                  <attDef ident="n" mode="delete"/>
+                  <attDef ident="next" mode="delete"/>
+                  <attDef ident="prev" mode="delete"/>
+                  <attDef ident="rend" mode="delete"/>
+                  <attDef ident="rendition" mode="delete"/>
+                  <attDef ident="resp" mode="delete"/>
+                  <attDef ident="sameAs" mode="delete"/>
+                  <attDef ident="select" mode="delete"/>
+                  <attDef ident="source" mode="delete"/>
+                  <attDef ident="style" mode="delete"/>
+                  <attDef ident="synch" mode="delete"/>
+                  <attDef ident="xml:base" mode="delete"/>
+                  <attDef ident="xml:lang" mode="delete"/>
+                  <attDef ident="xml:space" mode="delete"/>
+               </attList>
+            </elementSpec>
+
+            <!--Elements from msdescription-->
+
+            <elementSpec module="msdescription" ident="msDesc" mode="change">
+               <!--NEW-->
+               <desc xml:lang="en" versionDate="2022-08-09"/>
+               <classes mode="change">
+                  <memberOf key="att.declaring" mode="delete"/>
+                  <memberOf key="att.docStatus" mode="delete"/>
+                   <memberOf key="att.global" mode="delete"/>
+                  <memberOf key="att.sortable" mode="delete"/>
+               </classes>
+               <attList>
+                  <attDef ident="type" mode="change">
+                     <!--NEW-->
+                  </attDef>
+                  <!--REMOVE-->
+                  <attDef ident="subtype" mode="delete"/>
+               </attList>
+               <exemplum xml:lang="en">
+                  <egXML xmlns="http://www.tei-c.org/ns/Examples"/>
+               </exemplum>
+               <remarks xml:lang="en" versionDate="2022-08-09">
+                  <p/>
+               </remarks>
+            </elementSpec>
+
+            <elementSpec module="msdescription" ident="msIdentifier" mode="change">
+               <!--NEW-->
+               <desc xml:lang="en" versionDate="2022-08-08"/>
+               <classes mode="change">
+                  <memberOf key="att.global" mode="delete"/>
+               </classes>
+               <exemplum xml:lang="en">
+                  <egXML xmlns="http://www.tei-c.org/ns/Examples"/>
+               </exemplum>
+               <remarks xml:lang="en" versionDate="2022-08-08">
+                  <p/>
+               </remarks>
+            </elementSpec>
+
+            <elementSpec module="msdescription" ident="repository" mode="change">
+               <!--NEW-->
+               <desc xml:lang="en" versionDate="2022-08-08"/>
+               <classes mode="change">
+                  <memberOf key="att.global" mode="delete"/>
+                  <memberOf key="att.naming" mode="delete"/>
+               </classes>
+               <exemplum xml:lang="en">
+                  <egXML xmlns="http://www.tei-c.org/ns/Examples"/>
+               </exemplum>
+               <remarks xml:lang="en" versionDate="2022-08-08">
+                  <p/>
+               </remarks>
+            </elementSpec>
+         </schemaSpec>
+      </body>
+   </text>
+</TEI>

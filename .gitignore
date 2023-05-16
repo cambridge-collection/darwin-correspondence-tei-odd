@@ -1,0 +1,29 @@
+# OS X
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Icon must end with two \r
+Icon
+
+
+# Thumbnails
+._*
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Windows shortcuts
+*.lnk
+
+# Ignore Logo.png
+logo.png
+
+#Special
+*.escaped
+
+Support/Special_Characters.xml
