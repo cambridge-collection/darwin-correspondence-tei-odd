@@ -3756,7 +3756,8 @@
                   <constraintSpec ident="repository-link-check" scheme="schematron">
                      <constraint>
                         <rule xmlns="http://purl.oclc.org/dsdl/schematron" context="tei:repository[normalize-space(@key)]">
-                           <let name="repo_full_path" value="concat(string-join(tokenize(replace(base-uri(.),'file:',''),'/')[position() ne last()],'/'),'/',@key)"/>
+                           <let name="document_uri" value="string-join(tokenize(document-uri(/),'/')[position() != last()],'/')"/>
+                           <let name="repo_full_path" value="concat($document_uri,'/',@key)"/>
                            <assert test="doc-available($repo_full_path)">ERROR: <value-of select="$repo_full_path"/>
                               <name/> points to incorrect or missing repo file.</assert>
                            <assert test="matches(normalize-space(@key),'repo_\d+\.xml$')">ERROR: Invalid @key value of '<value-of select="@key"/>' for <name/>.</assert>
@@ -3878,7 +3879,8 @@
                   <constraintSpec ident="orgName-link-check" scheme="schematron">
                      <constraint>
                         <rule xmlns="http://purl.oclc.org/dsdl/schematron" context="tei:orgName[ancestor::tei:correspAction][normalize-space(@key)]">
-                           <let name="namereg_full_path" value="concat(string-join(tokenize(replace(base-uri(.),'file:',''),'/')[position() ne last()],'/'),'/',@key)"/>
+                           <let name="document_uri" value="string-join(tokenize(document-uri(/),'/')[position() != last()],'/')"/>
+                           <let name="namereg_full_path" value="concat($document_uri,'/',@key)"/>
                            <assert test="doc-available($namereg_full_path)">ERROR: <value-of select="$namereg_full_path"/>
                               <name/> points to incorrect or missing namereg file.</assert>
                            <assert test="matches(normalize-space(@key),'nameregs_\d+\.xml$')">ERROR: Invalid @key value of '<value-of select="@key"/>' for <name/>.</assert>
@@ -3948,7 +3950,8 @@
                   <constraintSpec ident="persName-link-check" scheme="schematron">
                      <constraint>
                         <rule xmlns="http://purl.oclc.org/dsdl/schematron" context="tei:persName[ancestor::tei:correspAction][normalize-space(@key)]">
-                           <let name="namereg_full_path" value="concat(string-join(tokenize(replace(base-uri(.),'file:',''),'/')[position() ne last()],'/'),'/',@key)"/>
+                           <let name="document_uri" value="string-join(tokenize(document-uri(/),'/')[position() != last()],'/')"/>
+                           <let name="namereg_full_path" value="concat($document_uri,'/',@key)"/>
                            <assert test="doc-available($namereg_full_path)">ERROR: <value-of select="$namereg_full_path"/>
                               <name/> points to incorrect or missing namereg file.</assert>
                            <assert test="matches(normalize-space(@key),'nameregs_\d+\.xml$')">ERROR: Invalid @key value of '<value-of select="@key"/>' for <name/>.</assert>
