@@ -5,7 +5,7 @@
          xmlns:xlink="http://www.w3.org/1999/xlink"
          datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
          ns="http://www.tei-c.org/ns/1.0"><!--
-Schema generated from ODD source 2023-05-16T15:25:45Z. .
+Schema generated from ODD source 2023-06-13T12:48:43Z. .
 TEI Edition: Version 4.7.0a. Last updated on
         11th April 2023, revision bec660a72
 TEI Edition Location: https://www.tei-c.org/Vault/P5/Version 4.7.0a./
@@ -6361,26 +6361,30 @@ Elements 7.2.5. Speech Contents]</a:documentation>
       <element name="sex">
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(sex)  [13.3.2.1. Personal Characteristics]</a:documentation>
          <ref name="tei_macro.phraseSeq"/>
-         <optional>
-            <attribute name="type">
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">characterizes the element in some sense, using any convenient classification scheme or typology.</a:documentation>
-               <data type="token">
-                  <param name="pattern">[^\p{C}\p{Z}]+</param>
-               </data>
-            </attribute>
-         </optional>
-         <optional>
-            <attribute name="value">
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">supplies a coded value for sex</a:documentation>
-               <list>
-                  <oneOrMore>
-                     <data type="token">
-                        <param name="pattern">[^\p{C}\p{Z}]+</param>
-                     </data>
-                  </oneOrMore>
-               </list>
-            </attribute>
-         </optional>
+         <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
+                  id="identified-entities-sex-ensure-sex-has-no-text-content-constraint-rule-40">
+            <rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
+                  xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                  xmlns:xi="http://www.w3.org/2001/XInclude"
+                  context="tei:sex">
+               <report test="normalize-space(.) or *">ERROR: <name/> must be an empty element. It must not contain any textual content or elements.</report>
+            </rule>
+         </pattern>
+         <attribute name="value">
+            <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">contains a coded value for the sex of the individual.</a:documentation>
+            <list>
+               <oneOrMore>
+                  <choice>
+                     <value>F</value>
+                     <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">Female</a:documentation>
+                     <value>M</value>
+                     <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">Male</a:documentation>
+                     <value>U</value>
+                     <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">Unknown</a:documentation>
+                  </choice>
+               </oneOrMore>
+            </list>
+         </attribute>
          <empty/>
       </element>
    </define>
@@ -6491,7 +6495,7 @@ Elements 7.2.5. Speech Contents]</a:documentation>
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(arbitrary segment) represents any segmentation of text below the chunk level. [16.3. Blocks, Segments, and Anchors 6.2. Components of the Verse Line 7.2.5. Speech Contents]</a:documentation>
          <ref name="tei_macro.paraContent"/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="identified-entities-seg-ensure-parent-is-choice-constraint-rule-40">
+                  id="identified-entities-seg-ensure-parent-is-choice-constraint-rule-41">
             <rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
                   xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                   xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -6500,7 +6504,7 @@ Elements 7.2.5. Speech Contents]</a:documentation>
             </rule>
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="identified-entities-seg-ensure-has-name-contents-constraint-rule-41">
+                  id="identified-entities-seg-ensure-has-name-contents-constraint-rule-42">
             <rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
                   xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                   xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -6509,7 +6513,7 @@ Elements 7.2.5. Speech Contents]</a:documentation>
             </rule>
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="identified-entities-seg-must-not-have-text-child-constraint-rule-42">
+                  id="identified-entities-seg-must-not-have-text-child-constraint-rule-43">
             <rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
                   xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                   xmlns:xi="http://www.w3.org/2001/XInclude"

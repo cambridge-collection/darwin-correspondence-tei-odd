@@ -5,7 +5,7 @@
          xmlns:xlink="http://www.w3.org/1999/xlink"
          datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
          ns="http://www.tei-c.org/ns/1.0"><!--
-Schema generated from ODD source 2023-05-16T15:26:00Z. .
+Schema generated from ODD source 2023-06-13T12:49:04Z. .
 TEI Edition: Version 4.7.0a. Last updated on
         11th April 2023, revision bec660a72
 TEI Edition Location: https://www.tei-c.org/Vault/P5/Version 4.7.0a./
@@ -3771,158 +3771,6 @@ TEI Edition Location: https://www.tei-c.org/Vault/P5/Version 4.7.0a./
          </attribute>
       </optional>
    </define>
-   <define name="tei_att.ranging.attributes">
-      <ref name="tei_att.ranging.attribute.atLeast"/>
-      <ref name="tei_att.ranging.attribute.atMost"/>
-      <ref name="tei_att.ranging.attribute.min"/>
-      <ref name="tei_att.ranging.attribute.max"/>
-      <ref name="tei_att.ranging.attribute.confidence"/>
-   </define>
-   <define name="tei_att.ranging.attribute.atLeast">
-      <optional>
-         <attribute name="atLeast">
-            <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">gives a minimum estimated value for the approximate measurement.</a:documentation>
-            <choice>
-               <data type="double"/>
-               <data type="token">
-                  <param name="pattern">(\-?[\d]+/\-?[\d]+)</param>
-               </data>
-               <data type="decimal"/>
-            </choice>
-         </attribute>
-      </optional>
-   </define>
-   <define name="tei_att.ranging.attribute.atMost">
-      <optional>
-         <attribute name="atMost">
-            <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">gives a maximum estimated value for the approximate measurement.</a:documentation>
-            <choice>
-               <data type="double"/>
-               <data type="token">
-                  <param name="pattern">(\-?[\d]+/\-?[\d]+)</param>
-               </data>
-               <data type="decimal"/>
-            </choice>
-         </attribute>
-      </optional>
-   </define>
-   <define name="tei_att.ranging.attribute.min">
-      <optional>
-         <attribute name="min">
-            <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">where the measurement summarizes more than one observation or a range, supplies the minimum value observed.</a:documentation>
-            <choice>
-               <data type="double"/>
-               <data type="token">
-                  <param name="pattern">(\-?[\d]+/\-?[\d]+)</param>
-               </data>
-               <data type="decimal"/>
-            </choice>
-         </attribute>
-      </optional>
-   </define>
-   <define name="tei_att.ranging.attribute.max">
-      <optional>
-         <attribute name="max">
-            <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">where the measurement summarizes more than one observation or a range, supplies the maximum value observed.</a:documentation>
-            <choice>
-               <data type="double"/>
-               <data type="token">
-                  <param name="pattern">(\-?[\d]+/\-?[\d]+)</param>
-               </data>
-               <data type="decimal"/>
-            </choice>
-         </attribute>
-      </optional>
-   </define>
-   <define name="tei_att.ranging.attribute.confidence">
-      <optional>
-         <attribute name="confidence">
-            <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">specifies the degree of statistical confidence (between zero and one) that a value falls within the range specified by <code xmlns="http://www.w3.org/1999/xhtml">@min</code> and <code xmlns="http://www.w3.org/1999/xhtml">@max</code>, or the proportion of observed values that fall within that range.</a:documentation>
-            <data type="double"/>
-         </attribute>
-      </optional>
-   </define>
-   <define name="tei_att.dimensions.attributes">
-      <ref name="tei_att.ranging.attributes"/>
-      <ref name="tei_att.dimensions.attribute.unit"/>
-      <ref name="tei_att.dimensions.attribute.quantity"/>
-      <ref name="tei_att.dimensions.attribute.extent"/>
-      <ref name="tei_att.dimensions.attribute.precision"/>
-      <ref name="tei_att.dimensions.attribute.scope"/>
-   </define>
-   <define name="tei_att.dimensions.attribute.unit">
-      <optional>
-         <attribute name="unit">
-            <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">names the unit used for the measurement
-Suggested values include: 1] cm (centimetres); 2] mm (millimetres); 3] in (inches); 4] line; 5] char (characters)</a:documentation>
-            <choice>
-               <value>cm</value>
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(centimetres) </a:documentation>
-               <value>mm</value>
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(millimetres) </a:documentation>
-               <value>in</value>
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(inches) </a:documentation>
-               <value>line</value>
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">lines of text</a:documentation>
-               <value>char</value>
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(characters) characters of text</a:documentation>
-               <data type="token">
-                  <param name="pattern">[^\p{C}\p{Z}]+</param>
-               </data>
-            </choice>
-         </attribute>
-      </optional>
-   </define>
-   <define name="tei_att.dimensions.attribute.quantity">
-      <optional>
-         <attribute name="quantity">
-            <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">specifies the length in the units specified</a:documentation>
-            <choice>
-               <data type="double"/>
-               <data type="token">
-                  <param name="pattern">(\-?[\d]+/\-?[\d]+)</param>
-               </data>
-               <data type="decimal"/>
-            </choice>
-         </attribute>
-      </optional>
-   </define>
-   <define name="tei_att.dimensions.attribute.extent">
-      <optional>
-         <attribute name="extent">
-            <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">indicates the size of the object concerned using a project-specific vocabulary combining quantity and units in a single string of words.</a:documentation>
-            <data type="string"/>
-         </attribute>
-      </optional>
-   </define>
-   <define name="tei_att.dimensions.attribute.precision">
-      <optional>
-         <attribute name="precision">
-            <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">characterizes the precision of the values specified by the other attributes.</a:documentation>
-            <choice>
-               <value>high</value>
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
-               <value>medium</value>
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
-               <value>low</value>
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
-               <value>unknown</value>
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
-            </choice>
-         </attribute>
-      </optional>
-   </define>
-   <define name="tei_att.dimensions.attribute.scope">
-      <optional>
-         <attribute name="scope">
-            <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">where the measurement summarizes more than one observation, specifies the applicability of this measurement.
-Sample values include: 1] all; 2] most; 3] range</a:documentation>
-            <data type="token">
-               <param name="pattern">[^\p{C}\p{Z}]+</param>
-            </data>
-         </attribute>
-      </optional>
-   </define>
    <define name="tei_att.datable.w3c.attribute.when">
       <optional>
          <attribute name="when">
@@ -4054,10 +3902,6 @@ Sample values include: 1] all; 2] most; 3] range</a:documentation>
             but this <sch:name/> element has no textual content.</sch:assert>
       </sch:rule>
    </pattern>
-   <define name="tei_att.global.responsibility.attributes">
-      <ref name="tei_att.global.responsibility.attribute.cert"/>
-      <ref name="tei_att.global.responsibility.attribute.resp"/>
-   </define>
    <define name="tei_att.global.responsibility.attribute.cert">
       <optional>
          <attribute name="cert">
@@ -4091,56 +3935,6 @@ Sample values include: 1] all; 2] most; 3] range</a:documentation>
             </list>
          </attribute>
       </optional>
-   </define>
-   <define name="tei_att.editLike.attributes">
-      <ref name="tei_att.editLike.attribute.evidence"/>
-      <ref name="tei_att.editLike.attribute.instant"/>
-   </define>
-   <define name="tei_att.editLike.attribute.evidence">
-      <optional>
-         <attribute name="evidence">
-            <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">indicates the nature of the evidence supporting the reliability or accuracy of the intervention or interpretation.
-Suggested values include: 1] internal; 2] external; 3] conjecture</a:documentation>
-            <list>
-               <oneOrMore>
-                  <choice>
-                     <value>internal</value>
-                     <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">there is internal evidence to support the intervention.</a:documentation>
-                     <value>external</value>
-                     <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">there is external evidence to support the intervention.</a:documentation>
-                     <value>conjecture</value>
-                     <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">the intervention or interpretation has been made by the editor, cataloguer, or scholar on the basis of their expertise.</a:documentation>
-                     <data type="token">
-                        <param name="pattern">[^\p{C}\p{Z}]+</param>
-                     </data>
-                  </choice>
-               </oneOrMore>
-            </list>
-         </attribute>
-      </optional>
-   </define>
-   <define name="tei_att.editLike.attribute.instant">
-      <optional>
-         <attribute xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
-                    name="instant"
-                    a:defaultValue="false">
-            <a:documentation>indicates whether this is an instant revision or not.</a:documentation>
-            <choice>
-               <data type="boolean"/>
-               <choice>
-                  <value>unknown</value>
-                  <a:documentation/>
-                  <value>inapplicable</value>
-                  <a:documentation/>
-               </choice>
-            </choice>
-         </attribute>
-      </optional>
-   </define>
-   <define name="tei_att.global.rendition.attributes">
-      <ref name="tei_att.global.rendition.attribute.rend"/>
-      <ref name="tei_att.global.rendition.attribute.style"/>
-      <ref name="tei_att.global.rendition.attribute.rendition"/>
    </define>
    <define name="tei_att.global.rendition.attribute.rend">
       <optional>
@@ -4178,9 +3972,6 @@ Suggested values include: 1] internal; 2] external; 3] conjecture</a:documentati
          </attribute>
       </optional>
    </define>
-   <define name="tei_att.global.source.attributes">
-      <ref name="tei_att.global.source.attribute.source"/>
-   </define>
    <define name="tei_att.global.source.attribute.source">
       <optional>
          <attribute name="source">
@@ -4211,73 +4002,6 @@ Suggested values include: 1] internal; 2] external; 3] conjecture</a:documentati
             </sch:report>
       </sch:rule>
    </pattern>
-   <define name="tei_att.global.attributes">
-      <ref name="tei_att.global.rendition.attributes"/>
-      <ref name="tei_att.global.linking.attributes"/>
-      <ref name="tei_att.global.facs.attributes"/>
-      <ref name="tei_att.global.change.attributes"/>
-      <ref name="tei_att.global.responsibility.attributes"/>
-      <ref name="tei_att.global.source.attributes"/>
-      <ref name="tei_att.global.attribute.xmlid"/>
-      <ref name="tei_att.global.attribute.n"/>
-      <ref name="tei_att.global.attribute.xmllang"/>
-      <ref name="tei_att.global.attribute.xmlbase"/>
-      <ref name="tei_att.global.attribute.xmlspace"/>
-   </define>
-   <define name="tei_att.global.attribute.xmlid">
-      <optional>
-         <attribute name="xml:id">
-            <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(identifier) provides a unique identifier for the element bearing the attribute.</a:documentation>
-            <data type="ID"/>
-         </attribute>
-      </optional>
-   </define>
-   <define name="tei_att.global.attribute.n">
-      <optional>
-         <attribute name="n">
-            <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(number) gives a number (or other label) for an element, which is not necessarily unique within the document.</a:documentation>
-            <data type="string"/>
-         </attribute>
-      </optional>
-   </define>
-   <define name="tei_att.global.attribute.xmllang">
-      <optional>
-         <attribute name="xml:lang">
-            <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(language) indicates the language of the element content using a tag generated according to <a xmlns="http://www.w3.org/1999/xhtml"
-                  href="http://www.rfc-editor.org/rfc/bcp/bcp47.txt">BCP 47</a>.</a:documentation>
-            <choice>
-               <data type="language"/>
-               <choice>
-                  <value/>
-                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
-               </choice>
-            </choice>
-         </attribute>
-      </optional>
-   </define>
-   <define name="tei_att.global.attribute.xmlbase">
-      <optional>
-         <attribute name="xml:base">
-            <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">provides a base URI reference with which applications can resolve relative URI references into absolute URI references.</a:documentation>
-            <data type="anyURI">
-               <param name="pattern">\S+</param>
-            </data>
-         </attribute>
-      </optional>
-   </define>
-   <define name="tei_att.global.attribute.xmlspace">
-      <optional>
-         <attribute name="xml:space">
-            <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">signals an intention about how white space should be managed by applications.</a:documentation>
-            <choice>
-               <value>default</value>
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">signals that the application's default white-space processing modes are acceptable</a:documentation>
-               <value>preserve</value>
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">indicates the intent that applications preserve all white space</a:documentation>
-            </choice>
-         </attribute>
-      </optional>
-   </define>
    <define name="tei_att.internetMedia.attribute.mimeType">
       <optional>
          <attribute name="mimeType">
@@ -4627,32 +4351,22 @@ Suggested values include: 1] internal; 2] external; 3] conjecture</a:documentati
       </oneOrMore>
    </define>
    <define name="tei_model.pPart.transcriptional">
-      <choice>
-         <ref name="tei_unclear"/>
-      </choice>
+      <notAllowed/>
    </define>
    <define name="tei_model.pPart.transcriptional_alternation">
-      <choice>
-         <ref name="tei_unclear"/>
-      </choice>
+      <notAllowed/>
    </define>
    <define name="tei_model.pPart.transcriptional_sequence">
-      <ref name="tei_unclear"/>
+      <empty/>
    </define>
    <define name="tei_model.pPart.transcriptional_sequenceOptional">
-      <optional>
-         <ref name="tei_unclear"/>
-      </optional>
+      <empty/>
    </define>
    <define name="tei_model.pPart.transcriptional_sequenceOptionalRepeatable">
-      <zeroOrMore>
-         <ref name="tei_unclear"/>
-      </zeroOrMore>
+      <empty/>
    </define>
    <define name="tei_model.pPart.transcriptional_sequenceRepeatable">
-      <oneOrMore>
-         <ref name="tei_unclear"/>
-      </oneOrMore>
+      <notAllowed/>
    </define>
    <define name="tei_model.pPart.edit">
       <choice>
@@ -5129,7 +4843,6 @@ Suggested values include: 1] internal; 2] external; 3] conjecture</a:documentati
    </define>
    <define name="tei_model.choicePart">
       <choice>
-         <ref name="tei_unclear"/>
          <ref name="tei_seg"/>
       </choice>
    </define>
@@ -5450,9 +5163,14 @@ Suggested values include: 1] internal; 2] external; 3] conjecture</a:documentati
          <optional>
             <attribute name="type">
                <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">characterizes the element in some sense, using any convenient classification scheme or typology.</a:documentation>
-               <data type="token">
-                  <param name="pattern">[^\p{C}\p{Z}]+</param>
-               </data>
+               <choice>
+                  <value>quote</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>quotation</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <value>verse</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+               </choice>
             </attribute>
          </optional>
          <empty/>
@@ -5496,50 +5214,6 @@ Suggested values include: 1] internal; 2] external; 3] conjecture</a:documentati
          </oneOrMore>
       </element>
    </define>
-   <define name="tei_unclear">
-      <element name="unclear">
-         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(unclear) contains a word, phrase, or passage which cannot be transcribed with certainty because it is illegible or inaudible in the source. [11.3.3.1. Damage, Illegibility, and Supplied Text 3.5.3. Additions, Deletions, and Omissions]</a:documentation>
-         <ref name="tei_macro.paraContent"/>
-         <ref name="tei_att.global.attributes"/>
-         <ref name="tei_att.editLike.attributes"/>
-         <ref name="tei_att.dimensions.attributes"/>
-         <optional>
-            <attribute name="reason">
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">indicates why the material is hard to transcribe.
-Suggested values include: 1] illegible (illegible); 2] inaudible (inaudible); 3] faded (faded); 4] background_noise (background noise); 5] eccentric_ductus (eccentric ductus)</a:documentation>
-               <list>
-                  <oneOrMore>
-                     <choice>
-                        <value>illegible</value>
-                        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(illegible) </a:documentation>
-                        <value>inaudible</value>
-                        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(inaudible) </a:documentation>
-                        <value>faded</value>
-                        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(faded) </a:documentation>
-                        <value>background_noise</value>
-                        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(background noise) </a:documentation>
-                        <value>eccentric_ductus</value>
-                        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(eccentric ductus) indicates illegibility due to an unusual, awkward, or incompetent execution of a glyph or glyphs </a:documentation>
-                        <data type="token">
-                           <param name="pattern">[^\p{C}\p{Z}]+</param>
-                        </data>
-                     </choice>
-                  </oneOrMore>
-               </list>
-            </attribute>
-         </optional>
-         <optional>
-            <attribute name="agent">
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">Where the difficulty in transcription arises from damage, categorizes the cause of the damage, if it can be identified.
-Sample values include: 1] rubbing; 2] mildew; 3] smoke</a:documentation>
-               <data type="token">
-                  <param name="pattern">[^\p{C}\p{Z}]+</param>
-               </data>
-            </attribute>
-         </optional>
-         <empty/>
-      </element>
-   </define>
    <define name="tei_name">
       <element name="name">
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(name) is used for editors’ names in the <code xmlns="http://www.w3.org/1999/xhtml">&lt;revisionDesc&gt;</code> in the <code xmlns="http://www.w3.org/1999/xhtml">&lt;teiHeader&gt;</code>. The first appearance of the name in a file requires <code xmlns="http://www.w3.org/1999/xhtml">@xml:id</code> and each subsequent appearance requires <code xmlns="http://www.w3.org/1999/xhtml">@sameAs</code> with a valid pointer pointing to the first instance [3.6.1. Referring Strings]</a:documentation>
@@ -5566,13 +5240,13 @@ Sample values include: 1] rubbing; 2] mildew; 3] smoke</a:documentation>
          </pattern>
          <optional>
             <attribute name="xml:id">
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(identifier) provides a unique identifier for the element bearing the attribute.</a:documentation>
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(identifier) contains a unique identifier for the editor making the <code xmlns="http://www.w3.org/1999/xhtml">&lt;change&gt;</code>.</a:documentation>
                <data type="ID"/>
             </attribute>
          </optional>
          <optional>
             <attribute name="sameAs">
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">points to an element that is the same as the current element.</a:documentation>
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">contains a pointer referring to the <code xmlns="http://www.w3.org/1999/xhtml">@xml:id</code> of <code xmlns="http://www.w3.org/1999/xhtml">&lt;name&gt;</code>’s first appearance in <code xmlns="http://www.w3.org/1999/xhtml">&lt;revisionDesc&gt;</code>.</a:documentation>
                <data type="anyURI">
                   <param name="pattern">\S+</param>
                </data>
@@ -5597,17 +5271,21 @@ Sample values include: 1] rubbing; 2] mildew; 3] smoke</a:documentation>
                   xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                   xmlns:svg="http://www.w3.org/2000/svg"
                   xmlns:xi="http://www.w3.org/2001/XInclude"
-                  context="tei:date">
+                  context="tei:date[@exclude]">
                <let name="current_date" value="."/>
                <let name="context"
-                    value="//ancestor::*[local-name()=('correspDesc','birth','death','event')][1]/local-name()"/>
-               <let name="all_dates"
-                    value="$current_date//ancestor::*[local-name()=$context]//tei:date"/>
-               <report test="normalize-space(@exclude) != '' and count(tokenize(@exclude,'\s+')[.=$all_dates[not(@xml:id=$current_date/@xml:id)]/concat('#',@xml:id)]) != count(tokenize(@exclude,'\s+'))">ERROR: <name/>@exclude value(s) (<value-of select="tokenize(@exclude,'\s+')[not(.=$all_dates[not(@xml:id=$current_date/@xml:id)]/concat('#',@xml:id))]"/>) does not point to <value-of select="$context"/>//date/@xml:id</report>
+                    value="ancestor::*[local-name()=('correspDesc','birth','death','event')][1]"/>
+               <let name="other_dates"
+                    value="$context//tei:date[not(@xml:id = $current_date/@xml:id)]"/>
+               <let name="other_date_ids"
+                    value="for $x in $other_dates return concat('#',$x/@xml:id)"/>
+               <let name="exclude_vals" value="tokenize(normalize-space(@exclude),'\s+')"/>
+               <report test="not(empty($context)) and normalize-space(@exclude) != '' and  exists($other_date_ids[not(.=$exclude_vals)])">ERROR: <name/>'s exclude does not point to <value-of select="$other_date_ids[not(.=$exclude_vals)]"/>.</report>
+               <report test="not(ancestor::*[local-name()=('correspDesc','birth','death','event')])">ERROR: <name/> does not support @exclude in this context.</report>
             </rule>
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="tei_math-date-date-exclude-points-to-self-constraint-report-9">
+                  id="tei_math-date-date-exclude-points-to-self-constraint-report-10">
             <rule context="tei:date">
                <report xmlns:rng="http://relaxng.org/ns/structure/1.0"
                        xmlns:sch="http://purl.oclc.org/dsdl/schematron"
@@ -5617,7 +5295,7 @@ Sample values include: 1] rubbing; 2] mildew; 3] smoke</a:documentation>
             </rule>
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="tei_math-date-date-exclude-not-xmlid-constraint-report-10">
+                  id="tei_math-date-date-exclude-not-xmlid-constraint-report-11">
             <rule context="tei:date">
                <report xmlns:rng="http://relaxng.org/ns/structure/1.0"
                        xmlns:sch="http://purl.oclc.org/dsdl/schematron"
@@ -5627,31 +5305,7 @@ Sample values include: 1] rubbing; 2] mildew; 3] smoke</a:documentation>
             </rule>
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="tei_math-date-date-xmlid-not-exclude-constraint-rule-11">
-            <rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  xmlns:sch="http://purl.oclc.org/dsdl/schematron"
-                  xmlns:svg="http://www.w3.org/2000/svg"
-                  xmlns:xi="http://www.w3.org/2001/XInclude"
-                  context="tei:date[@xml:id]">
-               <let name="elem" value="."/>
-               <let name="tei_root" value="ancestor::tei:TEI"/>
-               <assert test="concat('#',$elem/@xml:id) = ($tei_root/tei:teiHeader//tei:date/@sameAs,$tei_root/tei:teiHeader//tei:date/tokenize(@exclude,'\s+'))">ERROR: <name/>@xml:id must be the target of date@exclude or date@sameAs</assert>
-            </rule>
-         </pattern>
-         <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="tei_math-date-date-sameas-check-constraint-rule-12">
-            <rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  xmlns:sch="http://purl.oclc.org/dsdl/schematron"
-                  xmlns:svg="http://www.w3.org/2000/svg"
-                  xmlns:xi="http://www.w3.org/2001/XInclude"
-                  context="tei:date[@sameAs]">
-               <let name="elem" value="."/>
-               <let name="tei_root" value="ancestor::tei:TEI"/>
-               <assert test="@sameAs = ($tei_root/tei:teiHeader//tei:date|$tei_root/tei:text//tei:rs[@type='date'])/concat('#',@xml:id)">ERROR: <name/>@sameAs must point to date@xml:id</assert>
-            </rule>
-         </pattern>
-         <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="tei_math-date-date-xmlid-not-linked-to-constraint-rule-13">
+                  id="tei_math-date-date-xmlid-not-linked-to-constraint-rule-11">
             <rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
                   xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                   xmlns:svg="http://www.w3.org/2000/svg"
@@ -5666,37 +5320,7 @@ Sample values include: 1] rubbing; 2] mildew; 3] smoke</a:documentation>
             </rule>
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="tei_math-date-date-exclude-missed-xmlid-constraint-rule-14">
-            <rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  xmlns:sch="http://purl.oclc.org/dsdl/schematron"
-                  xmlns:svg="http://www.w3.org/2000/svg"
-                  xmlns:xi="http://www.w3.org/2001/XInclude"
-                  context="tei:date">
-               <let name="current_date" value="."/>
-               <let name="context"
-                    value="//ancestor::*[local-name()=('correspDesc','birth','death','event')][1]/local-name()"/>
-               <let name="all_dates"
-                    value="$current_date//ancestor::*[local-name()=$context]//tei:date"/>
-               <report test="@exclude and normalize-space(@exclude)!='' and count( tokenize(@exclude,'\s+')[.= $all_dates/concat('#',@xml:id)]) != count($all_dates[@xml:id])-1">ERROR: <name/> does not link to (<value-of select="$all_dates[not(@xml:id=$current_date/@xml:id)]/concat('#',@xml:id)[not(.=tokenize($current_date/@exclude,'\s+'))]"/>)</report>
-            </rule>
-         </pattern>
-         <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="tei_math-date-date-xmlid-not-in-all-other-dates-constraint-rule-15">
-            <rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  xmlns:sch="http://purl.oclc.org/dsdl/schematron"
-                  xmlns:svg="http://www.w3.org/2000/svg"
-                  xmlns:xi="http://www.w3.org/2001/XInclude"
-                  context="tei:date">
-               <let name="current_date" value="."/>
-               <let name="context"
-                    value="//ancestor::*[local-name()=('correspDesc','birth','death','event')][1]/local-name()"/>
-               <let name="all_dates"
-                    value="$current_date//ancestor::*[local-name()=$context]//tei:date"/>
-               <report test="normalize-space(@xml:id)!='' and count($all_dates[tokenize(@exclude,'\s+') = $current_date/concat('#',@xml:id)]) != count($all_dates[not(@xml:id=$current_date/@xml:id)])">ERROR: <name/> is not the target of all the other <value-of select="$context"/>//date@exclude</report>
-            </rule>
-         </pattern>
-         <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="tei_math-date-date-notAfter-gt-notBefore-constraint-rule-16">
+                  id="tei_math-date-date-notAfter-gt-notBefore-constraint-rule-12">
             <rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
                   xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                   xmlns:svg="http://www.w3.org/2000/svg"
@@ -5706,7 +5330,7 @@ Sample values include: 1] rubbing; 2] mildew; 3] smoke</a:documentation>
             </rule>
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="tei_math-date-date-to-gt-from-constraint-rule-17">
+                  id="tei_math-date-date-to-gt-from-constraint-rule-13">
             <rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
                   xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                   xmlns:svg="http://www.w3.org/2000/svg"
@@ -5716,7 +5340,7 @@ Sample values include: 1] rubbing; 2] mildew; 3] smoke</a:documentation>
             </rule>
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="tei_math-date-date-attr-custom-are-datetime-constraint-rule-18">
+                  id="tei_math-date-date-attr-custom-are-datetime-constraint-rule-14">
             <rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
                   xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                   xmlns:svg="http://www.w3.org/2000/svg"
@@ -5726,7 +5350,7 @@ Sample values include: 1] rubbing; 2] mildew; 3] smoke</a:documentation>
             </rule>
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="tei_math-date-date-when-is-valid-constraint-rule-19">
+                  id="tei_math-date-date-when-is-valid-constraint-rule-15">
             <rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
                   xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                   xmlns:svg="http://www.w3.org/2000/svg"
@@ -5736,7 +5360,7 @@ Sample values include: 1] rubbing; 2] mildew; 3] smoke</a:documentation>
             </rule>
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="tei_math-date-date-notBefore-is-valid-constraint-rule-20">
+                  id="tei_math-date-date-notBefore-is-valid-constraint-rule-16">
             <rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
                   xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                   xmlns:svg="http://www.w3.org/2000/svg"
@@ -5746,7 +5370,7 @@ Sample values include: 1] rubbing; 2] mildew; 3] smoke</a:documentation>
             </rule>
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="tei_math-date-date-notAfter-is-valid-constraint-rule-21">
+                  id="tei_math-date-date-notAfter-is-valid-constraint-rule-17">
             <rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
                   xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                   xmlns:svg="http://www.w3.org/2000/svg"
@@ -5756,7 +5380,7 @@ Sample values include: 1] rubbing; 2] mildew; 3] smoke</a:documentation>
             </rule>
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="tei_math-date-date-from-to-notAfter-notBefore-are-valid-constraint-rule-22">
+                  id="tei_math-date-date-from-to-notAfter-notBefore-are-valid-constraint-rule-18">
             <rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
                   xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                   xmlns:svg="http://www.w3.org/2000/svg"
@@ -5767,7 +5391,7 @@ Sample values include: 1] rubbing; 2] mildew; 3] smoke</a:documentation>
             </rule>
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="tei_math-date-correspDesc-date-year-check-constraint-rule-23">
+                  id="tei_math-date-correspDesc-date-year-check-constraint-rule-19">
             <rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
                   xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                   xmlns:svg="http://www.w3.org/2000/svg"
@@ -5778,7 +5402,7 @@ Sample values include: 1] rubbing; 2] mildew; 3] smoke</a:documentation>
             </rule>
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="tei_math-date-date-needs-datable-attr-constraint-rule-24">
+                  id="tei_math-date-date-needs-datable-attr-constraint-rule-20">
             <rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
                   xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                   xmlns:svg="http://www.w3.org/2000/svg"
@@ -5788,7 +5412,7 @@ Sample values include: 1] rubbing; 2] mildew; 3] smoke</a:documentation>
             </rule>
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="tei_math-date-date-must-not-have-datable-attr-constraint-rule-25">
+                  id="tei_math-date-date-must-not-have-datable-attr-constraint-rule-21">
             <rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
                   xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                   xmlns:svg="http://www.w3.org/2000/svg"
@@ -5798,7 +5422,7 @@ Sample values include: 1] rubbing; 2] mildew; 3] smoke</a:documentation>
             </rule>
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="tei_math-date-notBefore-and-notAfter-must-always-be-together-constraint-rule-26">
+                  id="tei_math-date-notBefore-and-notAfter-must-always-be-together-constraint-rule-22">
             <rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
                   xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                   xmlns:svg="http://www.w3.org/2000/svg"
@@ -5811,13 +5435,13 @@ Sample values include: 1] rubbing; 2] mildew; 3] smoke</a:documentation>
          </pattern>
          <optional>
             <attribute name="xml:id">
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(identifier) provides a unique identifier for the element bearing the attribute.</a:documentation>
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(identifier) contains a unique identifier for the current element. It is only to be used when the <code xmlns="http://www.w3.org/1999/xhtml">&lt;date&gt;</code> is one of a series of mutually exclusive choices, encoding using <code xmlns="http://www.w3.org/1999/xhtml">@target</code>, for the date of the letter.</a:documentation>
                <data type="ID"/>
             </attribute>
          </optional>
          <optional>
             <attribute name="exclude">
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">points to elements that are in exclusive alternation with the current element.</a:documentation>
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">contains a pointer referring to the <code xmlns="http://www.w3.org/1999/xhtml">@xml:id</code> of one or more mutually exclusive alternatives for the current <code xmlns="http://www.w3.org/1999/xhtml">&lt;date&gt;</code>.</a:documentation>
                <list>
                   <oneOrMore>
                      <data type="anyURI">
@@ -5904,7 +5528,7 @@ Sample values include: 1] rubbing; 2] mildew; 3] smoke</a:documentation>
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(reference) defines a reference to another location, possibly modified by additional text or comment. [3.7. Simple Links and Cross-References 16.1. Links]</a:documentation>
          <ref name="tei_macro.paraContent"/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="tei_math-ref-ref-note-check_pointer-constraint-rule-27">
+                  id="tei_math-ref-ref-note-check_pointer-constraint-rule-23">
             <rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
                   xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                   xmlns:svg="http://www.w3.org/2000/svg"
@@ -5916,7 +5540,7 @@ Sample values include: 1] rubbing; 2] mildew; 3] smoke</a:documentation>
             </rule>
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="tei_math-ref-ref-in-ref-constraint-rule-28">
+                  id="tei_math-ref-ref-in-ref-constraint-rule-24">
             <rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
                   xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                   xmlns:svg="http://www.w3.org/2000/svg"
@@ -5929,7 +5553,7 @@ Sample values include: 1] rubbing; 2] mildew; 3] smoke</a:documentation>
             </rule>
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="tei_math-ref-ref-check_single_resource_pointer-constraint-rule-29">
+                  id="tei_math-ref-ref-check_single_resource_pointer-constraint-rule-25">
             <rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
                   xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                   xmlns:svg="http://www.w3.org/2000/svg"
@@ -5942,7 +5566,7 @@ Sample values include: 1] rubbing; 2] mildew; 3] smoke</a:documentation>
             </rule>
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="tei_math-ref-refAtts-constraint-report-24">
+                  id="tei_math-ref-refAtts-constraint-report-23">
             <rule context="tei:ref">
                <report xmlns:rng="http://relaxng.org/ns/structure/1.0"
                        xmlns:sch="http://purl.oclc.org/dsdl/schematron"
@@ -5992,9 +5616,10 @@ Sample values include: 1] rubbing; 2] mildew; 3] smoke</a:documentation>
          <optional>
             <attribute name="type">
                <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">characterizes the element in some sense, using any convenient classification scheme or typology.</a:documentation>
-               <data type="token">
-                  <param name="pattern">[^\p{C}\p{Z}]+</param>
-               </data>
+               <choice>
+                  <value>link</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+               </choice>
             </attribute>
          </optional>
          <empty/>
@@ -6043,7 +5668,7 @@ Sample values include: 1] rubbing; 2] mildew; 3] smoke</a:documentation>
             </zeroOrMore>
          </group>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="tei_math-list-gloss-list-must-have-labels-constraint-rule-30">
+                  id="tei_math-list-gloss-list-must-have-labels-constraint-rule-26">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:rng="http://relaxng.org/ns/structure/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
@@ -6115,7 +5740,7 @@ Sample values include: 1] rubbing; 2] mildew; 3] smoke</a:documentation>
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(note) records either an editorial note in the header, descrption, source of text, footnotes, CD Notes or Annotations. [3.9.1. Notes and Simple Annotation 2.2.6. The Notes Statement 3.12.2.8. Notes and Statement of Language 9.3.5.4. Notes within Entries]</a:documentation>
          <ref name="tei_macro.specialPara"/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="tei_math-note-no-type-in-text-constraint-rule-31">
+                  id="tei_math-note-no-type-in-text-constraint-rule-27">
             <rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
                   xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                   xmlns:svg="http://www.w3.org/2000/svg"
@@ -6125,7 +5750,7 @@ Sample values include: 1] rubbing; 2] mildew; 3] smoke</a:documentation>
             </rule>
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="tei_math-note-invalid-note-type-constraint-rule-32">
+                  id="tei_math-note-invalid-note-type-constraint-rule-28">
             <rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
                   xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                   xmlns:svg="http://www.w3.org/2000/svg"
@@ -6135,7 +5760,7 @@ Sample values include: 1] rubbing; 2] mildew; 3] smoke</a:documentation>
             </rule>
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="tei_math-note-footnote-not-target-transcription-constraint-rule-33">
+                  id="tei_math-note-footnote-not-target-transcription-constraint-rule-29">
             <rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
                   xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                   xmlns:svg="http://www.w3.org/2000/svg"
@@ -6145,7 +5770,7 @@ Sample values include: 1] rubbing; 2] mildew; 3] smoke</a:documentation>
             </rule>
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="tei_math-note-check-type-physdesc-constraint-rule-34">
+                  id="tei_math-note-check-type-physdesc-constraint-rule-30">
             <rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
                   xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                   xmlns:svg="http://www.w3.org/2000/svg"
@@ -6156,7 +5781,7 @@ Sample values include: 1] rubbing; 2] mildew; 3] smoke</a:documentation>
          </pattern>
          <optional>
             <attribute name="xml:id">
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(identifier) provides a unique identifier for the element bearing the attribute.</a:documentation>
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(identifier) contains a unique identifier for the note. Only necessary on footnotes.</a:documentation>
                <data type="ID"/>
             </attribute>
          </optional>
@@ -6168,7 +5793,7 @@ Sample values include: 1] rubbing; 2] mildew; 3] smoke</a:documentation>
          </optional>
          <optional>
             <attribute name="target">
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">specifies the destination of the reference by supplying one or more URI References</a:documentation>
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">should not be used [legacy code].</a:documentation>
                <list>
                   <oneOrMore>
                      <data type="anyURI">
@@ -6209,7 +5834,7 @@ Suggested values include: 1] datestamp; 2] description; 3] endorsement; 4] physd
          </optional>
          <optional>
             <attribute name="targetEnd">
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(target end) points to the end of the span to which the note is attached, if the note is not embedded in the text at that point.</a:documentation>
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(target end) should not be used [legacy code].</a:documentation>
                <list>
                   <oneOrMore>
                      <data type="anyURI">
@@ -6298,6 +5923,36 @@ Elements 7.2.5. Speech Contents]</a:documentation>
       <element name="title">
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(title) contains the title (letter header) of the electronic document. [3.12.2.2. Titles, Authors, and Editors 2.2.1. The Title Statement 2.2.5. The Series Statement]</a:documentation>
          <ref name="tei_macro.paraContent"/>
+         <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
+                  id="tei_math-title-ensure-level-only-in-seriesstmt-constraint-rule-31">
+            <rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
+                  xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                  xmlns:svg="http://www.w3.org/2000/svg"
+                  xmlns:xi="http://www.w3.org/2001/XInclude"
+                  context="tei:title[@level]">
+               <report test="not(ancestor::tei:seriesStmt)">ERROR: <name/> should not have @level in this context.</report>
+            </rule>
+         </pattern>
+         <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
+                  id="tei_math-title-ensure-title-level-req-in-seriesstmt-constraint-rule-32">
+            <rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
+                  xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                  xmlns:svg="http://www.w3.org/2000/svg"
+                  xmlns:xi="http://www.w3.org/2001/XInclude"
+                  context="tei:title[ancestor::tei:seriesStmt]">
+               <report test="not(@level)">ERROR: <name/> in seriesStmt must have @level.</report>
+            </rule>
+         </pattern>
+         <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
+                  id="tei_math-title-ensure-title-xmlid-req-in-titlesstmt-constraint-rule-33">
+            <rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
+                  xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                  xmlns:svg="http://www.w3.org/2000/svg"
+                  xmlns:xi="http://www.w3.org/2001/XInclude"
+                  context="tei:title[ancestor::tei:titleStmt]">
+               <report test="not(@xml:id)">ERROR: <name/> in titleStmt must have @xml:id.</report>
+            </rule>
+         </pattern>
          <optional>
             <attribute name="xml:id">
                <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(identifier) provides a unique identifier for the element bearing the attribute.</a:documentation>
@@ -6305,28 +5960,11 @@ Elements 7.2.5. Speech Contents]</a:documentation>
             </attribute>
          </optional>
          <optional>
-            <attribute name="type">
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">classifies the title according to some convenient typology.
-Sample values include: 1] main; 2] sub (subordinate); 3] alt (alternate); 4] short; 5] desc (descriptive)</a:documentation>
-               <data type="token">
-                  <param name="pattern">[^\p{C}\p{Z}]+</param>
-               </data>
-            </attribute>
-         </optional>
-         <optional>
             <attribute name="level">
                <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">indicates the bibliographic level for a title, that is, whether it identifies an article, book, journal, series, or unpublished material.</a:documentation>
                <choice>
-                  <value>a</value>
-                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(analytic) the title applies to an analytic item, such as an article, poem, or other work published as part of a larger item.</a:documentation>
-                  <value>m</value>
-                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(monographic) the title applies to a monograph such as a book or other item considered to be a distinct publication, including single volumes of multi-volume works</a:documentation>
-                  <value>j</value>
-                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(journal) the title applies to any serial or periodical publication such as a journal, magazine, or newspaper</a:documentation>
                   <value>s</value>
-                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(series) the title applies to a series of otherwise distinct publications such as a collection</a:documentation>
-                  <value>u</value>
-                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(unpublished) the title applies to any unpublished material (including theses and dissertations unless published by a commercial press)</a:documentation>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
                </choice>
             </attribute>
          </optional>
@@ -6440,7 +6078,7 @@ Sample values include: 1] main; 2] sub (subordinate); 3] alt (alternate); 4] sho
             </choice>
          </zeroOrMore>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="tei_math-bibl-bibl-provenance-must-be-singleton1-constraint-rule-35">
+                  id="tei_math-bibl-bibl-provenance-must-be-singleton1-constraint-rule-34">
             <rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
                   xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                   xmlns:svg="http://www.w3.org/2000/svg"
@@ -6508,7 +6146,7 @@ Sample values include: 1] main; 2] sub (subordinate); 3] alt (alternate); 4] sho
             </choice>
          </optional>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="tei_math-relatedItem-type-subtype-check-constraint-rule-36">
+                  id="tei_math-relatedItem-type-subtype-check-constraint-rule-35">
             <rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
                   xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                   xmlns:svg="http://www.w3.org/2000/svg"
@@ -6519,7 +6157,7 @@ Sample values include: 1] main; 2] sub (subordinate); 3] alt (alternate); 4] sho
             </rule>
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="tei_math-relatedItem-check_file_pointer-constraint-rule-37">
+                  id="tei_math-relatedItem-check_file_pointer-constraint-rule-36">
             <rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
                   xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                   xmlns:svg="http://www.w3.org/2000/svg"
@@ -6530,7 +6168,7 @@ Sample values include: 1] main; 2] sub (subordinate); 3] alt (alternate); 4] sho
             </rule>
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="tei_math-relatedItem-targetorcontent1-constraint-report-32">
+                  id="tei_math-relatedItem-targetorcontent1-constraint-report-34">
             <rule context="tei:relatedItem">
                <sch:report xmlns="http://www.tei-c.org/ns/1.0"
                            xmlns:rng="http://relaxng.org/ns/structure/1.0"
@@ -6593,7 +6231,7 @@ relatedItem element must be empty</sch:report>
             </choice>
          </zeroOrMore>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="tei_math-l-abstractModel-structure-l-in-l-constraint-report-33">
+                  id="tei_math-l-abstractModel-structure-l-in-l-constraint-report-35">
             <rule context="tei:l">
                <sch:report xmlns="http://www.tei-c.org/ns/1.0"
                            xmlns:rng="http://relaxng.org/ns/structure/1.0"
@@ -6658,7 +6296,7 @@ relatedItem element must be empty</sch:report>
             </zeroOrMore>
          </group>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="tei_math-lg-atleast1oflggapl-constraint-assert-17">
+                  id="tei_math-lg-atleast1oflggapl-constraint-assert-15">
             <rule context="tei:lg">
                <sch:assert xmlns="http://www.tei-c.org/ns/1.0"
                            xmlns:rng="http://relaxng.org/ns/structure/1.0"
@@ -6670,7 +6308,7 @@ relatedItem element must be empty</sch:report>
             </rule>
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="tei_math-lg-abstractModel-structure-lg-in-l-constraint-report-34">
+                  id="tei_math-lg-abstractModel-structure-lg-in-l-constraint-report-36">
             <rule context="tei:lg">
                <sch:report xmlns="http://www.tei-c.org/ns/1.0"
                            xmlns:rng="http://relaxng.org/ns/structure/1.0"
@@ -6743,7 +6381,7 @@ relatedItem element must be empty</sch:report>
             </oneOrMore>
          </choice>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="tei_math-publicationStmt-single-lognum-must-exist-constraint-assert-18">
+                  id="tei_math-publicationStmt-single-lognum-must-exist-constraint-assert-16">
             <rule context="tei:publicationStmt">
                <assert xmlns:rng="http://relaxng.org/ns/structure/1.0"
                        xmlns:sch="http://purl.oclc.org/dsdl/schematron"
@@ -6771,31 +6409,32 @@ relatedItem element must be empty</sch:report>
                <ref name="tei_idno"/>
             </choice>
          </zeroOrMore>
+         <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
+                  id="tei_math-idno-ensure-publicationstmt-idno-have-type-attr-constraint-rule-37">
+            <rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
+                  xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                  xmlns:svg="http://www.w3.org/2000/svg"
+                  xmlns:xi="http://www.w3.org/2001/XInclude"
+                  context="tei:idno[ancestor::tei:publicationStmt]">
+               <report test="not(@type='lognum')">ERROR: <name/> in publicationStmt must have type="lognum".</report>
+            </rule>
+         </pattern>
+         <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
+                  id="tei_math-idno-ensure-idno-not-in-publicationstmt-doesnt-have-type-attr-constraint-rule-38">
+            <rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
+                  xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                  xmlns:svg="http://www.w3.org/2000/svg"
+                  xmlns:xi="http://www.w3.org/2001/XInclude"
+                  context="tei:idno[not(ancestor::tei:publicationStmt)]">
+               <report test="@type">ERROR: Only <name/> in publicationStmt can have @type.</report>
+            </rule>
+         </pattern>
          <optional>
             <attribute name="type">
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">categorizes the identifier, for example as an ISBN, Social Security number, etc.
-Suggested values include: 1] ISBN; 2] ISSN; 3] DOI; 4] URI; 5] VIAF; 6] ESTC; 7] OCLC</a:documentation>
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">must contain 'lognum' when <code xmlns="http://www.w3.org/1999/xhtml">&lt;idno&gt;</code> occurs within <code xmlns="http://www.w3.org/1999/xhtml">&lt;publicationStmt&gt;</code> to record the projects internal log number for the item.</a:documentation>
                <choice>
-                  <value>ISBN</value>
-                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">International Standard Book Number: a 13- or (if assigned prior to 2007) 10-digit identifying number assigned by the publishing industry to a published book or similar item, registered with the <a xmlns="http://www.w3.org/1999/xhtml"
-                        href="https://www.isbn-international.org"> International ISBN Agency.</a>
-                  </a:documentation>
-                  <value>ISSN</value>
-                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">International Standard Serial Number: an eight-digit number to uniquely identify a serial publication.</a:documentation>
-                  <value>DOI</value>
-                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">Digital Object Identifier: a unique string of letters and numbers assigned to an electronic document.</a:documentation>
-                  <value>URI</value>
-                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">Uniform Resource Identifier: a string of characters to uniquely identify a resource, following the syntax of <a xmlns="http://www.w3.org/1999/xhtml"
-                        href="https://datatracker.ietf.org/doc/html/rfc3986">RFC 3986</a>.</a:documentation>
-                  <value>VIAF</value>
-                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">A data number in the Virtual Internet Authority File assigned to link different names in catalogs around the world for the same entity.</a:documentation>
-                  <value>ESTC</value>
-                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">English Short-Title Catalogue number: an identifying number assigned to a document in English printed in the British Isles or North America before 1801.</a:documentation>
-                  <value>OCLC</value>
-                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">OCLC control number (record number) for the union catalog record in WorldCat, a union catalog for member libraries in the Online Computer Library Center global cooperative.</a:documentation>
-                  <data type="token">
-                     <param name="pattern">[^\p{C}\p{Z}]+</param>
-                  </data>
+                  <value>lognum</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">Only to be used when <code xmlns="http://www.w3.org/1999/xhtml">&lt;idno&gt;</code> occurs within <code xmlns="http://www.w3.org/1999/xhtml">&lt;publicationStmt&gt;</code> to record the projects internal log number for the item.</a:documentation>
                </choice>
             </attribute>
          </optional>
@@ -7005,7 +6644,7 @@ Suggested values include: 1] ISBN; 2] ISSN; 3] DOI; 4] URI; 5] VIAF; 6] ESTC; 7]
          <ref name="tei_macro.specialPara"/>
          <optional>
             <attribute name="when">
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">supplies the value of the date or time in a standard form, e.g. yyyy-mm-dd.</a:documentation>
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">date for the change, in iso format.</a:documentation>
                <choice>
                   <data type="date"/>
                   <data type="gYear"/>
@@ -7105,7 +6744,7 @@ Suggested values include: 1] ISBN; 2] ISSN; 3] DOI; 4] URI; 5] VIAF; 6] ESTC; 7]
             </choice>
          </group>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="tei_math-TEI-TEI-xml-id-value-must-match-filename-constraint-rule-38">
+                  id="tei_math-TEI-TEI-xml-id-value-must-match-filename-constraint-rule-39">
             <rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
                   xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                   xmlns:svg="http://www.w3.org/2000/svg"
@@ -7115,7 +6754,7 @@ Suggested values include: 1] ISBN; 2] ISSN; 3] DOI; 4] URI; 5] VIAF; 6] ESTC; 7]
             </rule>
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="tei_math-TEI-bibl-provenance-must-be-singleton2-constraint-rule-39">
+                  id="tei_math-TEI-bibl-provenance-must-be-singleton2-constraint-rule-40">
             <rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
                   xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                   xmlns:svg="http://www.w3.org/2000/svg"
@@ -7309,7 +6948,7 @@ Suggested values include: 1] ISBN; 2] ISSN; 3] DOI; 4] URI; 5] VIAF; 6] ESTC; 7]
             </optional>
          </group>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="tei_math-div-div-position-check-constraint-rule-40">
+                  id="tei_math-div-div-position-check-constraint-rule-41">
             <rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
                   xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                   xmlns:svg="http://www.w3.org/2000/svg"
@@ -7322,7 +6961,32 @@ Suggested values include: 1] ISBN; 2] ISSN; 3] DOI; 4] URI; 5] VIAF; 6] ESTC; 7]
             </rule>
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="tei_math-div-abstractModel-structure-div-in-l-or-lg-constraint-report-41">
+                  id="tei_math-div-div-subtype-for-encl-only-constraint-rule-42">
+            <rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
+                  xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                  xmlns:svg="http://www.w3.org/2000/svg"
+                  xmlns:xi="http://www.w3.org/2001/XInclude"
+                  context="tei:div[@subtype]">
+               <report test="not(@type=('enclosure'))">ERROR: subtype must only be used if div="enclosure".</report>
+            </rule>
+            <rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
+                  xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                  xmlns:svg="http://www.w3.org/2000/svg"
+                  xmlns:xi="http://www.w3.org/2001/XInclude"
+                  context="tei:div[@xml:id]">
+               <report test="not(@type=('enclosure'))">ERROR: xml:id must only be used if div="enclosure".</report>
+            </rule>
+            <rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
+                  xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                  xmlns:svg="http://www.w3.org/2000/svg"
+                  xmlns:xi="http://www.w3.org/2001/XInclude"
+                  context="tei:div[@type='enclosure']">
+               <report test="not(@subtype)">ERROR: subtype is required when div="enclosure".</report>
+               <report test="not(@xml:id)">ERROR: xml:id required when div="enclosure". </report>
+            </rule>
+         </pattern>
+         <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
+                  id="tei_math-div-abstractModel-structure-div-in-l-or-lg-constraint-report-49">
             <rule context="tei:div">
                <sch:report xmlns="http://www.tei-c.org/ns/1.0"
                            xmlns:rng="http://relaxng.org/ns/structure/1.0"
@@ -7335,7 +6999,7 @@ Suggested values include: 1] ISBN; 2] ISSN; 3] DOI; 4] URI; 5] VIAF; 6] ESTC; 7]
             </rule>
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="tei_math-div-abstractModel-structure-div-in-ab-or-p-constraint-report-42">
+                  id="tei_math-div-abstractModel-structure-div-in-ab-or-p-constraint-report-50">
             <rule context="tei:div">
                <sch:report xmlns="http://www.tei-c.org/ns/1.0"
                            xmlns:rng="http://relaxng.org/ns/structure/1.0"
@@ -7350,7 +7014,9 @@ Suggested values include: 1] ISBN; 2] ISSN; 3] DOI; 4] URI; 5] VIAF; 6] ESTC; 7]
          <optional>
             <attribute name="xml:id">
                <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(identifier) provides a unique identifier for the element bearing the attribute.</a:documentation>
-               <data type="ID"/>
+               <data type="string">
+                  <param name="pattern">encl\.\d+</param>
+               </data>
             </attribute>
          </optional>
          <optional>
@@ -7386,7 +7052,7 @@ Suggested values include: 1] ISBN; 2] ISSN; 3] DOI; 4] URI; 5] VIAF; 6] ESTC; 7]
          </optional>
          <optional>
             <attribute name="subtype">
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(subtype) marks the subtype of an enclosure. Valid values include 'letter' and 'other.</a:documentation>
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(subtype) marks the subtype of an enclosure. Valid values include ‘letter’, ‘translation’ and ‘other’.</a:documentation>
                <choice>
                   <value>letter</value>
                   <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
@@ -7456,15 +7122,6 @@ Sample values include: 1] right; 2] left; 3] centre; 4] indent0; 5] indent1; 6] 
                <empty/>
             </choice>
          </group>
-         <optional>
-            <attribute name="type">
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">characterizes the element in some sense, using any convenient classification scheme or typology.</a:documentation>
-               <data type="token">
-                  <param name="pattern">[^\p{C}\p{Z}]+</param>
-               </data>
-            </attribute>
-         </optional>
-         <empty/>
       </element>
    </define>
    <define name="tei_msIdentifier">
@@ -7490,7 +7147,7 @@ Sample values include: 1] right; 2] left; 3] centre; 4] indent0; 5] indent1; 6] 
             </zeroOrMore>
          </group>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="tei_math-msIdentifier-msId_minimal-constraint-report-43">
+                  id="tei_math-msIdentifier-msId_minimal-constraint-report-51">
             <rule context="tei:msIdentifier">
                <report xmlns:rng="http://relaxng.org/ns/structure/1.0"
                        xmlns:sch="http://purl.oclc.org/dsdl/schematron"
@@ -7506,7 +7163,7 @@ Sample values include: 1] right; 2] left; 3] centre; 4] indent0; 5] indent1; 6] 
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(repository) contains the name of a repository within which manuscripts or other objects are stored, possibly forming part of an institution. [10.4. The Manuscript Identifier]</a:documentation>
          <ref name="tei_macro.phraseSeq.limited"/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="tei_math-repository-repository-link-check-constraint-rule-41">
+                  id="tei_math-repository-repository-link-check-constraint-rule-45">
             <rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
                   xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                   xmlns:svg="http://www.w3.org/2000/svg"
@@ -7521,7 +7178,7 @@ Sample values include: 1] right; 2] left; 3] centre; 4] indent0; 5] indent1; 6] 
             </rule>
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="tei_math-repository-repository-needs-key-attr-constraint-rule-42">
+                  id="tei_math-repository-repository-needs-key-attr-constraint-rule-46">
             <rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
                   xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                   xmlns:svg="http://www.w3.org/2000/svg"
@@ -7543,9 +7200,6 @@ Sample values include: 1] right; 2] left; 3] centre; 4] indent0; 5] indent1; 6] 
          <ref name="tei_macro.phraseSeq.limited"/>
       </element>
    </define>
-   <define name="tei_att.global.facs.attributes">
-      <ref name="tei_att.global.facs.attribute.facs"/>
-   </define>
    <define name="tei_att.global.facs.attribute.facs">
       <optional>
          <attribute name="facs">
@@ -7559,9 +7213,6 @@ Sample values include: 1] right; 2] left; 3] centre; 4] indent0; 5] indent1; 6] 
             </list>
          </attribute>
       </optional>
-   </define>
-   <define name="tei_att.global.change.attributes">
-      <ref name="tei_att.global.change.attribute.change"/>
    </define>
    <define name="tei_att.global.change.attribute.change">
       <optional>
@@ -7589,7 +7240,7 @@ Sample values include: 1] right; 2] left; 3] centre; 4] indent0; 5] indent1; 6] 
             </oneOrMore>
          </group>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="tei_math-facsimile-no_facsimile_text_nodes-constraint-rule-43">
+                  id="tei_math-facsimile-no_facsimile_text_nodes-constraint-rule-47">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:rng="http://relaxng.org/ns/structure/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
@@ -7863,7 +7514,7 @@ Sample values include: 1] right; 2] left; 3] centre; 4] indent0; 5] indent1; 6] 
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(organization name) contains an organizational name. [13.2.2. Organizational Names]</a:documentation>
          <ref name="tei_macro.phraseSeq"/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="tei_math-orgName-orgName-link-check-constraint-rule-44">
+                  id="tei_math-orgName-orgName-link-check-constraint-rule-48">
             <rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
                   xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                   xmlns:svg="http://www.w3.org/2000/svg"
@@ -7878,7 +7529,7 @@ Sample values include: 1] right; 2] left; 3] centre; 4] indent0; 5] indent1; 6] 
             </rule>
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="tei_math-orgName-orgName-needs-key-attr-constraint-rule-45">
+                  id="tei_math-orgName-orgName-needs-key-attr-constraint-rule-49">
             <rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
                   xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                   xmlns:svg="http://www.w3.org/2000/svg"
@@ -7887,18 +7538,6 @@ Sample values include: 1] right; 2] left; 3] centre; 4] indent0; 5] indent1; 6] 
                <assert test="normalize-space(@key)">element <name/> missing required attribute 'key'</assert>
             </rule>
          </pattern>
-         <optional>
-            <attribute name="resp">
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(responsible party) indicates the agency responsible for the intervention or interpretation, for example an editor or transcriber.</a:documentation>
-               <list>
-                  <oneOrMore>
-                     <data type="anyURI">
-                        <param name="pattern">\S+</param>
-                     </data>
-                  </oneOrMore>
-               </list>
-            </attribute>
-         </optional>
          <optional>
             <attribute name="key">
                <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">Points to the namereg authority file for the organisation - i.e. "../nameregs/nameregs_979.xml"</a:documentation>
@@ -7909,10 +7548,10 @@ Sample values include: 1] right; 2] left; 3] centre; 4] indent0; 5] indent1; 6] 
    </define>
    <define name="tei_persName">
       <element name="persName">
-         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(personal name) contains as many as appropriate of the component parts of a person's name, i.e. <code xmlns="http://www.w3.org/1999/xhtml">&lt;roleName&gt;</code>, <code xmlns="http://www.w3.org/1999/xhtml">&lt;forename&gt;</code>, <code xmlns="http://www.w3.org/1999/xhtml">&lt;surname&gt;</code>, <code xmlns="http://www.w3.org/1999/xhtml">&lt;genName&gt;</code>, <code xmlns="http://www.w3.org/1999/xhtml">&lt;nameLink&gt;</code>, <code xmlns="http://www.w3.org/1999/xhtml">&lt;name&gt;</code>. [13.2.1. Personal Names]</a:documentation>
+         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(personal name) contains a proper noun or proper-noun phrase referring to a person, possibly including one or more of the person's forenames, surnames, honorifics, added names, etc. [13.2.1. Personal Names]</a:documentation>
          <ref name="tei_macro.phraseSeq"/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="tei_math-persName-persName-link-check-constraint-rule-46">
+                  id="tei_math-persName-persName-link-check-constraint-rule-50">
             <rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
                   xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                   xmlns:svg="http://www.w3.org/2000/svg"
@@ -7927,7 +7566,7 @@ Sample values include: 1] right; 2] left; 3] centre; 4] indent0; 5] indent1; 6] 
             </rule>
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="tei_math-persName-persName-needs-key-attr-constraint-rule-47">
+                  id="tei_math-persName-persName-needs-key-attr-constraint-rule-51">
             <rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
                   xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                   xmlns:svg="http://www.w3.org/2000/svg"
@@ -7936,9 +7575,54 @@ Sample values include: 1] right; 2] left; 3] centre; 4] indent0; 5] indent1; 6] 
                <assert test="normalize-space(@key)">element <name/> missing required attribute 'key'</assert>
             </rule>
          </pattern>
+         <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
+                  id="tei_math-persName-persName-exclude-must-point-to-name-in-same-context-constraint-rule-52">
+            <rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
+                  xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                  xmlns:svg="http://www.w3.org/2000/svg"
+                  xmlns:xi="http://www.w3.org/2001/XInclude"
+                  context="tei:persName[@exclude]">
+               <let name="xmlid" value="concat('#',@xml:id)"/>
+               <let name="exclude_vals" value="tokenize(normalize-space(@exclude),' ')"/>
+               <let name="sibling_name_elem_xmlids"
+                    value="parent::*/tei:*[self::tei:persName|self::tei:orgName|self::tei:name]/concat('#',@xml:id)"/>
+               <report test="count($exclude_vals[not(. = $sibling_name_elem_xmlids)]) != 0">ERROR: <name/>@exclude (<value-of select="$exclude_vals[not(. = $sibling_name_elem_xmlids)]"/>) does not point to a name in the same correspAction.</report>
+               <report test="exists($sibling_name_elem_xmlids[not(.= $xmlid)][not(. = $exclude_vals)])">ERROR: <name/>'s @exclude does not point to (<value-of select="$sibling_name_elem_xmlids[not(.= $xmlid)][not(. = $exclude_vals)]"/>).</report>
+            </rule>
+         </pattern>
+         <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
+                  id="tei_math-persName-persName-exclude-points-to-self-constraint-rule-53">
+            <rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
+                  xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                  xmlns:svg="http://www.w3.org/2000/svg"
+                  xmlns:xi="http://www.w3.org/2001/XInclude"
+                  context="tei:persName[@exclude]">
+               <report test="normalize-space(@exclude) != '' and tokenize(@exclude,'\s+')=concat('#',@xml:id)">ERROR: <name/>@exclude value (<value-of select="concat('#',@xml:id)"/>) points to same element as itself</report>
+            </rule>
+         </pattern>
+         <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
+                  id="tei_math-persName-persName-exclude-not-xmlid-constraint-rule-54">
+            <rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
+                  xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                  xmlns:svg="http://www.w3.org/2000/svg"
+                  xmlns:xi="http://www.w3.org/2001/XInclude"
+                  context="tei:persName[@exclude]">
+               <report test="normalize-space(@exclude) != '' and not(@xml:id[normalize-space(.)])">ERROR: <name/> needs @xml:id</report>
+            </rule>
+         </pattern>
+         <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
+                  id="tei_math-persName-persName-xmlid-not-exclude-constraint-rule-55">
+            <rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
+                  xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                  xmlns:svg="http://www.w3.org/2000/svg"
+                  xmlns:xi="http://www.w3.org/2001/XInclude"
+                  context="tei:persName[@xml:id]">
+               <report test="normalize-space(@xml:id) != '' and not(@exclude[normalize-space(.)])">ERROR: <name/> only needs @xml:id if it's an @exclude option.</report>
+            </rule>
+         </pattern>
          <optional>
             <attribute name="xml:id">
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(identifier) provides a unique identifier for the element bearing the attribute.</a:documentation>
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(identifier) provides a unique identifier for the name. Should only be used when it is one of a mutually exclusive set of names.</a:documentation>
                <data type="ID"/>
             </attribute>
          </optional>
@@ -7952,6 +7636,24 @@ Sample values include: 1] right; 2] left; 3] centre; 4] indent0; 5] indent1; 6] 
                      </data>
                   </oneOrMore>
                </list>
+            </attribute>
+         </optional>
+         <optional>
+            <attribute name="cert">
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(certainty) signifies the degree of certainty associated with the intervention or interpretation.</a:documentation>
+               <choice>
+                  <data type="double"/>
+                  <choice>
+                     <value>high</value>
+                     <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                     <value>medium</value>
+                     <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                     <value>low</value>
+                     <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                     <value>unknown</value>
+                     <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  </choice>
+               </choice>
             </attribute>
          </optional>
          <optional>
@@ -8375,16 +8077,6 @@ Sample values include: 1] right; 2] left; 3] centre; 4] indent0; 5] indent1; 6] 
          <empty/>
       </element>
    </define>
-   <define name="tei_att.global.linking.attributes">
-      <ref name="tei_att.global.linking.attribute.corresp"/>
-      <ref name="tei_att.global.linking.attribute.synch"/>
-      <ref name="tei_att.global.linking.attribute.sameAs"/>
-      <ref name="tei_att.global.linking.attribute.copyOf"/>
-      <ref name="tei_att.global.linking.attribute.next"/>
-      <ref name="tei_att.global.linking.attribute.prev"/>
-      <ref name="tei_att.global.linking.attribute.exclude"/>
-      <ref name="tei_att.global.linking.attribute.select"/>
-   </define>
    <define name="tei_att.global.linking.attribute.corresp">
       <optional>
          <attribute name="corresp">
@@ -8486,7 +8178,7 @@ Sample values include: 1] right; 2] left; 3] centre; 4] indent0; 5] indent1; 6] 
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(anonymous block) contains any component-level unit of text, acting as a container for phrase or inter level elements analogous to, but without the same constraints as, a paragraph. [16.3. Blocks, Segments, and Anchors]</a:documentation>
          <ref name="tei_macro.abContent"/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="tei_math-ab-abstractModel-structure-ab-in-l-or-lg-constraint-report-45">
+                  id="tei_math-ab-abstractModel-structure-ab-in-l-or-lg-constraint-report-58">
             <rule context="tei:ab">
                <sch:report xmlns="http://www.tei-c.org/ns/1.0"
                            xmlns:rng="http://relaxng.org/ns/structure/1.0"
@@ -8535,20 +8227,19 @@ Sample values include: 1] right; 2] left; 3] centre; 4] indent0; 5] indent1; 6] 
       <element name="anchor">
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(anchor point) attaches an identifier to a point within a text, whether or not it corresponds with a textual element. [8.4.2. Synchronization and Overlap 16.5. Correspondence and Alignment]</a:documentation>
          <empty/>
-         <optional>
-            <attribute name="xml:id">
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(identifier) provides a unique identifier for the element bearing the attribute.</a:documentation>
-               <data type="ID"/>
-            </attribute>
-         </optional>
-         <optional>
-            <attribute name="type">
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">characterizes the element in some sense, using any convenient classification scheme or typology.</a:documentation>
-               <data type="token">
-                  <param name="pattern">[^\p{C}\p{Z}]+</param>
-               </data>
-            </attribute>
-         </optional>
+         <attribute name="xml:id">
+            <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(identifier) provides a unique identifier for the element bearing the attribute.</a:documentation>
+            <data type="ID"/>
+         </attribute>
+         <attribute name="type">
+            <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">indicates the type of anchor. [Legacy coding]</a:documentation>
+            <choice>
+               <value>annotationStart</value>
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+               <value>annotationEnd</value>
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+            </choice>
+         </attribute>
          <empty/>
       </element>
    </define>
