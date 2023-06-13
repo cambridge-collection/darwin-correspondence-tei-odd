@@ -3245,9 +3245,17 @@
                         <rule xmlns="http://purl.oclc.org/dsdl/schematron" context="tei:div[@subtype]">
                            <report test="not(@type=('enclosure'))">ERROR: subtype must only be used if div="enclosure".</report>
                         </rule>
+                     </constraint>
+                  </constraintSpec>
+                  <constraintSpec ident="div-xmlid-for-encl-only" scheme="schematron">
+                     <constraint>
                         <rule xmlns="http://purl.oclc.org/dsdl/schematron" context="tei:div[@xml:id]">
                            <report test="not(@type=('enclosure'))">ERROR: xml:id must only be used if div="enclosure".</report>
-                        </rule>
+                        </rule>                        
+                     </constraint>
+                  </constraintSpec>
+                  <constraintSpec ident="div-subtype-req-attrs" scheme="schematron">
+                     <constraint>
                         <rule xmlns="http://purl.oclc.org/dsdl/schematron" context="tei:div[@type='enclosure']">
                            <report test="not(@subtype)">ERROR: subtype is required when div="enclosure".</report>
                            <report test="not(@xml:id)">ERROR: xml:id required when div="enclosure". </report>
