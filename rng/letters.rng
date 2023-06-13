@@ -5,7 +5,7 @@
          xmlns:xlink="http://www.w3.org/1999/xlink"
          datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
          ns="http://www.tei-c.org/ns/1.0"><!--
-Schema generated from ODD source 2023-06-13T12:49:04Z. .
+Schema generated from ODD source 2023-06-13T14:21:07Z. .
 TEI Edition: Version 4.7.0a. Last updated on
         11th April 2023, revision bec660a72
 TEI Edition Location: https://www.tei-c.org/Vault/P5/Version 4.7.0a./
@@ -6969,6 +6969,9 @@ relatedItem element must be empty</sch:report>
                   context="tei:div[@subtype]">
                <report test="not(@type=('enclosure'))">ERROR: subtype must only be used if div="enclosure".</report>
             </rule>
+         </pattern>
+         <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
+                  id="tei_math-div-div-xmlid-for-encl-only-constraint-rule-43">
             <rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
                   xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                   xmlns:svg="http://www.w3.org/2000/svg"
@@ -6976,6 +6979,9 @@ relatedItem element must be empty</sch:report>
                   context="tei:div[@xml:id]">
                <report test="not(@type=('enclosure'))">ERROR: xml:id must only be used if div="enclosure".</report>
             </rule>
+         </pattern>
+         <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
+                  id="tei_math-div-div-subtype-req-attrs-constraint-rule-44">
             <rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
                   xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                   xmlns:svg="http://www.w3.org/2000/svg"
