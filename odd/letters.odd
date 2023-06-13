@@ -3245,8 +3245,12 @@
                         <rule xmlns="http://purl.oclc.org/dsdl/schematron" context="tei:div[@subtype]">
                            <report test="not(@type=('enclosure'))">ERROR: subtype must only be used if div="enclosure".</report>
                         </rule>
+                        <rule xmlns="http://purl.oclc.org/dsdl/schematron" context="tei:div[@xml:id]">
+                           <report test="not(@type=('enclosure'))">ERROR: xml:id must only be used if div="enclosure".</report>
+                        </rule>
                         <rule xmlns="http://purl.oclc.org/dsdl/schematron" context="tei:div[@type='enclosure']">
                            <report test="not(@subtype)">ERROR: subtype is required when div="enclosure".</report>
+                           <report test="not(@xml:id)">ERROR: xml:id required when div="enclosure". </report>
                         </rule>
                      </constraint>
                   </constraintSpec>
@@ -3279,6 +3283,11 @@
                      </attDef>
                      <attDef ident="xml:id" usage="opt" mode="change">
                         <!--TODO: Review usage. It only appears on enclosures - when more than one occurs-->
+                        <datatype>
+                           <rng:data type="string">
+                              <rng:param name="pattern">encl\.\d+</rng:param>
+                           </rng:data>
+                        </datatype>
                      </attDef>
                      <attDef ident="ana" mode="delete"/>
                      <attDef ident="cert" mode="delete"/>
@@ -3433,9 +3442,10 @@
                   <attList>
                      <attDef ident="xml:id" usage="req" mode="change">
                         <desc xml:lang="en" versionDate="2016-05-06">contains the canonical identifier for the document. This identifier, which also serves as the document’s filename, takes the form DCP-LETT- followed by the calendar number for the letter. For example, DCP-LETT-123. Any letters in the calendar number must be uppercase.</desc>
-                        <datatype><rng:data type="string">
-                           <rng:param name="pattern">DCP-LETT-[1-9][0-9]*[A-Z]*</rng:param>
-                        </rng:data>
+                        <datatype>
+                           <rng:data type="string">
+                              <rng:param name="pattern">DCP-LETT-[1-9][0-9]*[A-Z]*</rng:param>
+                           </rng:data>
                         </datatype>
                      </attDef>
                      <attDef ident="ana" mode="delete"/>
