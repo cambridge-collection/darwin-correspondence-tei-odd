@@ -18,7 +18,7 @@
    <teiHeader>
       <fileDesc>
          <titleStmt>
-            <title>Documentation: The Elements</title>
+            <title>Letter Transcription Guide</title>
             <author>Michael Hawkins</author>
          </titleStmt>
          <publicationStmt>
@@ -1082,8 +1082,8 @@
                <moduleRef n="02" key="header" include="abstract authority availability change correspAction correspDesc fileDesc idno keywords licence notesStmt profileDesc publicationStmt revisionDesc seriesStmt sourceDesc teiHeader textClass titleStmt">
                   <!--Unused elements: appInfo application biblFull cRefPattern calendar calendarDesc catDesc catRef category citeData citeStructure classCode classDecl conversion correction correspContext creation distributor edition editionStmt editorialDecl encodingDesc extent funder geoDecl handNote hyphenation interpretation langUsage language listChange listPrefixDef namespace normalization prefixDef principal projectDesc punctuation quotation refState refsDecl rendition samplingDecl schemaRef scriptNote segmentation sponsor stdVals styleDefDecl tagUsage tagsDecl taxonomy unitDecl unitDef xenoData-->
                </moduleRef>
-               <moduleRef n="03" key="core" include="bibl biblScope choice date graphic head hi item l lb lg list name note p pubPlace publisher quote ref relatedItem term title unclear">
-                  <!--Unused elements: abbr add addrLine address analytic author biblStruct binaryObject cb cit citedRange corr del desc distinct divGen editor ellipsis email emph expan foreign gap gb gloss headItem headLabel imprint index label listBibl measure measureGrp media meeting mentioned milestone monogr noteGrp num orig pb postBox postCode ptr q rb reg resp respStmt rs rt ruby said series sic soCalled sp speaker stage street teiCorpus textLang time unit-->
+               <moduleRef n="03" key="core" include="bibl biblScope choice date graphic head hi item l lb lg list name note p pubPlace publisher quote ref relatedItem term title">
+                  <!--Unused elements: abbr add addrLine address analytic author biblStruct binaryObject cb cit citedRange corr del desc distinct divGen editor ellipsis email emph expan foreign gap gb gloss headItem headLabel imprint index label listBibl measure measureGrp media meeting mentioned milestone monogr noteGrp num orig pb postBox postCode ptr q rb reg resp respStmt rs rt ruby said series sic soCalled sp speaker stage street teiCorpus textLang time unclear unit-->
                </moduleRef>
                <moduleRef n="04" key="textstructure" include="TEI body div opener salute text">
                   <!--Unused elements: argument back byline closer dateline div1 div2 div3 div4 div5 div6 div7 docAuthor docDate docEdition docImprint docTitle epigraph floatingText front group imprimatur postscript signed titlePage titlePart trailer-->
@@ -1175,7 +1175,6 @@
                </elementSpec>
                
                <elementSpec module="header" ident="authority" mode="change">
-                  <!--<desc xml:lang="en" versionDate="2022-07-05"/>-->
                   <classes mode="change">
                      <memberOf key="att.canonical" mode="delete"/>
                      <memberOf key="att.global" mode="delete"/>
@@ -1200,7 +1199,6 @@
                      Review licences and terms with Team and Library.
                      Migrate @xml:id to @decls?
                   -->
-                  <!--<desc xml:lang="en" versionDate="2022-07-05"/>-->
                   <classes mode="change">
                      <memberOf key="att.declarable" mode="delete"/>
                   </classes>
@@ -1218,7 +1216,6 @@
                            <valItem ident="metadataRights"/>
                         </valList>
                      </attDef>
-                     <!--REMOVE-->
                      <attDef ident="ana" mode="delete"/>
                      <attDef ident="cert" mode="delete"/>
                      <attDef ident="change" mode="delete"/>
@@ -1255,9 +1252,6 @@
                         </availability>
                      </egXML>
                   </exemplum>
-                  <!--<remarks xml:lang="en" versionDate="2022-07-05">
-                     <p/>
-                     </remarks>-->
                </elementSpec>
                
                <elementSpec module="header" ident="change" mode="change">
@@ -1303,9 +1297,8 @@
                         </valList>
                      </attDef>
                      <attDef ident="when" mode="change">
-                        <!--NEW-->
+                        <desc versionDate="2014-06-09" xml:lang="en">date for the change, in iso format.</desc>
                      </attDef>
-                     <!--REMOVE-->
                      <attDef ident="calendar" mode="delete"/>
                      <attDef ident="datingMethod" mode="delete"/>
                      <attDef ident="datingPoint" mode="delete"/>
@@ -1348,7 +1341,9 @@
                   </classes>
                   <attList>
                      <attDef ident="subtype" mode="change">
-                        <!--NEW-->
+                        <!-- TODO: Review coding of correspAction/@subtype in legacy files.
+                             Remove attr or document.
+                        -->
                      </attDef>
                      <attDef ident="type" usage="req" mode="change">
                         <valList type="closed" mode="add">
@@ -1456,23 +1451,37 @@
                         </fileDesc>
                      </egXML>
                   </exemplum>
-                  <!--<remarks xml:lang="en" versionDate="2022-07-05">
-                     <p/>
-                     </remarks>-->
                </elementSpec>
                
                <elementSpec module="header" ident="idno" mode="change">
-                  <!--<desc xml:lang="en" versionDate="2022-07-05"/>-->
                   <classes mode="change">
                      <memberOf key="att.datable" mode="delete"/>
                      <memberOf key="att.global" mode="delete"/>
                      <memberOf key="att.sortable" mode="delete"/>
                   </classes>
+                  <constraintSpec ident="ensure-publicationstmt-idno-have-type-attr" scheme="schematron" mode="add">
+                     <constraint>
+                        <rule xmlns="http://purl.oclc.org/dsdl/schematron" context="tei:idno[ancestor::tei:publicationStmt]">
+                           <report test="not(@type='lognum')">ERROR: <name/> in publicationStmt must have type="lognum".</report>
+                        </rule>
+                     </constraint>
+                  </constraintSpec>
+                  <constraintSpec ident="ensure-idno-not-in-publicationstmt-doesnt-have-type-attr" scheme="schematron" mode="add">
+                     <constraint>
+                        <rule xmlns="http://purl.oclc.org/dsdl/schematron" context="tei:idno[not(ancestor::tei:publicationStmt)]">
+                           <report test="@type">ERROR: Only <name/> in publicationStmt can have @type.</report>
+                        </rule>
+                     </constraint>
+                  </constraintSpec>
                   <attList>
                      <attDef ident="type" mode="change">
-                        <!--NEW-->
+                        <desc xml:lang="en" versionDate="2023-06-12">must contain 'lognum' when <gi>idno</gi> occurs within <gi>publicationStmt</gi> to record the projects internal log number for the item.</desc>
+                        <valList type="closed" mode="replace">
+                           <valItem ident="lognum">
+                              <desc xml:lang="en" versionDate="2023-06-12">Only to be used when <gi>idno</gi> occurs within <gi>publicationStmt</gi> to record the projects internal log number for the item.</desc>
+                           </valItem>
+                        </valList>
                      </attDef>
-                     <!--REMOVE-->
                      <attDef ident="subtype" mode="delete"/>
                   </attList>
                   <exemplum xml:lang="en">
@@ -1506,12 +1515,10 @@
                </elementSpec>
                
                <elementSpec module="header" ident="keywords" mode="change">
-                  <!--<desc xml:lang="en" versionDate="2022-07-05"/>-->
                   <classes mode="change">
                      <memberOf key="att.global" mode="delete"/>
                   </classes>
                   <attList>
-                     <!--REMOVE-->
                      <attDef ident="scheme" mode="delete"/>
                   </attList>
                   <exemplum xml:lang="en">
@@ -1537,9 +1544,8 @@
                   </classes>
                   <attList>
                      <attDef ident="target" mode="change">
-                        <!--NEW-->
+                        <!--TODO: document-->
                      </attDef>
-                     <!--REMOVE-->
                      <attDef ident="evaluate" mode="delete"/>
                      <attDef ident="targetLang" mode="delete"/>
                   </attList>
@@ -1603,9 +1609,6 @@
                         </profileDesc>
                      </egXML>
                   </exemplum>
-                  <!--<remarks xml:lang="en" versionDate="2022-07-05">
-                     <p/>
-                     </remarks>-->
                </elementSpec>
                
                <elementSpec module="header" ident="publicationStmt" mode="change">
@@ -1702,7 +1705,6 @@
                </elementSpec>
                
                <elementSpec module="header" ident="sourceDesc" mode="change">
-                  <!--<desc xml:lang="en" versionDate="2022-07-05"/>-->
                   <classes mode="change">
                      <memberOf key="att.declarable" mode="delete"/>
                      <memberOf key="att.global" mode="delete"/>
@@ -1782,7 +1784,6 @@
                
                <elementSpec module="header" ident="textClass" mode="change">
                   <!--FIX: lecacy information. Needs more documentation -->
-                  <!--<desc xml:lang="en" versionDate="2022-07-05"/>-->
                   <classes mode="change">
                      <memberOf key="att.declarable" mode="delete"/>
                      <memberOf key="att.global" mode="delete"/>
@@ -1820,8 +1821,6 @@
                
                <!--Elements from core-->
                
-               
-               
                <elementSpec ident="bibl" module="core" mode="change">
                   <desc xml:lang="en" versionDate="2014-06-10">contains a loosely-structured bibliographic citation of which the sub-components may or may not be explicitly tagged. It is currently used used in two places within the Darwin Correspondence files: 1) as a generic container for the old DarML provenance element; 2) as a container for bibliographical references for related items (see <gi>relatedItem</gi>).</desc>
                   <classes mode="change">
@@ -1838,7 +1837,10 @@
                   </constraintSpec>
                   <attList>
                      <attDef ident="cert" mode="change">
-                        <!--NEW-->
+                        <remarks xml:lang="en" versionDate="2023-06-12">
+                           <p>This element should not be used by editors. It is only used to indicate the accuracy of the machine-processing by the agent recorded in <att>resp</att>.</p>
+                           <p>NB: Any editor changing or reviewing this element should confirm its accuracy and make any changes necessary. <att>resp</att> and <att>cert</att> can be removed once the data has been reviewed or fixed by the editor.</p>
+                        </remarks>
                      </attDef>
                      <attDef ident="key" usage="opt" mode="add">
                         <desc xml:lang="en" versionDate="2016-05-06">Points to the bibl authority file when the letter is from a printed source - i.e. "../bibliographies/bibl_1.xml"</desc>
@@ -1846,7 +1848,10 @@
                         </datatype>
                      </attDef>
                      <attDef ident="resp" mode="change">
-                        <!--NEW-->
+                        <remarks xml:lang="en" versionDate="2023-06-12">
+                           <p>This element should not be used by editors. It is only used to indicate the agent that performed the global update of this field. It will almost always be ‘<val>#mjhawkins</val>’ or ‘<val>#automat</val>’.</p>
+                           <p>NB: Any editor changing or reviewing this element should confirm its accuracy and make any changes necessary. <att>resp</att> and <att>cert</att> can be removed once the data has been reviewed or fixed by the editor.</p>
+                        </remarks>
                      </attDef>
                      <attDef ident="type" mode="change" usage="opt">
                         <desc xml:lang="en" versionDate="2016-05-07">indicates the type of bibliographical entry.</desc>
@@ -1855,7 +1860,6 @@
                            <valItem ident="printedSource"/>
                         </valList>
                      </attDef>
-                     <!--REMOVE-->
                      <attDef ident="ana" mode="delete"/>
                      <attDef ident="change" mode="delete"/>
                      <attDef ident="copyOf" mode="delete"/>
@@ -1909,7 +1913,6 @@
                
                <elementSpec module="core" ident="biblScope" mode="change">
                   <!--FIX: update attrs after biblStruct gone-->
-                  <!--<desc xml:lang="en" versionDate="2022-07-05"/>-->
                   <attList>
                      <attDef ident="n" usage="req" mode="change">
                         <valList type="closed" mode="replace">
@@ -1950,7 +1953,6 @@
                            <valItem ident="vol"/>
                         </valList>
                      </attDef>
-                     <!--REMOVE-->
                      <attDef ident="ana" mode="delete"/>
                      <attDef ident="cert" mode="delete"/>
                      <attDef ident="change" mode="delete"/>
@@ -1975,12 +1977,6 @@
                      <attDef ident="xml:lang" mode="delete"/>
                      <attDef ident="xml:space" mode="delete"/>
                   </attList>
-                  <exemplum xml:lang="en">
-                     <egXML xmlns="http://www.tei-c.org/ns/Examples"/>
-                  </exemplum>
-                  <!--<remarks xml:lang="en" versionDate="2022-07-05">
-                     <p/>
-                     </remarks>-->
                </elementSpec>
                
                
@@ -2009,11 +2005,14 @@
                   </classes>
                   <constraintSpec ident="date-exclude" scheme="schematron">
                      <constraint>
-                        <rule xmlns="http://purl.oclc.org/dsdl/schematron" context="tei:date">
+                        <rule xmlns="http://purl.oclc.org/dsdl/schematron" context="tei:date[@exclude]">
                            <let name="current_date" value="."/>
-                           <let name="context" value="//ancestor::*[local-name()=('correspDesc','birth','death','event')][1]/local-name()"/>
-                           <let name="all_dates" value="$current_date//ancestor::*[local-name()=$context]//tei:date"/>
-                           <report test="normalize-space(@exclude) != '' and count(tokenize(@exclude,'\s+')[.=$all_dates[not(@xml:id=$current_date/@xml:id)]/concat('#',@xml:id)]) != count(tokenize(@exclude,'\s+'))">ERROR: <name/>@exclude value(s) (<value-of select="tokenize(@exclude,'\s+')[not(.=$all_dates[not(@xml:id=$current_date/@xml:id)]/concat('#',@xml:id))]"/>) does not point to <value-of select="$context"/>//date/@xml:id</report>
+                           <let name="context" value="ancestor::*[local-name()=('correspDesc','birth','death','event')][1]"/>
+                           <let name="other_dates" value="$context//tei:date[not(@xml:id = $current_date/@xml:id)]"/>
+                           <let name="other_date_ids" value="for $x in $other_dates return concat('#',$x/@xml:id)"/>
+                           <let name="exclude_vals" value="tokenize(normalize-space(@exclude),'\s+')"/>
+                           <report test="not(empty($context)) and normalize-space(@exclude) != '' and  exists($other_date_ids[not(.=$exclude_vals)])">ERROR: <name/>'s exclude does not point to <value-of select="$other_date_ids[not(.=$exclude_vals)]"/>.</report>
+                           <report test="not(ancestor::*[local-name()=('correspDesc','birth','death','event')])">ERROR: <name/> does not support @exclude in this context.</report>
                         </rule>
                      </constraint>
                   </constraintSpec>
@@ -2027,24 +2026,6 @@
                         <report xmlns="http://purl.oclc.org/dsdl/schematron" test="@exclude and normalize-space(@exclude) != '' and not(@xml:id)">ERROR: <name/> needs @xml:id</report>
                      </constraint>
                   </constraintSpec>
-                  <constraintSpec ident="date-xmlid-not-exclude" scheme="schematron">
-                     <constraint>
-                        <rule xmlns="http://purl.oclc.org/dsdl/schematron" context="tei:date[@xml:id]">
-                           <let name="elem" value="."/>
-                           <let name="tei_root" value="ancestor::tei:TEI"/>
-                           <assert test="concat('#',$elem/@xml:id) = ($tei_root/tei:teiHeader//tei:date/@sameAs,$tei_root/tei:teiHeader//tei:date/tokenize(@exclude,'\s+'))">ERROR: <name/>@xml:id must be the target of date@exclude or date@sameAs</assert>
-                        </rule>
-                     </constraint>
-                  </constraintSpec>
-                  <constraintSpec ident="date-sameas-check" scheme="schematron">
-                     <constraint>
-                        <rule xmlns="http://purl.oclc.org/dsdl/schematron" context="tei:date[@sameAs]">
-                           <let name="elem" value="."/>
-                           <let name="tei_root" value="ancestor::tei:TEI"/>
-                           <assert test="@sameAs = ($tei_root/tei:teiHeader//tei:date|$tei_root/tei:text//tei:rs[@type='date'])/concat('#',@xml:id)">ERROR: <name/>@sameAs must point to date@xml:id</assert>
-                        </rule>
-                     </constraint>
-                  </constraintSpec>
                   <constraintSpec ident="date-xmlid-not-linked-to" scheme="schematron">
                      <constraint>
                         <rule xmlns="http://purl.oclc.org/dsdl/schematron" context="tei:date">
@@ -2052,26 +2033,6 @@
                            <let name="context" value="//ancestor::*[local-name()=('correspDesc','birth','death','event')][1]/local-name()"/>
                            <let name="all_dates" value="$current_date//ancestor::*[local-name()=$context]//tei:date"/>
                            <report test="@exclude and not(concat('#',@xml:id) = $all_dates/tokenize(@exclude,'\s+'))">ERROR: <name/> is not the target of any @exclude</report>
-                        </rule>
-                     </constraint>
-                  </constraintSpec>
-                  <constraintSpec ident="date-exclude-missed-xmlid" scheme="schematron">
-                     <constraint>
-                        <rule xmlns="http://purl.oclc.org/dsdl/schematron" context="tei:date">
-                           <let name="current_date" value="."/>
-                           <let name="context" value="//ancestor::*[local-name()=('correspDesc','birth','death','event')][1]/local-name()"/>
-                           <let name="all_dates" value="$current_date//ancestor::*[local-name()=$context]//tei:date"/>
-                           <report test="@exclude and normalize-space(@exclude)!='' and count( tokenize(@exclude,'\s+')[.= $all_dates/concat('#',@xml:id)]) != count($all_dates[@xml:id])-1">ERROR: <name/> does not link to (<value-of select="$all_dates[not(@xml:id=$current_date/@xml:id)]/concat('#',@xml:id)[not(.=tokenize($current_date/@exclude,'\s+'))]"/>)</report>
-                        </rule>
-                     </constraint>
-                  </constraintSpec>
-                  <constraintSpec ident="date-xmlid-not-in-all-other-dates" scheme="schematron">
-                     <constraint>
-                        <rule xmlns="http://purl.oclc.org/dsdl/schematron" context="tei:date">
-                           <let name="current_date" value="."/>
-                           <let name="context" value="//ancestor::*[local-name()=('correspDesc','birth','death','event')][1]/local-name()"/>
-                           <let name="all_dates" value="$current_date//ancestor::*[local-name()=$context]//tei:date"/>
-                           <report test="normalize-space(@xml:id)!='' and count($all_dates[tokenize(@exclude,'\s+') = $current_date/concat('#',@xml:id)]) != count($all_dates[not(@xml:id=$current_date/@xml:id)])">ERROR: <name/> is not the target of all the other <value-of select="$context"/>//date@exclude</report>
                         </rule>
                      </constraint>
                   </constraintSpec>
@@ -2158,7 +2119,7 @@
                   </constraintSpec>
                   <attList>
                      <attDef ident="exclude" mode="change">
-                        <!--NEW-->
+                        <desc xml:lang="en" versionDate="2023-06-12">contains a pointer referring to the <att>xml:id</att> of one or more mutually exclusive alternatives for the current <gi>date</gi>.</desc>
                      </attDef>
                      <attDef ident="notAfter" mode="change">
                         <desc versionDate="2014-05-29" xml:lang="en">defines the latest possible date or end of a date range where this is not known precisely.</desc>
@@ -2176,9 +2137,8 @@
                         <desc versionDate="2014-05-29" xml:lang="en">defines a specific date.</desc>
                      </attDef>
                      <attDef ident="xml:id" mode="change">
-                        <!--NEW-->
+                        <desc xml:lang="en" versionDate="2023-06-12">contains a unique identifier for the current element. It is only to be used when the <gi>date</gi> is one of a series of mutually exclusive choices, encoding using <att>target</att>, for the date of the letter.</desc>
                      </attDef>
-                     <!--REMOVE-->
                      <attDef ident="ana" mode="delete"/>
                      <attDef ident="calendar" mode="delete"/>
                      <attDef ident="cert" mode="delete"/>
@@ -2234,12 +2194,6 @@
                         <date notAfter="1875-12-26">before 27 Dec 1875</date>
                      </egXML>
                   </exemplum>
-                  <!--<exemplum xml:lang="en">
-                     <egXML xmlns="http://www.tei-c.org/ns/Examples">
-                     <date notBefore-custom="1875-12-24T18:05:00" notAfter-custom="1875-12-26T08:15:00">[24-26] Dec 1875</date>
-                     </egXML>
-                     <p>This example indicates 'some time between 6:05 pm on 24 Dec 1875 and 8:15 am on 26 Dec 1875'. This mechanism is typically used if it can be inferred that an entry was written after the last securely datable and timable entry before it and before the first one after it, but no date or time is given in the entry itself.</p>
-                     </exemplum>-->
                   <exemplum xml:lang="en">
                      <egXML xmlns="http://www.tei-c.org/ns/Examples">
                         <date when="1861-02-01" xml:id="date1" exclude="#date2"/>
@@ -2265,21 +2219,19 @@
                   </classes>
                   <attList>
                      <attDef ident="decls" mode="change">
-                        <!--NEW-->
+                        <!--Document - according to CUDL Standards -->
                      </attDef>
                      <attDef ident="height" mode="change">
-                        <!--NEW-->
+                        <!--Document - according to CUDL Standards -->
                      </attDef>
                      <attDef ident="rend" mode="change">
-                        <!--NEW-->
+                        <!--Document - according to CUDL Standards -->
                      </attDef>
-                     <attDef ident="url" mode="change">
-                        <!--NEW-->
-                     </attDef>
+                     <attDef ident="url" usage="req" mode="change"/>
                      <attDef ident="width" mode="change">
-                        <!--NEW-->
+                        <!--Document - according to CUDL Standards -->
+                        <!-- Review XSLT and the one use outside of <facsimile/> -->
                      </attDef>
-                     <!--REMOVE-->
                      <attDef ident="ana" mode="delete"/>
                      <attDef ident="cert" mode="delete"/>
                      <attDef ident="change" mode="delete"/>
@@ -2342,7 +2294,8 @@
                         <valList type="closed" mode="replace">
                            <valItem ident="right"/>
                            <valItem ident="left"/>
-                           <valItem ident="centre"/><!--<valItem ident="indent0"/>
+                           <valItem ident="centre"/>
+                           <!--<valItem ident="indent0"/>
                               <valItem ident="indent1"/>
                               <valItem ident="indent2"/>
                               <valItem ident="indent3"/>
@@ -2353,7 +2306,6 @@
                               <valItem ident="insetBlock"/>-->
                         </valList>
                      </attDef>
-                     <!--REMOVE-->
                      <attDef ident="ana" mode="delete"/>
                      <attDef ident="cert" mode="delete"/>
                      <attDef ident="change" mode="delete"/>
@@ -2404,7 +2356,6 @@
                            <valItem ident="stretchyHorizontal"/>
                         </valList>
                      </attDef>
-                     <!--REMOVE-->
                      <attDef ident="ana" mode="delete"/>
                      <attDef ident="cert" mode="delete"/>
                      <attDef ident="change" mode="delete"/>
@@ -2444,7 +2395,6 @@
                
                
                <elementSpec ident="item" module="core" mode="change">
-                  <!--<gloss versionDate="2014-06-17" xml:lang="en"></gloss>-->
                   <desc versionDate="2014-06-27" xml:lang="en">contains an item within a <gi>list</gi>.</desc>
                   <classes mode="change">
                      <memberOf key="att.global" mode="delete"/>
@@ -2478,7 +2428,8 @@
                         <valList type="closed" mode="replace">
                            <valItem ident="right"/>
                            <valItem ident="left"/>
-                           <valItem ident="centre"/><!--<valItem ident="indent0"/>
+                           <valItem ident="centre"/>
+                           <!--<valItem ident="indent0"/>
                               <valItem ident="indent1"/>
                               <valItem ident="indent2"/>
                               <valItem ident="indent3"/>
@@ -2489,7 +2440,6 @@
                               <valItem ident="insetBlock"/>-->
                         </valList>
                      </attDef>
-                     <!--REMOVE-->
                      <attDef ident="ana" mode="delete"/>
                      <attDef ident="cert" mode="delete"/>
                      <attDef ident="change" mode="delete"/>
@@ -2524,7 +2474,6 @@
                   </classes>
                   <attList>
                      <attDef ident="resp" usage="opt" mode="change"/>
-                     <!--REMOVE-->
                      <attDef ident="ana" mode="delete"/>
                      <attDef ident="cert" mode="delete"/>
                      <attDef ident="change" mode="delete"/>
@@ -2565,7 +2514,6 @@
                
                <elementSpec module="core" ident="lg" mode="change">
                   <!--DROP?-->
-                  <!--<desc xml:lang="en" versionDate="2022-07-05"/>-->
                   <classes mode="change">
                      <memberOf key="att.declaring" mode="delete"/>
                      <memberOf key="att.divLike" mode="delete"/>
@@ -2588,7 +2536,6 @@
                </elementSpec>
                
                <elementSpec ident="list" module="core" mode="change">
-                  <!--<gloss versionDate="2014-06-17" xml:lang="en"></gloss>-->
                   <desc versionDate="2014-06-17" xml:lang="en">contains any number of items organised as a list.</desc>
                   <classes mode="change">
                      <memberOf key="att.sortable" mode="delete"/>
@@ -2607,7 +2554,6 @@
                            <p>Should an atypical form of bulleting be used in the original (and desired to be reproduced in the print/online versions, please contact Michael Hawkins how it can be supported.</p>
                         </remarks>
                      </attDef>
-                     <!--REMOVE-->
                      <attDef ident="ana" mode="delete"/>
                      <attDef ident="cert" mode="delete"/>
                      <attDef ident="change" mode="delete"/>
@@ -2685,12 +2631,11 @@
                   </constraintSpec>
                   <attList>
                      <attDef ident="sameAs" mode="change">
-                        <!--NEW-->
+                        <desc xml:lang="en" versionDate="2023-06-12">contains a pointer referring to the <att>xml:id</att> of <gi>name</gi>’s first appearance in <gi>revisionDesc</gi>.</desc>
                      </attDef>
                      <attDef ident="xml:id" mode="change">
-                        <!--NEW-->
+                        <desc xml:lang="en" versionDate="2023-06-12">contains a unique identifier for the editor making the <gi>change</gi>.</desc>
                      </attDef>
-                     <!--REMOVE-->
                      <attDef ident="ana" mode="delete"/>
                      <attDef ident="cert" mode="delete"/>
                      <attDef ident="change" mode="delete"/>
@@ -2747,20 +2692,6 @@
                         </rule>
                      </constraint>
                   </constraintSpec>
-                  <!--<constraintSpec ident="tnote-not-target-transcription" scheme="schematron">
-                     <constraint>
-                     <rule xmlns="http://purl.oclc.org/dsdl/schematron" context="tei:note[@xml:id][parent::tei:div[@type='tnotes']]">
-                     <report xmlns="http://purl.oclc.org/dsdl/schematron" test="not(concat('#',@xml:id) = ancestor::tei:TEI/tei:text/tei:body//tei:div[@type=('letter','translation')]//tei:ref/@target)">ERROR: <name/> '<value-of select="@xml:id"/>' is not the target of a ref/@target in the transcription</report>
-                     </rule>
-                     </constraint>
-                     </constraintSpec>-->
-                  <!--<constraintSpec ident="note-not-target" scheme="schematron">
-                     <constraint>
-                     <rule xmlns="http://purl.oclc.org/dsdl/schematron" context="tei:note[@xml:id]">
-                     <report xmlns="http://purl.oclc.org/dsdl/schematron" test="not(concat('#',@xml:id) = ancestor::tei:TEI//tei:ref/@target)">ERROR: <name/> '<value-of select="@xml:id"/>' is not the target of any ref/@target</report>
-                     </rule>
-                     </constraint>
-                     </constraintSpec>-->
                   <constraintSpec ident="check-type-physdesc" scheme="schematron">
                      <constraint>
                         <rule xmlns="http://purl.oclc.org/dsdl/schematron" context="tei:note[@type]">
@@ -2774,10 +2705,10 @@
                         <desc xml:lang="en" versionDate="2016-06-30">describes the subtype of endorsement.</desc>
                      </attDef>
                      <attDef ident="target" mode="change">
-                        <!--NEW-->
+                        <desc xml:lang="en" versionDate="2023-06-12">should not be used [legacy code].</desc>
                      </attDef>
                      <attDef ident="targetEnd" mode="change">
-                        <!--NEW-->
+                        <desc xml:lang="en" versionDate="2023-06-12">should not be used [legacy code].</desc>
                      </attDef>
                      <attDef ident="type" usage="opt" mode="change">
                         <desc xml:lang="en" versionDate="2016-06-30">describes the type of notes (used only on metadata within teiHeader).</desc>
@@ -2790,9 +2721,8 @@
                         </valList>
                      </attDef>
                      <attDef ident="xml:id" mode="change">
-                        <!--NEW-->
+                        <desc xml:lang="en" versionDate="2023-06-12">contains a unique identifier for the note. Only necessary on footnotes.</desc>
                      </attDef>
-                     <!--REMOVE-->
                      <attDef ident="ana" mode="delete"/>
                      <attDef ident="anchored" mode="delete"/>
                      <attDef ident="cert" mode="delete"/>
@@ -2820,6 +2750,9 @@
                   <remarks><p><gi>note</gi> fulfills many purposes in the DarML. In the header, it can take the attribute <att>physdesc</att> or <att>description</att> that contains a description of the original source of the text (in most cases from the Calendar) or an abbreviated description that would apprear in the print volume, respectively. <att>postmark</att> contains the text of any postamrks and <att>encorsement</att> occurs where the recipient of the letter endorsed it with a date of receipt. These all occur in the header grouped in <gi>notesStmt</gi>.</p>
                      <p>Footnotes are also marked with <gi>note</gi>, and wrapped in <tag>div type="footnotes"</tag>. Each footnote <gi>note</gi> should have an <att>xml:id</att> that connects to a <att>ref</att> somewhere in the text.</p>
                      <p>Finally, notes are used to indicate CD notes and annotations, which are laid out in a way designed to represent CD annotations and alterations to the text in the way they would have apeared in the print volumes.</p></remarks>
+                  <remarks xml:lang="en" versionDate="2023-06-12">
+                     <p><att>target</att> and <att>targetEnd</att> are legacy encodings that appear in some of our earliest files. They are used to record the start and end of the text in the transcription/translation to which the annotation applies. The accuracy of anchoring string that starts the annotation note (<hi rend="italic">i.e.</hi> everything before the ‘<val>]</val>’ is uncertain. Ideally, an editor would check and update these values so that they conform to the standards of the rest of the files.</p>
+                  </remarks>
                </elementSpec>
                
                <elementSpec ident="p" module="core" mode="change">
@@ -2838,7 +2771,6 @@
                            <valItem ident="blockquote"/>
                         </valList>
                      </attDef>
-                     <!--REMOVE-->
                      <attDef ident="ana" mode="delete"/>
                      <attDef ident="cert" mode="delete"/>
                      <attDef ident="change" mode="delete"/>
@@ -2878,7 +2810,6 @@
                </elementSpec>
                
                <elementSpec ident="publisher" module="core" mode="change">
-                  <!--<gloss versionDate="2014-06-17" xml:lang="en"></gloss>-->
                   <desc versionDate="2015-08-16" xml:lang="en">gives the name of the organisation responsible for the volume of The Correspondence of Charles Darwin containing this letter. This is invariably ‘Cambridge University Press’.</desc>
                   <classes mode="change">
                      <memberOf key="att.canonical" mode="delete"/>
@@ -2899,7 +2830,6 @@
                </elementSpec>
                
                <elementSpec ident="pubPlace" module="core" mode="change">
-                  <!--<gloss versionDate="2014-06-17" xml:lang="en"></gloss>-->
                   <desc versionDate="2015-08-16" xml:lang="en">gives the place of publication of the volume of The Correspondence of Charles Darwin containing this letter. This is invariably ‘Cambridge’.</desc>
                   <classes mode="change">
                      <memberOf key="att.global" mode="delete"/>
@@ -2920,20 +2850,23 @@
                </elementSpec>
                
                <elementSpec ident="quote" module="core" mode="change">
-                  <!--<gloss versionDate="2014-06-17" xml:lang="en"></gloss>-->
-                  <!--<desc versionDate="2014-06-17" xml:lang="en"></desc>-->
+                  <!-- TODO: Review coding of quote and how it's dealt with in XSLT -->
                   <classes mode="change">
                      <memberOf key="att.msExcerpt" mode="delete"/>
                      <memberOf key="att.notated" mode="delete"/>
                   </classes>
                   <attList>
                      <attDef ident="rend" mode="change">
-                        <!--NEW-->
+                        <!-- Review use -->
                      </attDef>
-                     <attDef ident="type" mode="change">
-                        <!--NEW-->
+                     <attDef ident="type" usage="opt" mode="change">
+                        <!--Review useage and xslt processing -->
+                        <valList type="closed" mode="replace">
+                           <valItem ident="quote"/>
+                           <valItem ident="quotation"/>
+                           <valItem ident="verse"/>
+                        </valList>
                      </attDef>
-                     <!--REMOVE-->
                      <attDef ident="ana" mode="delete"/>
                      <attDef ident="cert" mode="delete"/>
                      <attDef ident="change" mode="delete"/>
@@ -2957,17 +2890,12 @@
                      <attDef ident="xml:lang" mode="delete"/>
                      <attDef ident="xml:space" mode="delete"/>
                   </attList>
-                  <exemplum xml:lang="en">
-                     <egXML xmlns="http://www.tei-c.org/ns/Examples"/>
-                  </exemplum>
                   <remarks versionDate="2016-05-06" xml:lang="en">
                      <p><gi>quote</gi> has been used interchangeably with <gi>blockquote</gi> in practice to indicate block quotes in footnotes.</p>
                   </remarks>
                </elementSpec>
                
                <elementSpec ident="ref" module="core" mode="change">
-                  <!--<gloss versionDate="2014-06-17" xml:lang="en"></gloss>-->
-                  <!--<desc versionDate="2014-06-17" xml:lang="en"></desc>-->
                   <classes mode="change">
                      <memberOf key="att.cReferencing" mode="delete"/>
                      <memberOf key="att.declaring" mode="delete"/>
@@ -2989,14 +2917,6 @@
                         </rule>
                      </constraint>
                   </constraintSpec>
-                  <!--<constraintSpec ident="ref-check_bibl_pointer" scheme="schematron" mode="add">
-                     <constraint>
-                     <rule xmlns="http://purl.oclc.org/dsdl/schematron" context="tei:ref[matches(@target,'^(\.\./|\./)*(bibliographies/)*(bibl_).+\.xml$')]">
-                     <let name="document_uri" value="string-join(tokenize(document-uri(/),'/')[position() != last()],'/')"/>
-                     <assert test="doc-available(concat($document_uri,'/',@target))">ERROR: <name/> points to a non-existent file (<value-of select="@target"/>)</assert>
-                     </rule>
-                     </constraint>
-                     </constraintSpec>-->
                   <constraintSpec ident="ref-check_single_resource_pointer" scheme="schematron" mode="add">
                      <constraint>
                         <rule xmlns="http://purl.oclc.org/dsdl/schematron" context="tei:ref[normalize-space(@target)][not(matches(normalize-space(@target),'\s+'))][matches(@target,'^(\.\./|\./)*((letters|nameregs|repo)/)*(DCP-LETT-|nameregs_|repo_).+\.xml$')]">
@@ -3006,56 +2926,37 @@
                         </rule>
                      </constraint>
                   </constraintSpec>
-                  <!--<constraintSpec ident="ref-check_letter_pointer" scheme="schematron" mode="add">
-                     <constraint>
-                     <rule xmlns="http://purl.oclc.org/dsdl/schematron" context="tei:ref[matches(@target,'^(\.\./|\./)*(letters/)*(DCP-LETT-).+\.xml$')]">
-                     <let name="document_uri" value="string-join(tokenize(document-uri(/),'/')[position() != last()],'/')"/>
-                     <assert test="doc-available(concat($document_uri,'/',@target))">ERROR: <name/> points to a non-existent file (<value-of select="@target"/>)</assert>
-                     </rule>
-                     </constraint>
-                     </constraintSpec>-->
-                  <!--<constraintSpec ident="ref-check_namereg_pointer" scheme="schematron" mode="add">
-                     <constraint>
-                     <rule xmlns="http://purl.oclc.org/dsdl/schematron" context="tei:ref[matches(@target,'^(\.\./|\./)*(nameregs/)*(nameregs_).+\.xml$')]">
-                     <let name="document_uri" value="string-join(tokenize(document-uri(/),'/')[position() != last()],'/')"/>
-                     <assert test="doc-available(concat($document_uri,'/',@target))">ERROR: <name/> points to a non-existent file (<value-of select="@target"/>)</assert>
-                     </rule>
-                     </constraint>
-                     </constraintSpec>-->
-                  <!--<constraintSpec ident="ref-check_repo_pointer" scheme="schematron" mode="add">
-                     <constraint>
-                     <rule xmlns="http://purl.oclc.org/dsdl/schematron" context="tei:ref[matches(@target,'^(\.\./|\./)*(repo/)*(repo_).+\.xml$')]">
-                     <let name="document_uri" value="string-join(tokenize(document-uri(/),'/')[position() != last()],'/')"/>
-                     <assert test="doc-available(concat($document_uri,'/',@target))">ERROR: <name/> points to a non-existent file (<value-of select="@target"/>)</assert>
-                     </rule>
-                     </constraint>
-                     </constraintSpec>-->
-                  <!--<constraintSpec ident="ref-check_file_pointer" scheme="schematron" mode="add">
-                     <constraint>
-                     <rule xmlns="http://purl.oclc.org/dsdl/schematron" context="tei:ref[matches(@target,'^(\.\./|\./)*((letters|nameregs|repo|copies|drafts)/)*(DCP-LETT-|nameregs_|bibl_|repo_).+\.xml$')]">
-                     <let name="document_uri" value="string-join(tokenize(document-uri(/),'/')[position() != last()],'/')"/>
-                     <assert test="doc-available(concat($document_uri,'/',@target))">ERROR: <name/> points to a non-existent file (<value-of select="@target"/>)</assert>
-                     </rule>
-                     </constraint>
-                     </constraintSpec>-->
                   <attList>
                      <attDef ident="cert" mode="change">
-                        <!--NEW-->
+                        <remarks xml:lang="en" versionDate="2023-06-12">
+                           <p>This element should not be used by editors. It is only used to indicate the accuracy of the machine-processing by the agent recorded in <att>resp</att>.</p>
+                           <p>NB: Any editor changing or reviewing this element should confirm its accuracy and make any changes necessary. <att>resp</att> and <att>cert</att> can be removed once the data has been reviewed or fixed by the editor.</p>
+                        </remarks>
                      </attDef>
                      <attDef ident="resp" mode="change">
-                        <!--NEW-->
+                        <remarks xml:lang="en" versionDate="2023-06-12">
+                           <p>This element should not be used by editors. It is only used to indicate the agent that performed the global update of this field. It will almost always be ‘<val>#mjhawkins</val>’ or ‘<val>#automat</val>’.</p>
+                           <p>NB: Any editor changing or reviewing this element should confirm its accuracy and make any changes necessary. <att>resp</att> and <att>cert</att> can be removed once the data has been reviewed or fixed by the editor.</p>
+                        </remarks>
                      </attDef>
                      <attDef ident="target" usage="req" mode="change">
                         <desc xml:lang="en" versionDate="2016-06-30">points to either to a footnote (eg. #foot.f1), or another file in our collection (eg. ../letters/DCP-LETT-1.xml or ../nameregs/nameregs_1.xml) or to an external resource (http://....)".</desc>
-                        <datatype><rng:data type="string">
-                           <rng:param name="pattern">(#.+|https*://.+|(((\.\./|\./)*(bibliographies|letters|nameregs|repo|copies|drafts)|\.)/)*(DCP-LETT-|nameregs_|bibl_|repo_).+\.xml|)</rng:param>
-                        </rng:data>
+                        <datatype>
+                           <rng:data type="string">
+                              <rng:param name="pattern">(#.+|https*://.+|(((\.\./|\./)*(bibliographies|letters|nameregs|repo|copies|drafts)|\.)/)*(DCP-LETT-|nameregs_|bibl_|repo_).+\.xml|)</rng:param>
+                           </rng:data>
+                           <!-- TODO: Debate removing terminal | from above regex expression. 
+                                      It ensures that a blank string is acceptable input. This will reveal over
+                                      800 computer generated ref elements whose reference could not be easily determined
+                           -->
                         </datatype>
                      </attDef>
                      <attDef ident="type" mode="change">
-                        <!--NEW-->
+                        <!--Is this necessary? Review usage in XSLT-->
+                        <valList type="closed" mode="replace">
+                           <valItem ident="link"/>
+                        </valList>
                      </attDef>
-                     <!--REMOVE-->
                      <attDef ident="ana" mode="delete"/>
                      <attDef ident="change" mode="delete"/>
                      <attDef ident="copyOf" mode="delete"/>
@@ -3085,9 +2986,6 @@
                         <ref target="#foot-10000.f1"/>
                      </egXML>
                   </exemplum>
-                  <remarks versionDate="2014-06-11" xml:lang="en">
-                     <p/>
-                  </remarks>
                </elementSpec>
                
                <elementSpec ident="relatedItem" module="core" mode="change">
@@ -3148,12 +3046,11 @@
                   </classes>
                   <attList>
                      <attDef ident="ref" mode="change">
-                        <!--NEW-->
+                        <!-- TODO: Review legacy notes and decide what to do -->
                      </attDef>
                      <attDef ident="type" mode="change">
-                        <!--NEW-->
+                        <!-- TODO: Review legacy notes and decide what to do -->
                      </attDef>
-                     <!--REMOVE-->
                      <attDef ident="key" mode="delete"/>
                      <attDef ident="subtype" mode="delete"/>
                   </attList>
@@ -3174,23 +3071,43 @@
                </elementSpec>
                
                <elementSpec ident="title" module="core" mode="change">
-                  <!--<gloss versionDate="2014-06-17" xml:lang="en"></gloss>-->
                   <desc versionDate="2014-06-29" xml:lang="en">contains the title (letter header) of the electronic document.</desc>
                   <classes mode="change">
                      <memberOf key="att.canonical" mode="delete"/>
                      <memberOf key="att.datable" mode="delete"/>
                   </classes>
+                  <constraintSpec ident="ensure-level-only-in-seriesstmt" scheme="schematron" mode="add">
+                     <constraint>
+                        <rule xmlns="http://purl.oclc.org/dsdl/schematron" context="tei:title[@level]">
+                           <report test="not(ancestor::tei:seriesStmt)">ERROR: <name/> should not have @level in this context.</report>
+                        </rule>
+                     </constraint>
+                  </constraintSpec>
+                  <constraintSpec ident="ensure-title-level-req-in-seriesstmt" scheme="schematron" mode="add">
+                     <constraint>
+                        <rule xmlns="http://purl.oclc.org/dsdl/schematron" context="tei:title[ancestor::tei:seriesStmt]">
+                           <report test="not(@level)">ERROR: <name/> in seriesStmt must have @level.</report>
+                        </rule>
+                     </constraint>
+                  </constraintSpec>
+                  <constraintSpec ident="ensure-title-xmlid-req-in-titlesstmt" scheme="schematron" mode="add">
+                     <constraint>
+                        <rule xmlns="http://purl.oclc.org/dsdl/schematron" context="tei:title[ancestor::tei:titleStmt]">
+                           <report test="not(@xml:id)">ERROR: <name/> in titleStmt must have @xml:id.</report>
+                        </rule>
+                     </constraint>
+                  </constraintSpec>
                   <attList>
-                     <attDef ident="level" mode="change">
-                        <!--NEW-->
-                     </attDef>
-                     <attDef ident="type" mode="change">
-                        <!--NEW-->
+                     <attDef ident="level" usage="opt" mode="change">
+                        <valList type="closed" mode="replace">
+                           <valItem ident="s"/>
+                        </valList>
                      </attDef>
                      <attDef ident="xml:id" mode="change">
-                        <!--NEW-->
+                        <!-- Review usage in XSLT.
+                             It only occurs in titleStmt and has a fixed value of 'main_title'
+                        -->
                      </attDef>
-                     <!--REMOVE-->
                      <attDef ident="ana" mode="delete"/>
                      <attDef ident="cert" mode="delete"/>
                      <attDef ident="change" mode="delete"/>
@@ -3208,6 +3125,7 @@
                      <attDef ident="select" mode="delete"/>
                      <attDef ident="source" mode="delete"/>
                      <attDef ident="style" mode="delete"/>
+                     <attDef ident="type" mode="delete"/>
                      <attDef ident="subtype" mode="delete"/>
                      <attDef ident="synch" mode="delete"/>
                      <attDef ident="xml:base" mode="delete"/>
@@ -3221,6 +3139,9 @@
                   </exemplum>
                   <remarks versionDate="2014-06-11" xml:lang="en">
                      <p>This element appears in several contexts throughout the files (such as <gi>seriesStmt</gi>), only the version in <gi>titleStmt</gi> should be edited by editors.</p>
+                  </remarks>
+                  <remarks versionDate="2014-06-11" xml:lang="en">
+                     <p><gi>title</gi> in <gi>seriesStmt</gi>) requires <att>level</att> with a value of ‘<val>s</val>’.</p>
                   </remarks>
                </elementSpec>
                
@@ -3319,13 +3240,27 @@
                         </rule>
                      </constraint>
                   </constraintSpec>
+                  <constraintSpec ident="div-subtype-for-encl-only" scheme="schematron">
+                     <constraint>
+                        <rule xmlns="http://purl.oclc.org/dsdl/schematron" context="tei:div[@subtype]">
+                           <report test="not(@type=('enclosure'))">ERROR: subtype must only be used if div="enclosure".</report>
+                        </rule>
+                        <rule xmlns="http://purl.oclc.org/dsdl/schematron" context="tei:div[@xml:id]">
+                           <report test="not(@type=('enclosure'))">ERROR: xml:id must only be used if div="enclosure".</report>
+                        </rule>
+                        <rule xmlns="http://purl.oclc.org/dsdl/schematron" context="tei:div[@type='enclosure']">
+                           <report test="not(@subtype)">ERROR: subtype is required when div="enclosure".</report>
+                           <report test="not(@xml:id)">ERROR: xml:id required when div="enclosure". </report>
+                        </rule>
+                     </constraint>
+                  </constraintSpec>
                   <attList>
                      <attDef ident="hand" mode="change"/>
                      <attDef ident="n" mode="change"><!-- TODO: REMOVE FROM FILES -->
                         <desc versionDate="2016-05-07" xml:lang="en">marks the enclosure number (deprecated). This attribute is no longer needed as enclosures are now automatically numbered.</desc>
                      </attDef>
-                     <attDef ident="subtype" mode="change">
-                        <desc versionDate="2016-05-07" xml:lang="en">marks the subtype of an enclosure. Valid values include '<val>letter</val>'<!--, '<val>translation</val>'--> and '<val>other</val>.</desc>
+                     <attDef ident="subtype" usage="opt" mode="change">
+                        <desc versionDate="2016-05-07" xml:lang="en">marks the subtype of an enclosure. Valid values include ‘<val>letter</val>’, ‘<val>translation</val>’ and ‘<val>other</val>’.</desc>
                         <valList type="closed" mode="replace">
                            <valItem ident="letter"/>
                            <valItem ident="other"/>
@@ -3346,10 +3281,14 @@
                            <valItem ident="translation"/>
                         </valList>
                      </attDef>
-                     <attDef ident="xml:id" mode="change">
-                        <!--NEW-->
+                     <attDef ident="xml:id" usage="opt" mode="change">
+                        <!--TODO: Review usage. It only appears on enclosures - when more than one occurs-->
+                        <datatype>
+                           <rng:data type="string">
+                              <rng:param name="pattern">encl\.\d+</rng:param>
+                           </rng:data>
+                        </datatype>
                      </attDef>
-                     <!--REMOVE-->
                      <attDef ident="ana" mode="delete"/>
                      <attDef ident="cert" mode="delete"/>
                      <attDef ident="change" mode="delete"/>
@@ -3373,12 +3312,15 @@
                   </attList>
                   <exemplum xml:lang="en">
                      <egXML xmlns="http://www.tei-c.org/ns/Examples">
-                        
-                        
+                        <div type="footnotes">
+                           <note xml:id="foot.f1">...</note>
+                           <note xml:id="foot.f2">...</note>
+                           <!-- etc -->
+                        </div>
                      </egXML>
                   </exemplum>
-                  <remarks versionDate="2014-05-27" xml:lang="en">
-                     <p/>
+                  <remarks versionDate="2023-06-12" xml:lang="en">
+                     <p><hi rend="bold">NB:</hi> <att>xml:id</att> only appears on <tag>div type="enclosure"</tag> containing more than one enclosure.</p>
                   </remarks>
                </elementSpec>
                
@@ -3441,7 +3383,6 @@
                            <valItem ident="insetBlock"/>
                         </valList>
                      </attDef>
-                     <!--REMOVE-->
                      <attDef ident="ana" mode="delete"/>
                      <attDef ident="cert" mode="delete"/>
                      <attDef ident="change" mode="delete"/>
@@ -3501,12 +3442,12 @@
                   <attList>
                      <attDef ident="xml:id" usage="req" mode="change">
                         <desc xml:lang="en" versionDate="2016-05-06">contains the canonical identifier for the document. This identifier, which also serves as the document’s filename, takes the form DCP-LETT- followed by the calendar number for the letter. For example, DCP-LETT-123. Any letters in the calendar number must be uppercase.</desc>
-                        <datatype><rng:data type="string">
-                           <rng:param name="pattern">DCP-LETT-[1-9][0-9]*[A-Z]*</rng:param>
-                        </rng:data>
+                        <datatype>
+                           <rng:data type="string">
+                              <rng:param name="pattern">DCP-LETT-[1-9][0-9]*[A-Z]*</rng:param>
+                           </rng:data>
                         </datatype>
                      </attDef>
-                     <!--REMOVE-->
                      <attDef ident="ana" mode="delete"/>
                      <attDef ident="cert" mode="delete"/>
                      <attDef ident="change" mode="delete"/>
@@ -3530,31 +3471,6 @@
                      <attDef ident="xml:lang" mode="delete"/>
                      <attDef ident="xml:space" mode="delete"/>
                   </attList>
-                  <!--<constraintSpec ident="casebooks-ns" scheme="schematron" mode="add">
-                     <constraint>
-                     <ns xmlns="http://purl.oclc.org/dsdl/schematron" prefix="cb" uri="http://casebooks"/>
-                     </constraint>
-                     </constraintSpec>-->
-                  <!--<constraintSpec ident="pb-locus-match" scheme="schematron" mode="add">
-                     <constraint>
-                     <assert xmlns="http://purl.oclc.org/dsdl/schematron" test="count(distinct-values(tei:teiHeader//tei:msContents//tei:locus/(@from|@to)))&lt;= count(tei:text//tei:pb)+1">ERROR: Missing pb according to locus/@from and @to values</assert>
-                     </constraint>
-                     </constraintSpec>-->
-                  <!--<constraintSpec ident="language-gap-but-no-text" scheme="schematron" mode="add">
-                     <constraint>
-                     <rule xmlns="http://purl.oclc.org/dsdl/schematron" context="tei:TEI[tei:text//tei:gap][string-length(normalize-space(string-join(tei:text,'')))=0]">
-                     <let xmlns="http://purl.oclc.org/dsdl/schematron" name="languages" value="tei:teiHeader//tei:langUsage/tei:language"/>
-                     <assert xmlns="http://purl.oclc.org/dsdl/schematron" test="$languages[@ident='und']">ERROR: language@ident='und' needed for empty transcription with gap.</assert>
-                     </rule>
-                     </constraint>
-                     </constraintSpec>-->
-                  <!--<constraintSpec ident="sameAs-needs-hash" scheme="schematron" mode="add">
-                     <constraint>
-                     <rule xmlns="http://purl.oclc.org/dsdl/schematron" context="tei:*[@sameAs]">
-                     <report xmlns="http://purl.oclc.org/dsdl/schematron" test="not(starts-with(@sameAs,'#'))">ERROR: <name/>@sameAs must start with '#' when pointing to @xml:id.</report>
-                     </rule>
-                     </constraint>
-                     </constraintSpec>-->
                   <exemplum xml:lang="en">
                      <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:space="preserve">
                         <TEI xml:id="DCP-LETT-10000">
@@ -3660,31 +3576,20 @@
                         </TEI>
                      </egXML>
                   </exemplum>
-                  <!--<remarks versionDate="2014-06-29" xml:lang="en">
-                     <p>This element is generated automatically before transcription begins.</p>
-                     </remarks>-->
                </elementSpec>
                
                <elementSpec module="textstructure" ident="text" mode="change">
-                  <!--<desc xml:lang="en" versionDate="2022-07-05"/>-->
                   <classes mode="change">
                      <memberOf key="att.declaring" mode="delete"/>
                      <memberOf key="att.global" mode="delete"/>
                      <memberOf key="att.typed" mode="delete"/>
                      <memberOf key="att.written" mode="delete"/>
                   </classes>
-                  <exemplum xml:lang="en">
-                     <egXML xmlns="http://www.tei-c.org/ns/Examples"/>
-                  </exemplum>
-                  <!--<remarks xml:lang="en" versionDate="2022-07-05">
-                     <p/>
-                     </remarks>-->
                </elementSpec>
                
                <!--Elements from msdescription-->
                
                <elementSpec module="msdescription" ident="collection" mode="change">
-                  <!--<desc xml:lang="en" versionDate="2022-07-05"/>-->
                   <classes mode="change">
                      <memberOf key="att.global" mode="delete"/>
                      <memberOf key="att.naming" mode="delete"/>
@@ -3701,13 +3606,9 @@
                         </msDesc>
                      </egXML>
                   </exemplum>
-                  <!--<remarks xml:lang="en" versionDate="2022-07-05">
-                     <p/>
-                     </remarks>-->
                </elementSpec>
                
                <elementSpec module="msdescription" ident="msDesc" mode="change">
-                  <!--<desc xml:lang="en" versionDate="2022-07-05"/>-->
                   <classes mode="change">
                      <memberOf key="att.declaring" mode="delete"/>
                      <memberOf key="att.docStatus" mode="delete"/>
@@ -3715,11 +3616,8 @@
                      <memberOf key="att.sortable" mode="delete"/>
                   </classes>
                   <attList>
-                     <attDef ident="type" mode="change">
-                        <!--NEW-->
-                     </attDef>
-                     <!--REMOVE-->
                      <attDef ident="subtype" mode="delete"/>
+                     <attDef ident="type" mode="delete"/>
                   </attList>
                   <exemplum xml:lang="en">
                      <egXML xmlns="http://www.tei-c.org/ns/Examples">
@@ -3777,7 +3675,6 @@
                         <datatype><dataRef key="teidata.text"/>
                         </datatype>
                      </attDef>
-                     <!--REMOVE-->
                      <attDef ident="nymRef" mode="delete"/>
                      <attDef ident="ref" mode="delete"/>
                      <attDef ident="role" mode="delete"/>
@@ -3801,6 +3698,7 @@
                
                
                <elementSpec ident="surface" module="transcr" mode="change">
+                  <!-- Document -->
                   <classes mode="change">
                      <memberOf key="att.coordinated" mode="delete"/>
                      <memberOf key="att.declaring" mode="delete"/>
@@ -3808,12 +3706,11 @@
                   </classes>
                   <attList>
                      <attDef ident="n" mode="change">
-                        <!--NEW-->
+                        <!--Document - according to CUDL Standards -->
                      </attDef>
                      <attDef ident="xml:id" mode="change">
-                        <!--NEW-->
+                        <!--Document - according to CUDL Standards -->
                      </attDef>
-                     <!--REMOVE-->
                      <attDef ident="ana" mode="delete"/>
                      <attDef ident="attachment" mode="delete"/>
                      <attDef ident="cert" mode="delete"/>
@@ -3838,37 +3735,11 @@
                      <attDef ident="xml:space" mode="delete"/>
                   </attList>
                   <remarks xml:lang="em" versionDate="2008-04-05">
-                     <p>There is no need for editors to concern themselves with this element. It is used to connect facsimile transcriptions to page images in CUDL and it will be maintained by Michael Hawkins.</p>
+                     <p>All coding within <gi>facsimile</gi> are taken from the CUDL master files for the source item.</p>
                   </remarks>
                </elementSpec>
                
                <!--Elements from namesdates-->
-               
-               <elementSpec module="namesdates" ident="forename" mode="change">
-                  <!--FIX: Remove after biblStruct gone-->
-                  <!--<desc xml:lang="en" versionDate="2022-07-05"/>-->
-                  <classes mode="change">
-                     <memberOf key="att.global" mode="delete"/>
-                     <memberOf key="att.typed" mode="delete"/>
-                  </classes>
-                  <attList>
-                     <attDef ident="full" mode="change">
-                        <!--NEW-->
-                     </attDef>
-                     <!--REMOVE-->
-                     <attDef ident="key" mode="delete"/>
-                     <attDef ident="nymRef" mode="delete"/>
-                     <attDef ident="ref" mode="delete"/>
-                     <attDef ident="role" mode="delete"/>
-                     <attDef ident="sort" mode="delete"/>
-                  </attList>
-                  <exemplum xml:lang="en">
-                     <egXML xmlns="http://www.tei-c.org/ns/Examples"/>
-                  </exemplum>
-                  <!--<remarks xml:lang="en" versionDate="2022-07-05">
-                     <p/>
-                     </remarks>-->
-               </elementSpec>
                
                <elementSpec module="namesdates" ident="orgName" mode="change">
                   <classes mode="change">
@@ -3900,10 +3771,6 @@
                         <datatype><ref xmlns="http://relaxng.org/ns/structure/1.0" name="data.pointer"/>
                         </datatype>
                      </attDef>
-                     <attDef ident="resp" mode="change">
-                        <!--NEW-->
-                     </attDef>
-                     <!--REMOVE-->
                      <attDef ident="ana" mode="delete"/>
                      <attDef ident="cert" mode="delete"/>
                      <attDef ident="change" mode="delete"/>
@@ -3919,6 +3786,7 @@
                      <attDef ident="ref" mode="delete"/>
                      <attDef ident="rend" mode="delete"/>
                      <attDef ident="rendition" mode="delete"/>
+                     <attDef ident="resp" mode="delete"/>
                      <attDef ident="role" mode="delete"/>
                      <attDef ident="sameAs" mode="delete"/>
                      <attDef ident="select" mode="delete"/>
@@ -3939,14 +3807,11 @@
                </elementSpec>
                
                <elementSpec ident="persName" module="namesdates" mode="change">
-                  <gloss versionDate="2014-04-25" xml:lang="en">personal name</gloss>
-                  <desc xml:lang="en" versionDate="2014-05-26">contains as many as appropriate of the component parts of a person's name, i.e. <gi>roleName</gi>, <gi>forename</gi>, <gi>surname</gi>, <gi>genName</gi>, <gi>nameLink</gi>, <gi>name</gi>.</desc>
                   <classes mode="change">
                      <memberOf key="att.datable" mode="delete"/>
                      <memberOf key="att.editLike" mode="delete"/>
                      <memberOf key="att.typed" mode="delete"/>
                   </classes>
-                  <!--<desc versionDate="2014-04-25" xml:lang="en">is used in cases where it is unclear whether the name given is a forename or surname (or, indeed, nickname or anything else).</desc>-->
                   <constraintSpec ident="persName-link-check" scheme="schematron">
                      <constraint>
                         <rule xmlns="http://purl.oclc.org/dsdl/schematron" context="tei:persName[ancestor::tei:correspAction][normalize-space(@key)]">
@@ -3965,9 +3830,44 @@
                         </rule>
                      </constraint>
                   </constraintSpec>
+                  <constraintSpec ident="persName-exclude-must-point-to-name-in-same-context" scheme="schematron">
+                     <constraint>
+                        <rule xmlns="http://purl.oclc.org/dsdl/schematron" context="tei:persName[@exclude]">
+                           <let xmlns="http://purl.oclc.org/dsdl/schematron" name="xmlid" value="concat('#',@xml:id)"/>
+                           <let xmlns="http://purl.oclc.org/dsdl/schematron" name="exclude_vals" value="tokenize(normalize-space(@exclude),' ')"/>
+                           <let xmlns="http://purl.oclc.org/dsdl/schematron" name="sibling_name_elem_xmlids" value="parent::*/tei:*[self::tei:persName|self::tei:orgName|self::tei:name]/concat('#',@xml:id)"/>
+                           <report xmlns="http://purl.oclc.org/dsdl/schematron" test="count($exclude_vals[not(. = $sibling_name_elem_xmlids)]) != 0">ERROR: <name/>@exclude (<value-of select="$exclude_vals[not(. = $sibling_name_elem_xmlids)]"/>) does not point to a name in the same correspAction.</report>
+                           <report xmlns="http://purl.oclc.org/dsdl/schematron" test="exists($sibling_name_elem_xmlids[not(.= $xmlid)][not(. = $exclude_vals)])">ERROR: <name/>'s @exclude does not point to (<value-of select="$sibling_name_elem_xmlids[not(.= $xmlid)][not(. = $exclude_vals)]"/>).</report>
+                        </rule>
+                     </constraint>
+                  </constraintSpec>
+                  <constraintSpec ident="persName-exclude-points-to-self" scheme="schematron">
+                     <constraint>
+                        <rule xmlns="http://purl.oclc.org/dsdl/schematron" context="tei:persName[@exclude]">
+                           <report xmlns="http://purl.oclc.org/dsdl/schematron" test="normalize-space(@exclude) != '' and tokenize(@exclude,'\s+')=concat('#',@xml:id)">ERROR: <name/>@exclude value (<value-of select="concat('#',@xml:id)"/>) points to same element as itself</report>
+                        </rule>
+                     </constraint>
+                  </constraintSpec>
+                  <constraintSpec ident="persName-exclude-not-xmlid" scheme="schematron">
+                     <constraint>
+                        <rule xmlns="http://purl.oclc.org/dsdl/schematron" context="tei:persName[@exclude]">
+                           <report xmlns="http://purl.oclc.org/dsdl/schematron" test="normalize-space(@exclude) != '' and not(@xml:id[normalize-space(.)])">ERROR: <name/> needs @xml:id</report>
+                        </rule>
+                     </constraint>
+                  </constraintSpec>
+                  <constraintSpec ident="persName-xmlid-not-exclude" scheme="schematron">
+                     <constraint>
+                        <rule xmlns="http://purl.oclc.org/dsdl/schematron" context="tei:persName[@xml:id]">
+                           <report xmlns="http://purl.oclc.org/dsdl/schematron" test="normalize-space(@xml:id) != '' and not(@exclude[normalize-space(.)])">ERROR: <name/> only needs @xml:id if it's an @exclude option.</report>
+                        </rule>
+                     </constraint>
+                  </constraintSpec>
                   <attList>
                      <attDef ident="exclude" mode="change">
-                        <!--NEW-->
+                        <!-- TODO: Review all four letters that have excluded names within them
+                                   The coding is a little inconsistent
+                                   Review XSLT to confirm they will be processed as required
+                        -->
                      </attDef>
                      <attDef ident="key" usage="opt" mode="change">
                         <desc xml:lang="en" versionDate="2016-05-06">Points to the namereg authority file for the individual - i.e. "../nameregs/nameregs_1.xml"</desc>
@@ -3975,12 +3875,21 @@
                         </datatype>
                      </attDef>
                      <attDef ident="resp" mode="change">
-                        <!--NEW-->
+                        <!--TODO: Incorrect coding. Currently contains @cert value -->
+                        <remarks xml:lang="en" versionDate="2023-06-12">
+                           <p>This element should not be used by editors. It is only used to indicate the agent that performed the global update of this field. It will almost always be ‘<val>#mjhawkins</val>’ or ‘<val>#automat</val>’.</p>
+                           <p>NB: Any editor changing or reviewing this element should confirm its accuracy and make any changes necessary. <att>resp</att> and <att>cert</att> can be removed once the data has been reviewed or fixed by the editor.</p>
+                        </remarks>
                      </attDef>
-                     <attDef ident="xml:id" mode="change">
-                        <!--NEW-->
+                     <attDef ident="cert" mode="change">
+                        <remarks xml:lang="en" versionDate="2023-06-12">
+                           <p>This element should not be used by editors. It is only used to indicate the accuracy of the machine-processing by the agent recorded in <att>resp</att>.</p>
+                           <p>NB: Any editor changing or reviewing this element should confirm its accuracy and make any changes necessary. <att>resp</att> and <att>cert</att> can be removed once the data has been reviewed or fixed by the editor.</p>
+                        </remarks>
                      </attDef>
-                     <!--REMOVE-->
+                     <attDef ident="xml:id" usage="opt" mode="change">
+                        <desc xml:lang="en" versionDate="2023-06-12">provides a unique identifier for the name. Should only be used when it is one of a mutually exclusive set of names.</desc>
+                     </attDef>
                      <attDef ident="ana" mode="delete"/>
                      <attDef ident="cert" mode="delete"/>
                      <attDef ident="change" mode="delete"/>
@@ -4006,48 +3915,20 @@
                      <attDef ident="xml:lang" mode="delete"/>
                      <attDef ident="xml:space" mode="delete"/>
                   </attList>
-                  <!--<exemplum xml:lang="en">
-                     <egXML xmlns="http://www.tei-c.org/ns/Examples">
-                     <persName><roleName>Mr</roleName> <forename>John</forename> <surname>Perkins</surname></persName>
-                     or 
-                     <persName><roleName>Lady</roleName> <surname>Throckmorton</surname></persName>
-                     </egXML>
-                     </exemplum>-->
                   <exemplum xml:lang="en">
                      <egXML xmlns="http://www.tei-c.org/ns/Examples">
                         <persName key="../nameregs/nameregs_1.xml">Darwin, C. R.</persName>
                      </egXML>
                   </exemplum>
-                  <!--<exemplum xml:lang="en">
-                     <egXML xmlns="http://www.tei-c.org/ns/Examples">
-                     <persName><surname>Darwin</surname>, <forename>Charles Robert</forename></persName>
-                     <persName type="canonical"><surname>Darwin</surname>, <forename>C. R.</forename></persName>
-                     </egXML>
-                     </exemplum>-->
-                  <!--<exemplum xml:lang="en">
-                     <egXML xmlns="http://www.tei-c.org/ns/Examples">
-                     <persName><surname>Cooper</surname>, <forename>Anthony Ashley</forename></persName>
-                     <persName type="canonical">
-                     <roleName><placeName>Shaftesbury</placeName>, <roleName type="title">Lord</roleName></roleName>
-                     </persName>
-                     </egXML>
-                     </exemplum>-->
-                  <!--<exemplum xml:lang="en">
-                     <egXML xmlns="http://www.tei-c.org/ns/Examples">
-                     <persName><surname>Hoeven</surname>, <forename>Jan</forename> <nameLink>van der</nameLink></persName>
-                     </egXML>
-                     </exemplum>-->
                   <remarks versionDate="2014-04-25" xml:lang="en">
                      <p><gi>persName</gi> is ony used to record an individual's name (or names) or the names of a group of individuals whose personal names are not known (for example, the Editors of Nature or Fellows of the Linnean Society). Each identifiable ’individual‘ should be coded with their own <gi>persName</gi>. Should you wish to record an organisation's name (like The Linnean Society), see <gi>orgName</gi> </p>
-                     <p>Within the letter transcription files, the shorten version should be used <tag>persName key="../nameregs/nameregs_1.xml"</tag>Darwin, Charles Robert<tag>/persName</tag> should be used. The more expanded versions should be used within the names files.</p>
-                     <p>If some or all of a person's name is not explicitly stated, or is given in code, or is drastically abbreviated, but can be deduced from external evidence, <gi>persName</gi>, <gi>forename</gi>, <gi>surname</gi>, <gi>name</gi> and<gi>genName</gi> can all take an <att>evidence</att> value of "<val>external</val>". If it is based on conjecture based on information within the letter, <att>evidence</att> should have a value of "<val>conjecture</val>".</p>
+                     <p>Within the letter transcription files, the shorter version should be used <egXML xmlns="http://www.tei-c.org/ns/Examples"><persName key="../nameregs/nameregs_1.xml">Darwin, C. R.</persName></egXML> should be used. The more expanded versions should be used within the names files.</p>
                      <p>If there is any doubt about the identification, a <att>cert</att> value of "<val>high</val>", "<val>medium</val>" or "<val>low</val>" may be added to either <gi>persName</gi> or any of its component parts.</p>
                      <p>The proper nouns in <gi>persName</gi> should be given in regularised forms as established in projec guidelines.</p>
                   </remarks>
                </elementSpec>
                
                <elementSpec module="namesdates" ident="placeName" mode="change">
-                  <!--<desc xml:lang="en" versionDate="2022-07-05"/>-->
                   <classes mode="change">
                      <memberOf key="att.datable" mode="delete"/>
                      <memberOf key="att.editLike" mode="delete"/>
@@ -4079,45 +3960,20 @@
                
                <elementSpec module="namesdates" ident="roleName" mode="change">
                   <!--Legacy coding - original to be updated -->
-                  <!-- review usage //*[self::roleName|self::surname|self::forename][not(ancestor::biblStruct)] -->
-                  <!--<desc xml:lang="en" versionDate="2022-07-05"/>-->
+                  <!-- Review usage -->
                   <classes mode="change">
                      <memberOf key="att.global" mode="delete"/>
                      <memberOf key="att.personal" mode="delete"/>
                      <memberOf key="att.typed" mode="delete"/>
                   </classes>
-                  <exemplum xml:lang="en">
-                     <egXML xmlns="http://www.tei-c.org/ns/Examples"/>
-                  </exemplum>
-                  <!--<remarks xml:lang="en" versionDate="2022-07-05">
-                     <p/>
-                     </remarks>-->
-               </elementSpec>
-               
-               <elementSpec module="namesdates" ident="surname" mode="change">
-                  <!--NEW-->
-                  <desc xml:lang="en" versionDate="2022-08-05"/>
-                  <classes mode="change">
-                     <memberOf key="att.global" mode="delete"/>
-                     <memberOf key="att.personal" mode="delete"/>
-                     <memberOf key="att.typed" mode="delete"/>
-                  </classes>
-                  <exemplum xml:lang="en">
-                     <egXML xmlns="http://www.tei-c.org/ns/Examples"/>
-                  </exemplum>
-                  <remarks xml:lang="en" versionDate="2022-08-05">
-                     <p/>
-                  </remarks>
                </elementSpec>
                
                <!--Elements from figures-->
                
                <elementSpec module="figures" ident="cell" mode="change">
                   <attList>
-                     <attDef ident="cols" mode="change">
-                        <!--NEW-->
-                     </attDef>
-                     <attDef ident="rend" usage="opt" mode="change"><gloss versionDate="2014-06-03" xml:lang="en">rendition</gloss><!--<desc versionDate="2014-04-20" xml:lang="en">values are "<val>bold</val>" (bold), "<val>dropCap</val>" (drop capital), "<val>italic</val>" (italic), "<val>overline</val>" (overlined), "<val>smallCaps</val>" (<hi rend="smallCaps">Small Capitals</hi>), "<val>subscript</val>" (subscripted), "<val>superscript</val>" (superscripted), "<val>underline</val>" (single underlined), "<val>doubleUnderline</val>" (double underlined). <att>rend</att> can also be used to indicate changes in text size with "<val>large</val>", "<val>larger</val>", "<val>largest</val>" and "<val>small</val>", "<val>smaller</val>", "<val>smallest</val>". It can also be used to indicate printed text (<hi rend="italic">e.g.</hi> in the letterhead) using "<val>print</val>" or that the text is typescript with "<val>typescript</val>".</desc>-->
+                     <attDef ident="cols" usage="opt" mode="change"/>
+                     <attDef ident="rend" usage="opt" mode="change">
                         <valList type="closed" mode="replace">
                            <valItem ident="right"/>
                            <valItem ident="left"/>
@@ -4127,7 +3983,8 @@
                            <valItem ident="borderLeft"/>
                            <valItem ident="borderRight"/>
                            <valItem ident="borderSides"/>
-                           <valItem ident="borderTop"/><!--<valItem ident="borderAllDouble"/>
+                           <valItem ident="borderTop"/>
+                           <!--<valItem ident="borderAllDouble"/>
                               <valItem ident="borderBottomDouble"/>
                               <valItem ident="borderLeftDouble"/>
                               <valItem ident="borderRightDouble"/>
@@ -4160,10 +4017,7 @@
                            <valItem ident="width100"/>
                         </valList>
                      </attDef>
-                     <attDef ident="rows" mode="change">
-                        <!--NEW-->
-                     </attDef>
-                     <!--REMOVE-->
+                     <attDef ident="rows" usage="opt" mode="change"/>
                      <attDef ident="ana" mode="delete"/>
                      <attDef ident="cert" mode="delete"/>
                      <attDef ident="change" mode="delete"/>
@@ -4195,7 +4049,7 @@
                      <memberOf key="att.written" mode="delete"/>
                   </classes>
                   <attList>
-                     <attDef ident="rend" usage="opt" mode="change"><gloss versionDate="2014-06-03" xml:lang="en">rendition</gloss><!--<desc versionDate="2014-04-20" xml:lang="en">values are "<val>bold</val>" (bold), "<val>dropCap</val>" (drop capital), "<val>italic</val>" (italic), "<val>overline</val>" (overlined), "<val>smallCaps</val>" (<hi rend="smallCaps">Small Capitals</hi>), "<val>subscript</val>" (subscripted), "<val>superscript</val>" (superscripted), "<val>underline</val>" (single underlined), "<val>doubleUnderline</val>" (double underlined). <att>rend</att> can also be used to indicate changes in text size with "<val>large</val>", "<val>larger</val>", "<val>largest</val>" and "<val>small</val>", "<val>smaller</val>", "<val>smallest</val>". It can also be used to indicate printed text (<hi rend="italic">e.g.</hi> in the letterhead) using "<val>print</val>" or that the text is typescript with "<val>typescript</val>".</desc>-->
+                     <attDef ident="rend" usage="opt" mode="change">
                         <valList type="closed" mode="replace">
                            <valItem ident="floatRight"/>
                            <valItem ident="floatLeft"/>
@@ -4226,9 +4080,8 @@
                         </valList>
                      </attDef>
                      <attDef ident="type" mode="change">
-                        <!--NEW-->
+                        <!--TODO: Legacy coding. Review XML and XSLT-->
                      </attDef>
-                     <!--REMOVE-->
                      <attDef ident="ana" mode="delete"/>
                      <attDef ident="cert" mode="delete"/>
                      <attDef ident="change" mode="delete"/>
@@ -4276,7 +4129,8 @@
                            <valItem ident="borderLeft"/>
                            <valItem ident="borderRight"/>
                            <valItem ident="borderSides"/>
-                           <valItem ident="borderTop"/><!--<valItem ident="borderAllDouble"/>
+                           <valItem ident="borderTop"/>
+                           <!--<valItem ident="borderAllDouble"/>
                               <valItem ident="borderBottomDouble"/>
                               <valItem ident="borderLeftDouble"/>
                               <valItem ident="borderRightDouble"/>
@@ -4287,7 +4141,6 @@
                            <valItem ident="vAlignBottom"/>
                         </valList>
                      </attDef>
-                     <!--REMOVE-->
                      <attDef ident="ana" mode="delete"/>
                      <attDef ident="cert" mode="delete"/>
                      <attDef ident="change" mode="delete"/>
@@ -4317,7 +4170,7 @@
                      <memberOf key="att.typed" mode="delete"/>
                   </classes>
                   <attList>
-                     <attDef ident="rend" usage="opt" mode="change"><gloss versionDate="2014-06-03" xml:lang="en">rendition</gloss><!--<desc versionDate="2014-04-20" xml:lang="en">values are "<val>bold</val>" (bold), "<val>dropCap</val>" (drop capital), "<val>italic</val>" (italic), "<val>overline</val>" (overlined), "<val>smallCaps</val>" (<hi rend="smallCaps">Small Capitals</hi>), "<val>subscript</val>" (subscripted), "<val>superscript</val>" (superscripted), "<val>underline</val>" (single underlined), "<val>doubleUnderline</val>" (double underlined). <att>rend</att> can also be used to indicate changes in text size with "<val>large</val>", "<val>larger</val>", "<val>largest</val>" and "<val>small</val>", "<val>smaller</val>", "<val>smallest</val>". It can also be used to indicate printed text (<hi rend="italic">e.g.</hi> in the letterhead) using "<val>print</val>" or that the text is typescript with "<val>typescript</val>".</desc>-->
+                     <attDef ident="rend" usage="opt" mode="change">
                         <valList type="closed" mode="replace">
                            <valItem ident="inlineBlock"/>
                            <valItem ident="left"/>
@@ -4328,12 +4181,14 @@
                            <valItem ident="borderLeft"/>
                            <valItem ident="borderRight"/>
                            <valItem ident="borderSides"/>
-                           <valItem ident="borderTop"/><!--<valItem ident="borderAllDouble"/>
+                           <valItem ident="borderTop"/>
+                           <!--<valItem ident="borderAllDouble"/>
                               <valItem ident="borderBottomDouble"/>
                               <valItem ident="borderLeftDouble"/>
                               <valItem ident="borderRightDouble"/>
                               <valItem ident="borderSidesDouble"/>
-                              <valItem ident="borderTopDouble"/>--><!--<valItem ident="mtrow-0"/>
+                              <valItem ident="borderTopDouble"/>-->
+                           <!--<valItem ident="mtrow-0"/>
                               <valItem ident="mtrow-1"/>
                               <valItem ident="mtrow-2"/>
                               <valItem ident="mtrow-3"/>
@@ -4390,7 +4245,6 @@
                            <valItem ident="width100"/>
                         </valList>
                      </attDef>
-                     <!--REMOVE-->
                      <attDef ident="ana" mode="delete"/>
                      <attDef ident="cert" mode="delete"/>
                      <attDef ident="change" mode="delete"/>
@@ -4420,11 +4274,6 @@
                <!--Elements from linking-->
                
                <elementSpec module="linking" ident="ab" mode="change">
-                  <!--<gloss versionDate="2005-01-14" xml:lang="en">anonymous block</gloss>-->
-                  <!--<desc versionDate="2005-01-14" xml:lang="en">contains any arbitrary component-level unit of text, acting as an anonymous container for phrase or inter level elements analogous to, but without the semantic baggage of, a paragraph.</desc>-->
-                  <!--<content>
-                     <rng:ref name="macro.paraContent"/>
-                     </content>-->
                   <classes mode="change">
                      <memberOf key="att.declaring" mode="delete"/>
                      <memberOf key="att.fragmentable" mode="delete"/>
@@ -4432,17 +4281,9 @@
                   </classes>
                   <attList>
                      <attDef ident="rend" usage="opt" mode="change">
-                        <valList type="closed" mode="replace"><!--<valItem ident="right"/>--><!--<valItem ident="left"/>-->
+                        <valList type="closed" mode="replace">
                            <valItem ident="blockquote"/>
-                           <valItem ident="centre"/><!--<valItem ident="indent0"/>
-                              <valItem ident="indent1"/>
-                              <valItem ident="indent2"/>
-                              <valItem ident="indent3"/>
-                              <valItem ident="blockIndent"/>
-                              <valItem ident="handingIndent1"/>
-                              <valItem ident="handingIndent2"/>
-                              <valItem ident="handingIndent3"/>
-                              <valItem ident="insetBlock"/>-->
+                           <valItem ident="centre"/>
                         </valList>
                      </attDef>
                      <attDef ident="type" usage="opt" mode="change">
@@ -4453,7 +4294,6 @@
                            <valItem ident="opener"/>
                         </valList>
                      </attDef>
-                     <!--REMOVE-->
                      <attDef ident="ana" mode="delete"/>
                      <attDef ident="cert" mode="delete"/>
                      <attDef ident="change" mode="delete"/>
@@ -4492,15 +4332,15 @@
                      Used 198 files to record the start and end of annotations.
                      Likely can be used to update tnotes so that they are accurate.
                   -->
-                  <!--<desc xml:lang="en" versionDate="2022-07-05"/>-->
                   <attList>
-                     <attDef ident="type" mode="change">
-                        <!--NEW-->
+                     <attDef ident="type" usage="req" mode="change">
+                        <desc versionDate="2012-12-27" xml:lang="en">indicates the type of anchor. [Legacy coding]</desc>
+                        <valList type="closed" mode="replace">
+                           <valItem ident="annotationStart"/>
+                           <valItem ident="annotationEnd"/>
+                        </valList>
                      </attDef>
-                     <attDef ident="xml:id" mode="change">
-                        <!--NEW-->
-                     </attDef>
-                     <!--REMOVE-->
+                     <attDef ident="xml:id" usage="req" mode="change"/>
                      <attDef ident="ana" mode="delete"/>
                      <attDef ident="cert" mode="delete"/>
                      <attDef ident="change" mode="delete"/>
@@ -4524,32 +4364,9 @@
                      <attDef ident="xml:lang" mode="delete"/>
                      <attDef ident="xml:space" mode="delete"/>
                   </attList>
-                  <exemplum xml:lang="en">
-                     <egXML xmlns="http://www.tei-c.org/ns/Examples"/>
-                  </exemplum>
-                  <!--<remarks xml:lang="en" versionDate="2022-07-05">
-                     <p/>
-                     </remarks>-->
                </elementSpec>
                
                <elementSpec module="linking" ident="seg" mode="change">
-                  <!--<constraintSpec ident="check-seg-nesting" scheme="schematron" mode="add">
-                     <constraint>
-                     <rule xmlns="http://purl.oclc.org/dsdl/schematron" context="tei:seg[@type=('supplemental','original','translation')]">
-                     <report xmlns="http://purl.oclc.org/dsdl/schematron" test="@type='supplemental' and not(parent::tei:opener)">ERROR: <name/>/@type='supplemental' must be a child of opener.</report>
-                     <report xmlns="http://purl.oclc.org/dsdl/schematron" test="@type=('original','translation') and not(parent::tei:choice) and not(ancestor::tei:title)">ERROR: <name/>/@type='<value-of select="@type"/>' must be a child of title.</report>
-                     </rule>
-                     </constraint>
-                     </constraintSpec>-->
-                  <!--<constraintSpec ident="ensure-type-added" scheme="schematron" mode="add">
-                     <constraint>
-                     <rule xmlns="http://purl.oclc.org/dsdl/schematron" context="tei:seg[not(@type=('supplemental','original','translation'))]">
-                     <let xmlns="http://purl.oclc.org/dsdl/schematron" name="values-in-title" value="//tei:titleStmt/tei:title//tei:seg/@type"/>
-                     <report xmlns="http://purl.oclc.org/dsdl/schematron" test="parent::tei:opener">ERROR: <name/> inside opener needs type='supplemental'.</report>
-                     <report xmlns="http://purl.oclc.org/dsdl/schematron" test="parent::tei:choice and ancestor::tei:title">ERROR: <name/> in title needs type='<value-of select="string-join(('original','translation')[not(. = $values-in-title)],''' or ''')"/>'.</report>
-                     </rule>
-                     </constraint>
-                     </constraintSpec>-->
                   <classes mode="change">
                      <memberOf key="att.notated" mode="delete"/>
                      <memberOf key="att.segLike" mode="delete"/>
@@ -4582,7 +4399,6 @@
                            <valItem ident="salute"/>
                         </valList>
                      </attDef>
-                     <!--REMOVE-->
                      <attDef ident="ana" mode="delete"/>
                      <attDef ident="cert" mode="delete"/>
                      <attDef ident="change" mode="delete"/>

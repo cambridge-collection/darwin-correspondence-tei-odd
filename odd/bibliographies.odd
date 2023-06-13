@@ -3,7 +3,7 @@
    <teiHeader>
       <fileDesc>
          <titleStmt>
-            <title>Element Set (Bibliographies)</title>
+            <title>Bibliographies Transcription Guide</title>
             <author>Michael Hawkins</author>
          </titleStmt>
          <publicationStmt>
@@ -135,7 +135,7 @@
             <!--Elements from header-->
 
             <elementSpec module="header" ident="idno" mode="change">
-               <!--NEW-->
+               <!--TODO: Review this elem -->
                <desc xml:lang="en" versionDate="2022-08-08"/>
                <classes mode="change">
                   <memberOf key="att.datable" mode="delete"/>
@@ -144,20 +144,13 @@
                   <memberOf key="att.typed" mode="delete"/>
                </classes>
                <attList>
-                  <!--REMOVE-->
                   <attDef ident="type" mode="delete"/>
                </attList>
-               <exemplum xml:lang="en">
-                  <egXML xmlns="http://www.tei-c.org/ns/Examples"/>
-               </exemplum>
-               <remarks xml:lang="en" versionDate="2022-08-08">
-                  <p/>
-               </remarks>
             </elementSpec>
 
             <!--Elements from core-->
 
-            <elementSpec ident="bibl" module="core" mode="change" xml:base="elements-bibl/bibl.xml" xml:lang="">
+            <elementSpec ident="bibl" module="core" mode="change" xml:base="elements-bibl/bibl.xml">
                <classes mode="change">
                   <memberOf key="att.declarable" mode="delete"/>
                   <memberOf key="att.sortable" mode="delete"/>
@@ -186,9 +179,8 @@
                      </valList>
                   </attDef>
                   <attDef ident="xml:id" mode="change">
-                     <!--NEW-->
+                     <!--TODO: Review use of bibl/@xml:id and document -->
                   </attDef>
-                  <!--REMOVE-->
                   <attDef ident="ana" mode="delete"/>
                   <attDef ident="cert" mode="delete"/>
                   <attDef ident="change" mode="delete"/>
@@ -212,239 +204,8 @@
                   <attDef ident="xml:space" mode="delete"/>
                </attList>
             </elementSpec>
-
-            <elementSpec ident="date" module="core" mode="change" xml:base="elements-lett/date.xml" xml:lang="">
-               <desc versionDate="2014-05-21" xml:lang="en">records a date or date range using ISO format (yyyy-mm-dd).</desc>
-               <classes mode="change">
-                  <memberOf key="att.canonical" mode="delete"/>
-                  <memberOf key="att.dimensions" mode="delete"/>
-                  <memberOf key="att.duration" mode="delete"/>
-                  <memberOf key="att.editLike" mode="delete"/>
-                  <memberOf key="att.global" mode="delete"/>
-                  <memberOf key="att.typed" mode="delete"/>
-               </classes>
-               <constraintSpec ident="date-exclude" scheme="schematron">
-                  <constraint>
-                     <rule xmlns="http://purl.oclc.org/dsdl/schematron" context="tei:date">
-                        <let name="current_date" value="."/>
-                        <let name="context" value="//ancestor::*[local-name()=('correspDesc','birth','death','event')][1]/local-name()"/>
-                        <let name="all_dates" value="$current_date//ancestor::*[local-name()=$context]//tei:date"/>
-                        <report test="normalize-space(@exclude) != '' and count(tokenize(@exclude,'\s+')[.=$all_dates[not(@xml:id=$current_date/@xml:id)]/concat('#',@xml:id)]) != count(tokenize(@exclude,'\s+'))">ERROR: <name/>@exclude value(s) (<value-of select="tokenize(@exclude,'\s+')[not(.=$all_dates[not(@xml:id=$current_date/@xml:id)]/concat('#',@xml:id))]"/>) does not point to <value-of select="$context"/>//date/@xml:id</report>
-                     </rule>
-                  </constraint>
-               </constraintSpec>
-               <constraintSpec ident="date-exclude-points-to-self" scheme="schematron">
-                  <constraint>
-                     <report xmlns="http://purl.oclc.org/dsdl/schematron" test="@exclude and normalize-space(@exclude) != '' and tokenize(@exclude,'\s+')=concat('#',@xml:id)">ERROR: <name/>@exclude value (<value-of select="concat('#',@xml:id)"/>) points to same element as itself</report>
-                  </constraint>
-               </constraintSpec>
-               <constraintSpec ident="date-exclude-not-xmlid" scheme="schematron">
-                  <constraint>
-                     <report xmlns="http://purl.oclc.org/dsdl/schematron" test="@exclude and normalize-space(@exclude) != '' and not(@xml:id)">ERROR: <name/> needs @xml:id</report>
-                  </constraint>
-               </constraintSpec>
-               <constraintSpec ident="date-xmlid-not-exclude" scheme="schematron">
-                  <constraint>
-                     <rule xmlns="http://purl.oclc.org/dsdl/schematron" context="tei:date[@xml:id]">
-                        <let name="elem" value="."/>
-                        <let name="tei_root" value="ancestor::tei:TEI"/>
-                        <assert test="concat('#',$elem/@xml:id) = ($tei_root/tei:teiHeader//tei:date/@sameAs,$tei_root/tei:teiHeader//tei:date/tokenize(@exclude,'\s+'))">ERROR: <name/>@xml:id must be the target of date@exclude or date@sameAs</assert>
-                     </rule>
-                  </constraint>
-               </constraintSpec>
-               <constraintSpec ident="date-sameas-check" scheme="schematron">
-                  <constraint>
-                     <rule xmlns="http://purl.oclc.org/dsdl/schematron" context="tei:date[@sameAs]">
-                        <let name="elem" value="."/>
-                        <let name="tei_root" value="ancestor::tei:TEI"/>
-                        <assert test="@sameAs = ($tei_root/tei:teiHeader//tei:date|$tei_root/tei:text//tei:rs[@type='date'])/concat('#',@xml:id)">ERROR: <name/>@sameAs must point to date@xml:id</assert>
-                     </rule>
-                  </constraint>
-               </constraintSpec>
-               <constraintSpec ident="date-xmlid-not-linked-to" scheme="schematron">
-                  <constraint>
-                     <rule xmlns="http://purl.oclc.org/dsdl/schematron" context="tei:date">
-                        <let name="current_date" value="."/>
-                        <let name="context" value="//ancestor::*[local-name()=('correspDesc','birth','death','event')][1]/local-name()"/>
-                        <let name="all_dates" value="$current_date//ancestor::*[local-name()=$context]//tei:date"/>
-                        <report test="@exclude and not(concat('#',@xml:id) = $all_dates/tokenize(@exclude,'\s+'))">ERROR: <name/> is not the target of any @exclude</report>
-                     </rule>
-                  </constraint>
-               </constraintSpec>
-               <constraintSpec ident="date-exclude-missed-xmlid" scheme="schematron">
-                  <constraint>
-                     <rule xmlns="http://purl.oclc.org/dsdl/schematron" context="tei:date">
-                        <let name="current_date" value="."/>
-                        <let name="context" value="//ancestor::*[local-name()=('correspDesc','birth','death','event')][1]/local-name()"/>
-                        <let name="all_dates" value="$current_date//ancestor::*[local-name()=$context]//tei:date"/>
-                        <report test="@exclude and normalize-space(@exclude)!='' and count( tokenize(@exclude,'\s+')[.= $all_dates/concat('#',@xml:id)]) != count($all_dates[@xml:id])-1">ERROR: <name/> does not link to (<value-of select="$all_dates[not(@xml:id=$current_date/@xml:id)]/concat('#',@xml:id)[not(.=tokenize($current_date/@exclude,'\s+'))]"/>)</report>
-                     </rule>
-                  </constraint>
-               </constraintSpec>
-               <constraintSpec ident="date-xmlid-not-in-all-other-dates" scheme="schematron">
-                  <constraint>
-                     <rule xmlns="http://purl.oclc.org/dsdl/schematron" context="tei:date">
-                        <let name="current_date" value="."/>
-                        <let name="context" value="//ancestor::*[local-name()=('correspDesc','birth','death','event')][1]/local-name()"/>
-                        <let name="all_dates" value="$current_date//ancestor::*[local-name()=$context]//tei:date"/>
-                        <report test="normalize-space(@xml:id)!='' and count($all_dates[tokenize(@exclude,'\s+') = $current_date/concat('#',@xml:id)]) != count($all_dates[not(@xml:id=$current_date/@xml:id)])">ERROR: <name/> is not the target of all the other <value-of select="$context"/>//date@exclude</report>
-                     </rule>
-                  </constraint>
-               </constraintSpec>
-               <constraintSpec ident="date-notAfter-gt-notBefore" scheme="schematron">
-                  <constraint>
-                     <rule xmlns="http://purl.oclc.org/dsdl/schematron" context="tei:date[@notBefore[. castable as xs:date or . castable as xs:gYearMonth or . castable as xs:gYear] and @notAfter[. castable as xs:date or . castable as xs:gYearMonth or . castable as xs:gYear]]">
-                        <assert test="xs:date(string-join((tokenize(@notAfter,'-'),'01','01')[position() le 3],'-')) gt xs:date(string-join((tokenize(@notBefore,'-'),'01','01')[position() le 3],'-'))">ERROR: <name/>@notBefore must be less than @notAfter</assert>
-                     </rule>
-                  </constraint>
-               </constraintSpec>
-               <constraintSpec ident="date-to-gt-from" scheme="schematron">
-                  <constraint>
-                     <rule xmlns="http://purl.oclc.org/dsdl/schematron" context="tei:date[@to[. castable as xs:date or . castable as xs:gYearMonth or . castable as xs:gYear] and @from[. castable as xs:date or . castable as xs:gYearMonth or . castable as xs:gYear]]">
-                        <assert test="xs:date(string-join((tokenize(@to,'-'),'01','01')[position() le 3],'-')) gt xs:date(string-join((tokenize(@from,'-'),'01','01')[position() le 3],'-'))">ERROR: <name/>@from must be less than @to</assert>
-                     </rule>
-                  </constraint>
-               </constraintSpec>
-               <constraintSpec ident="date-attr-custom-are-datetime" scheme="schematron">
-                  <constraint>
-                     <rule xmlns="http://purl.oclc.org/dsdl/schematron" context="tei:date[@notBefore-custom|@notAfter-custom|@when-custom]">
-                        <report test="count((@notBefore-custom|@notAfter-custom|@when-custom)[not(. castable as xs:dateTime)])&gt;0">ERROR: <name/>@<value-of select="(@notBefore-custom|@notAfter-custom|@when-custom)[not(. castable as xs:dateTime)]/local-name()"/> is not a valid dateTime value</report>
-                     </rule>
-                  </constraint>
-               </constraintSpec>
-               <constraintSpec ident="date-when-is-valid" scheme="schematron">
-                  <constraint>
-                     <rule xmlns="http://purl.oclc.org/dsdl/schematron" context="tei:date[@when][ancestor::tei:correspDesc]">
-                        <assert test="@when castable as xs:date">ERROR: <name/>@when is not a valid date (yyyy-mm-dd)</assert>
-                     </rule>
-                  </constraint>
-               </constraintSpec>
-               <constraintSpec ident="date-notBefore-is-valid" scheme="schematron">
-                  <constraint>
-                     <rule xmlns="http://purl.oclc.org/dsdl/schematron" context="tei:date[@notBefore][ancestor::tei:correspDesc]">
-                        <assert test="@notBefore castable as xs:date">ERROR: <name/>@notBefore is not a valid date (yyyy-mm-dd)</assert>
-                     </rule>
-                  </constraint>
-               </constraintSpec>
-               <constraintSpec ident="date-notAfter-is-valid" scheme="schematron">
-                  <constraint>
-                     <rule xmlns="http://purl.oclc.org/dsdl/schematron" context="tei:date[@notAfter][ancestor::tei:correspDesc]">
-                        <assert test="@notAfter castable as xs:date">ERROR: <name/>@notAfter is not a valid date (yyyy-mm-dd)</assert>
-                     </rule>
-                  </constraint>
-               </constraintSpec>
-               <constraintSpec ident="date-from-to-notAfter-notBefore-are-valid" scheme="schematron">
-                  <constraint>
-                     <rule xmlns="http://purl.oclc.org/dsdl/schematron" context="tei:date[(@from|@to|@notAfter|@notBefore)]">
-                        <report test="(@from|@to|@notAfter|@notBefore)[normalize-space()][not(matches(.,'^\d\d\d\d(-(0[1-9]|1[012])|-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01]))*$'))]">ERROR: <name/>@<value-of select="(@from|@to|@notAfter|@notBefore)[not(. castable as xs:date)]/local-name()"/> is not a valid date (yyyy-mm-dd, yyyy-mm, yyyy)</report>
-                        <report test="(@from|@to|@notAfter|@notBefore)[normalize-space()][matches(.,'^\d\d\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])*$')][not(. castable as xs:date)]">ERROR: <name/>@<value-of select="(@from|@to|@notAfter|@notBefore)[normalize-space()][matches(.,'^\d\d\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])*$')][not(. castable as xs:date)]/local-name()"/> is not castable as a valid date (yyyy-mm-dd, yyyy-mm, yyyy)</report>
-                     </rule>
-                  </constraint>
-               </constraintSpec>
-               <constraintSpec ident="correspDesc-date-year-check" scheme="schematron">
-                  <constraint>
-                     <rule xmlns="http://purl.oclc.org/dsdl/schematron" context="tei:date[ancestor::tei:correspDesc]">
-                        <let name="exception_dates" value="()"/>
-                        <report test="(@from|@to|@notAfter|@notBefore|@when|@notBefore-custom|@notAfter-custom|@when-custom)[number(tokenize(.,'-')[1]) &lt; 1809 or number(tokenize(.,'-')[1]) &gt;1882][not(local-name() = 'notBefore' and . = $exception_dates)]">ERROR: <name/>@<value-of select="(@from|@to|@notAfter|@notBefore|@when|@notBefore-custom|@notAfter-custom|@when-custom)[number(tokenize(.,'-')[1]) &lt; 1809 or number(tokenize(.,'-')[1]) &gt;1882]/name()"/> is out of range. Expected year values should be 1809-1882</report>
-                     </rule>
-                  </constraint>
-               </constraintSpec>
-               <constraintSpec ident="date-needs-datable-attr" scheme="schematron">
-                  <constraint>
-                     <rule xmlns="http://purl.oclc.org/dsdl/schematron" context="tei:date[ancestor::tei:correspAction|parent::tei:publicationStmt][not(ancestor::tei:teiHeader//tei:change[@status='cancelled'])]">
-                        <report test="count((@when,@when-custom,@notBefore,@notBefore-custom,@notAfter,@notAfter-custom)) = 0">ERROR: <name/> needs a datable attribute</report>
-                     </rule>
-                  </constraint>
-               </constraintSpec>
-               <constraintSpec ident="date-must-not-have-datable-attr" scheme="schematron">
-                  <constraint>
-                     <rule xmlns="http://purl.oclc.org/dsdl/schematron" context="tei:date[not(ancestor::tei:correspAction|parent::tei:publicationStmt)]">
-                        <report test="count((@when,@when-custom,@notBefore,@notBefore-custom,@notAfter,@notAfter-custom)) &gt; 0">ERROR: <name/> This date should NOT have any datable attributes</report>
-                     </rule>
-                  </constraint>
-               </constraintSpec>
-               <constraintSpec ident="notBefore-and-notAfter-must-always-be-together" scheme="schematron">
-                  <constraint>
-                     <rule xmlns="http://purl.oclc.org/dsdl/schematron" context="tei:date[ancestor::tei:correspAction|parent::tei:publicationStmt][not(ancestor::tei:teiHeader//tei:change[@status='cancelled'])][@notBefore|@notAfter]">
-                        <let name="context-elem" value="."/>
-                        <report test="(@notBefore and not(@notAfter)) or (@notAfter and not(@notBefore))">ERROR: <name/> with @<value-of select="(@notBefore|@notAfter)/local-name()"/> needs @<value-of select="('notBefore','notAfter')[not(.=$context-elem/(@notBefore|@notAfter)/local-name())]"/>
-                        </report>
-                     </rule>
-                  </constraint>
-               </constraintSpec>
-               <attList>
-                  <attDef ident="notAfter" mode="change">
-                     <desc versionDate="2014-05-29" xml:lang="en">defines the latest possible date or end of a date range where this is not known precisely.</desc>
-                  </attDef>
-                  <attDef ident="notAfter-custom" mode="change">
-                     <desc versionDate="2014-05-29" xml:lang="en">defines the latest possible end of a temporal range where both date and time can be specified.</desc>
-                  </attDef>
-                  <attDef ident="notBefore" mode="change">
-                     <desc versionDate="2014-05-29" xml:lang="en">defines the earliest possible date or beginning of a date range where this is not known precisely.</desc>
-                  </attDef>
-                  <attDef ident="notBefore-custom" mode="change">
-                     <desc versionDate="2014-05-29" xml:lang="en">defines the earliest possible beginning of a temporal range where both date and time can be specified.</desc>
-                  </attDef>
-                  <attDef ident="when" mode="change">
-                     <desc versionDate="2014-05-29" xml:lang="en">defines a specific date.</desc>
-                  </attDef>
-                  <!--REMOVE-->
-                  <attDef ident="calendar" mode="delete"/>
-                  <attDef ident="datingMethod" mode="delete"/>
-                  <attDef ident="datingPoint" mode="delete"/>
-                  <attDef ident="from" mode="delete"/>
-                  <attDef ident="from-custom" mode="delete"/>
-                  <attDef ident="from-iso" mode="delete"/>
-                  <attDef ident="notAfter-iso" mode="delete"/>
-                  <attDef ident="notBefore-iso" mode="delete"/>
-                  <attDef ident="period" mode="delete"/>
-                  <attDef ident="to" mode="delete"/>
-                  <attDef ident="to-custom" mode="delete"/>
-                  <attDef ident="to-iso" mode="delete"/>
-                  <attDef ident="when-custom" mode="delete"/>
-                  <attDef ident="when-iso" mode="delete"/>
-               </attList>
-               <exemplum xml:lang="en">
-                  <egXML xmlns="http://www.tei-c.org/ns/Examples">
-                     <date when="1875-12-26">26 Dec 1875</date>
-                  </egXML>
-               </exemplum>
-               <exemplum xml:lang="en">
-                  <egXML xmlns="http://www.tei-c.org/ns/Examples">
-                     <date notBefore="1875-12-26" notAfter="1875-12-29">[27-9] Dec 1875</date>
-                  </egXML>
-               </exemplum>
-               <exemplum xml:lang="en">
-                  <egXML xmlns="http://www.tei-c.org/ns/Examples">
-                     <date notBefore="1875-12-28">after 27 Dec 1875</date>
-                  </egXML>
-               </exemplum>
-               <exemplum xml:lang="en">
-                  <egXML xmlns="http://www.tei-c.org/ns/Examples">
-                     <date notAfter="1875-12-26">before 27 Dec 1875</date>
-                  </egXML>
-               </exemplum>
-               <!--<exemplum xml:lang="en">
-<egXML xmlns="http://www.tei-c.org/ns/Examples">
-  <date notBefore-custom="1875-12-24T18:05:00" notAfter-custom="1875-12-26T08:15:00">[24-26] Dec 1875</date>
-</egXML>
-<p>This example indicates 'some time between 6:05 pm on 24 Dec 1875 and 8:15 am on 26 Dec 1875'. This mechanism is typically used if it can be inferred that an entry was written after the last securely datable and timable entry before it and before the first one after it, but no date or time is given in the entry itself.</p>
-</exemplum>-->
-               <exemplum xml:lang="en">
-                  <egXML xmlns="http://www.tei-c.org/ns/Examples">
-                     <date when="1861-02-01" xml:id="date1" exclude="#date2"/>
-                     <date when="1861-02-02" xml:id="date2" exclude="#date1"/>
-                  </egXML>
-                  <p>This example means ‘either 1 or 2 February 1861’.</p>
-               </exemplum>
-               <remarks versionDate="2016-05-06" xml:lang="en">
-                  <p>Pay careful attention when entering values into <att>notBefore</att> and/or <att>notAfter</att> since they will <hi rend="italic">sometimes</hi> differ from the natural language date by +/- one day when the natural language form of the date employs exclusive reckoning whereas the TEI attributes <att>notBefore</att> and <att>notAfter</att> employ inclusive reckoning. Exclusive reckonings of dates, for example, are 'after 6 July 1870' (<hi rend="italic">i.e.</hi> the earliest date it could have been written is 5 July 1870) or 'before 6 July 1870' (the latest date it could have been written is 5 July 1870). In both cases, 6 July 1870 is not a valid date that the document could have been written. Inclusive reckonings include the date mentioned. Therefore, if you say something was written <att>notBefore</att> ‘06-07-1870’, you are saying that the document was written <hi rend="italic">on 6 July 1870 or later.</hi> Similarly, notAfter ‘06-07-1870’ means that the document was written <hi rend="italic">on or before 6 July 1870</hi>. The key when coding date ranges is to carefully consider what the earliest and latest possible date the letter could have been written <hi rend="bold">on</hi> and to use those values in <att>notBefore</att> and <att>notAfter</att>.</p>
-                  <p>For more information on coding dates, see Appendix I: Dates in the Guidelines.</p>
-                  <p><gi>date</gi> also appears within <gi>publicationStmt</gi>. There, all that is required is to put the publication year of the Darwin volume into <att>when</att>.</p>
-               </remarks>
-            </elementSpec>
-
-            <elementSpec ident="hi" module="core" mode="change" xml:base="elements-lett/hi.xml" xml:lang="">
+            
+            <elementSpec ident="hi" module="core" mode="change" xml:base="elements-lett/hi.xml">
                <gloss versionDate="2014-04-19" xml:lang="en">highlight</gloss>
                <desc versionDate="2014-04-19" xml:lang="en">marks text that has been distinctively rendered in some way, e.g. underlined, overlined, italicised, or in larger text or a different colour. The nature of the formatting is indicated in <att>rend</att>.</desc>
                <classes mode="change">
@@ -472,12 +233,9 @@
                         <valItem ident="print"/>
                         <valItem ident="typeScript"/>
                         <valItem ident="stretchyVertical"/>
-                        <valItem ident="stretchyHorizontal"/><!--<valItem ident="redInk"/>
-                <valItem ident="redUnderline"/>
-                <valItem ident="differentInk"/>-->
+                        <valItem ident="stretchyHorizontal"/>
                      </valList>
                   </attDef>
-                  <!--REMOVE-->
                   <attDef ident="ana" mode="delete"/>
                   <attDef ident="cert" mode="delete"/>
                   <attDef ident="change" mode="delete"/>
@@ -510,13 +268,12 @@
             … The <hi rend="underline">No<hi rend="superscript">s</hi></hi> given in this list are the correct ones.…
         </egXML>
                </exemplum>
-               <remarks versionDate="2014-04-20" xml:lang="en"><!--<p>We do not attempt to record all the changes in size of the handwriting since it's normal for letterforms to change size in handwritten materials. However, these fluctuations in size <hi rend="bold">should </hi> be recorded when they seem to be relevant to the presentation or interpretation of the text.</p>-->
+               <remarks versionDate="2014-04-20" xml:lang="en">
                   <p>All the typescripted text that we have encountered so far has been created using typewriters only capable of outputting capitalised text. For this reason, "<val>typescript</val>" is currently presumed to also mean that the text is capitalised. Should anyone encounter typescripted materials that are <hi rend="bold">not</hi> capitalised, please contact Michael Hawkins so we can revise the transcription guide and coded text appropriately.</p>
                </remarks>
             </elementSpec>
 
-            <elementSpec ident="item" module="core" mode="change" xml:base="elements-lett/item.xml" xml:lang="">
-               <!--<gloss versionDate="2014-06-17" xml:lang="en"></gloss>-->
+            <elementSpec ident="item" module="core" mode="change" xml:base="elements-lett/item.xml">
                <desc versionDate="2014-06-27" xml:lang="en">contains an item within a <gi>list</gi>.</desc>
                <classes mode="change">
                   <memberOf key="att.global" mode="delete"/>
@@ -538,58 +295,8 @@
                   <p>This element is used only rarely by the Darwin Project. It is typically to encode formulaic lists, clearly set out as such in the original.</p>
                </remarks>
             </elementSpec>
-
-            <elementSpec ident="lb" module="core" mode="change" xml:base="elements-lett/lb.xml" xml:lang="">
-               <desc versionDate="2014-06-09" xml:lang="en">marks the beginning of a line of prose, including the first line of a paragraph. Although formally defined as ‘line break’, it is more usefully thought of as ‘line beginning’. <gi>lb</gi> should be sparingly used within the Darwin Correspondence to indicate a linebreak within the original letter text that we wish to preserve within the output.</desc>
-               <classes mode="change">
-                  <memberOf key="att.breaking" mode="delete"/>
-                  <memberOf key="att.edition" mode="delete"/>
-                  <memberOf key="att.spanning" mode="delete"/>
-                  <memberOf key="att.typed" mode="delete"/>
-               </classes>
-               <attList>
-                  <attDef ident="resp" usage="opt" mode="change"/>
-                  <!--REMOVE-->
-                  <attDef ident="ana" mode="delete"/>
-                  <attDef ident="cert" mode="delete"/>
-                  <attDef ident="change" mode="delete"/>
-                  <attDef ident="copyOf" mode="delete"/>
-                  <attDef ident="corresp" mode="delete"/>
-                  <attDef ident="exclude" mode="delete"/>
-                  <attDef ident="facs" mode="delete"/>
-                  <attDef ident="n" mode="delete"/>
-                  <attDef ident="next" mode="delete"/>
-                  <attDef ident="prev" mode="delete"/>
-                  <attDef ident="rend" mode="delete"/>
-                  <attDef ident="rendition" mode="delete"/>
-                  <attDef ident="sameAs" mode="delete"/>
-                  <attDef ident="select" mode="delete"/>
-                  <attDef ident="source" mode="delete"/>
-                  <attDef ident="style" mode="delete"/>
-                  <attDef ident="synch" mode="delete"/>
-                  <attDef ident="xml:base" mode="delete"/>
-                  <attDef ident="xml:id" mode="delete"/>
-                  <attDef ident="xml:lang" mode="delete"/>
-                  <attDef ident="xml:space" mode="delete"/>
-               </attList>
-               <exemplum xml:lang="en">
-                  <egXML xmlns="http://www.tei-c.org/ns/Examples">
-                     <p>With much respect, I beg to remain | Your’s faithfully | Ch. Darwin <lb type="none"/> His Excellency | Sir G.&#160;Grey | &amp;c &amp;c &amp;c</p>
-                  </egXML>
-               </exemplum>
-               <exemplum xml:lang="en">
-                  <egXML xmlns="http://www.tei-c.org/ns/Examples">
-                     <p rend="left">Charles Darwin Esq. M.A. | Down, Beckenham. | Kent. <lb type="full"/> **Such as the following:—</p>
-                  </egXML>
-               </exemplum>
-               <remarks versionDate="2014-05-21" xml:lang="en">
-                  <p>Where <gi>lb</gi> occurs between two words, one space should be left before it. Where it divides a single word or occurs at the beginning of a paragraph, there should be no space on either side of it.</p>
-                  <p>If you find yourself wanting to insert forced linebreaks at the very end of a paragraph (a common usage in DarML), please consult the Guidelines on paragraph (or block) styling on how to indicate that a pargraph has extra (or no) linebreaks immediately before it. If you are trying to insert forced linebreaks in parts of the metadata, please contact Michael Hawkins as this might indicate the need to update the code that renders our materials in print and online.</p>
-               </remarks>
-            </elementSpec>
-
-            <elementSpec ident="list" module="core" mode="change" xml:base="elements-lett/list.xml" xml:lang="">
-               <!--<gloss versionDate="2014-06-17" xml:lang="en"></gloss>-->
+            
+            <elementSpec ident="list" module="core" mode="change" xml:base="elements-lett/list.xml">
                <desc versionDate="2014-06-17" xml:lang="en">contains any number of items organised as a list.</desc>
                <classes mode="change">
                   <memberOf key="att.sortable" mode="delete"/>
@@ -608,7 +315,6 @@
                         <p>Should an atypical form of bulleting be used in the original (and desired to be reproduced in the print/online versions, please contact Michael Hawkins how it can be supported.</p>
                      </remarks>
                   </attDef>
-                  <!--REMOVE-->
                   <attDef ident="ana" mode="delete"/>
                   <attDef ident="cert" mode="delete"/>
                   <attDef ident="change" mode="delete"/>
@@ -660,7 +366,7 @@
                </remarks>
             </elementSpec>
 
-            <elementSpec ident="note" module="core" mode="change" xml:base="elements-bibl/note.xml" xml:lang="">
+            <elementSpec ident="note" module="core" mode="change" xml:base="elements-bibl/note.xml">
                <gloss versionDate="2014-06-09" xml:lang="en">note</gloss>
                <desc versionDate="2014-06-09" xml:lang="en">records either an editorial note in the header, footnotes, CD Notes or Annotations.</desc>
                <classes mode="change">
@@ -678,7 +384,6 @@
                         <valItem ident="volume"/>
                      </valList>
                   </attDef>
-                  <!--REMOVE-->
                   <attDef ident="ana" mode="delete"/>
                   <attDef ident="cert" mode="delete"/>
                   <attDef ident="change" mode="delete"/>
@@ -718,130 +423,8 @@
                   </egXML>
                </exemplum>
             </elementSpec>
-
-            <elementSpec ident="p" module="core" mode="change" xml:base="elements-lett/p.xml" xml:lang="">
-               <desc xml:lang="en" versionDate="2014-05-26">marks paragraphs in prose. No attributes are normally needed but <att>rend</att> (rendition) is available and it is used to indicate (in the case of textual transcriptions) how the item was rendered in the original text. Its values are "<val>right</val>" (right-aligned), "<val>left</val>" (left-aligned), "<val>centre</val>" (centred), or "<val>indent0</val>", "<val>indent1</val>", "<val>indent2</val>", "<val>indent3</val>" (to "<val>indent40</val>", to indicate the level of indentation on the first line of a paragraph),  "<val>hangingIndent1</val>", "<val>hangingIndent2</val>", "<val>hangingIndent3</val>" (to indicate levels of hanging indents) and "<val>insetBlock</val>" (for a narrower inset block of text with increased margins on both the left and right). If <att>rend</att> is omitted, the paragraph will be output according to the destination format's (ie. print or web) default paragraph styles.</desc>
-               <classes mode="change">
-                  <memberOf key="att.written"/>
-                  <memberOf key="att.declaring" mode="delete"/>
-                  <memberOf key="att.fragmentable" mode="delete"/>
-               </classes>
-               <attList>
-                  <attDef ident="rend" mode="change">
-                     <valList type="closed" mode="replace">
-                        <valItem ident="right"/>
-                        <valItem ident="left"/>
-                        <valItem ident="centre"/>
-                        <valItem ident="indent0"/>
-                        <valItem ident="indent1"/>
-                        <valItem ident="indent2"/>
-                        <valItem ident="indent3"/>
-                        <valItem ident="blockIndent"/>
-                        <valItem ident="hangingIndent1"/>
-                        <valItem ident="hangingIndent2"/>
-                        <valItem ident="hangingIndent3"/>
-                        <valItem ident="blockquote"/>
-                     </valList>
-                  </attDef>
-                  <!--REMOVE-->
-                  <attDef ident="ana" mode="delete"/>
-                  <attDef ident="cert" mode="delete"/>
-                  <attDef ident="change" mode="delete"/>
-                  <attDef ident="copyOf" mode="delete"/>
-                  <attDef ident="corresp" mode="delete"/>
-                  <attDef ident="exclude" mode="delete"/>
-                  <attDef ident="facs" mode="delete"/>
-                  <attDef ident="n" mode="delete"/>
-                  <attDef ident="next" mode="delete"/>
-                  <attDef ident="prev" mode="delete"/>
-                  <attDef ident="rendition" mode="delete"/>
-                  <attDef ident="resp" mode="delete"/>
-                  <attDef ident="sameAs" mode="delete"/>
-                  <attDef ident="select" mode="delete"/>
-                  <attDef ident="source" mode="delete"/>
-                  <attDef ident="style" mode="delete"/>
-                  <attDef ident="synch" mode="delete"/>
-                  <attDef ident="xml:base" mode="delete"/>
-                  <attDef ident="xml:id" mode="delete"/>
-                  <attDef ident="xml:lang" mode="delete"/>
-                  <attDef ident="xml:space" mode="delete"/>
-               </attList>
-               <exemplum xml:lang="en" versionDate="2014-06-10">
-                  <egXML xmlns="http://www.tei-c.org/ns/Examples">
-                     <p>P.S.&#160;Upon the whole the Cirripedia show more affinity, <hi rend="underline">I think</hi>, to the Upper Chalk, than to any other stage— <hi rend="underline">pray</hi> tell me whether Upper Chalk fossils are generally more or less abundant than those of the Lower Chalk &amp; Chalk Marl</p>
-                  </egXML>
-               </exemplum>
-               <exemplum xml:lang="en">
-                  <egXML xmlns="http://www.tei-c.org/ns/Examples">
-                     <p rend="centre">From the Insects to their friend, Charles Darwin.</p>
-                  </egXML>
-               </exemplum>
-               <remarks versionDate="2014-05-21" xml:lang="en">
-                  <p><att>rend</att> is primarily to be used to record how the text was rendered in the original document. While it <hi rend="bold">may</hi> be used to force certain renderings on the outputted versions that were not present in the original, editors should contact Michael Hawkins should they feel the desire to do so.</p>
-                  <p><att>rend</att> has not been given the value "<val>justified</val>" (where both the left and right hand sides of the texts are flush with the margin) since value was not used within DarXML.</p>
-               </remarks>
-            </elementSpec>
-
-            <elementSpec ident="publisher" module="core" mode="change" xml:base="elements-lett/publisher.xml" xml:lang="">
-               <!--<gloss versionDate="2014-06-17" xml:lang="en"></gloss>-->
-               <desc versionDate="2015-08-16" xml:lang="en">gives the name of the organisation responsible for the volume of The Correspondence of Charles Darwin containing this letter. This is invariably ‘Cambridge University Press’.</desc>
-               <classes mode="change">
-                  <memberOf key="att.canonical" mode="delete"/>
-                  <memberOf key="att.global" mode="delete"/>
-               </classes>
-               <exemplum xml:lang="en">
-                  <egXML xmlns="http://www.tei-c.org/ns/Examples">
-                     <publicationStmt>
-                        <publisher>CUP</publisher>
-                        <pubPlace>Cambridge</pubPlace>
-                        <date when="2015">2015</date>
-                     </publicationStmt>
-                  </egXML>
-               </exemplum>
-               <remarks versionDate="2015-08-16" xml:lang="en">
-                  <p>This element is generated automatically before transcription begins.</p>
-               </remarks>
-            </elementSpec>
-
-            <elementSpec ident="pubPlace" module="core" mode="change" xml:base="elements-lett/pubPlace.xml" xml:lang="">
-               <!--<gloss versionDate="2014-06-17" xml:lang="en"></gloss>-->
-               <desc versionDate="2015-08-16" xml:lang="en">gives the place of publication of the volume of The Correspondence of Charles Darwin containing this letter. This is invariably ‘Cambridge’.</desc>
-               <classes mode="change">
-                  <memberOf key="att.global" mode="delete"/>
-                  <memberOf key="att.naming" mode="delete"/>
-               </classes>
-               <exemplum xml:lang="en">
-                  <egXML xmlns="http://www.tei-c.org/ns/Examples">
-                     <publicationStmt>
-                        <publisher>CUP</publisher>
-                        <pubPlace>Cambridge</pubPlace>
-                        <date when="2015">2015</date>
-                     </publicationStmt>
-                  </egXML>
-               </exemplum>
-               <remarks versionDate="2015-08-16" xml:lang="en">
-                  <p>This element is generated automatically before transcription begins.</p>
-               </remarks>
-            </elementSpec>
-
-            <elementSpec ident="quote" module="core" mode="change" xml:base="elements-lett/quote.xml" xml:lang="">
-               <!--<gloss versionDate="2014-06-17" xml:lang="en"></gloss>-->
-               <!--<desc versionDate="2014-06-17" xml:lang="en"></desc>-->
-               <classes mode="change">
-                  <memberOf key="att.global" mode="delete"/>
-                  <memberOf key="att.msExcerpt" mode="delete"/>
-                  <memberOf key="att.notated" mode="delete"/>
-                  <memberOf key="att.typed" mode="delete"/>
-               </classes>
-               <exemplum xml:lang="en">
-                  <egXML xmlns="http://www.tei-c.org/ns/Examples"/>
-               </exemplum>
-               <remarks versionDate="2016-05-06" xml:lang="en">
-                  <p>The use of this element within the Darwin Correspondence Project is uncertain due to how its predecessor was used within DarXML. It should not be used until these issues are resolved by the editors.</p>
-               </remarks>
-            </elementSpec>
-
-            <elementSpec ident="ref" module="core" mode="change" xml:base="elements-bibl/ref.xml" xml:lang="">
+            
+            <elementSpec ident="ref" module="core" mode="change" xml:base="elements-bibl/ref.xml">
                <classes mode="change">
                   <memberOf key="att.cReferencing" mode="delete"/>
                   <memberOf key="att.declaring" mode="delete"/>
@@ -863,7 +446,6 @@
                         <valItem ident="paywalled"/>
                      </valList>
                   </attDef>
-                  <!--REMOVE-->
                   <attDef ident="evaluate" mode="delete"/>
                   <attDef ident="subtype" mode="delete"/>
                   <attDef ident="targetLang" mode="delete"/>
@@ -883,30 +465,7 @@
                   <p>Always ensure that you link to the canonical URL to the resource and not the specific URL that you might have used to find the resource on the service. The canonical URLs are more likely to work in the longer term than the more ideosyncratic ones generated by search queries on the service. For example, the hyperlink recorded in the comments on Elam's ‘Gospel of Evolution’ was <val>https://search.proquest.com/docview/6651353?rfr_id=info%3Axri%2Fsid%3Aprimo</val> but the canonical URL for it is <val>https://search.proquest.com/historical-periodicals/gospel-evolution/docview/6651353/se-2?accountid=201395</val>.</p>
                </remarks>
             </elementSpec>
-
-            <elementSpec ident="title" module="core" mode="change" xml:base="elements-lett/title.xml" xml:lang="">
-               <!--<gloss versionDate="2014-06-17" xml:lang="en"></gloss>-->
-               <desc versionDate="2014-06-29" xml:lang="en">contains the title (letter header) of the electronic document.</desc>
-               <classes mode="change">
-                  <memberOf key="att.canonical" mode="delete"/>
-                  <memberOf key="att.datable" mode="delete"/>
-                  <memberOf key="att.global" mode="delete"/>
-                  <memberOf key="att.typed" mode="delete"/>
-               </classes>
-               <attList>
-                  <!--REMOVE-->
-                  <attDef ident="level" mode="delete"/>
-                  <attDef ident="type" mode="delete"/>
-               </attList>
-               <exemplum xml:lang="en">
-                  <egXML xmlns="http://www.tei-c.org/ns/Examples">
-                     <title xml:id="main_title">From R.&#160;F.&#160;Cooke&#160;&#160;29&#160;May&#160;1875</title>
-                  </egXML>
-               </exemplum>
-               <remarks versionDate="2014-06-11" xml:lang="en">
-                  <p>This element appears in several contexts throughout the files (such as <gi>seriesStmt</gi>), only the version in <gi>titleStmt</gi> should be edited by editors.</p>
-               </remarks>
-            </elementSpec>
+            
          </schemaSpec>
       </body>
    </text>
