@@ -5,10 +5,9 @@
          xmlns:xlink="http://www.w3.org/1999/xlink"
          datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
          ns="http://www.tei-c.org/ns/1.0"><!--
-Schema generated from ODD source 2023-06-13T14:21:24Z. .
-TEI Edition: Version 4.7.0a. Last updated on
-        11th April 2023, revision bec660a72
-TEI Edition Location: https://www.tei-c.org/Vault/P5/Version 4.7.0a./
+Schema generated from ODD source 2024-01-11T13:53:06Z. . 
+TEI Edition: P5 Version 4.7.0a. Last updated on 16th November 2023, revision 486847356 
+TEI Edition Location: https://www.tei-c.org/Vault/P5/4.7.0a/ 
   
 --><!--This material is dual-licensed.
 [http://creativecommons.org/licenses/by-sa/3.0/] Distributed under a Creative Commons Attribution-ShareAlike 3.0 Unported License  [http://www.opensource.org/licenses/BSD-2-Clause] Copyright 2013 TEI Consortium. All rights reserved. Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met: Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution. This software is provided by the copyright holders and contributors "as is" and any express or implied warranties, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are disclaimed. In no event shall the copyright holder or contributors be liable for any direct, indirect, incidental, special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability, whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use of this software, even if advised of the possibility of such damage. TEI material can be licensed differently depending on the use you intend to make of it. Hence it is made available under both the CC+BY and BSD-2 licences. The CC+BY licence is generally appropriate for usages which treat TEI content as data or documentation. The BSD-2 licence is generally appropriate for usage of TEI content in a software environment. For further information or clarification, please contact the  TEI Consortium .-->
@@ -4669,9 +4668,24 @@ TEI Edition Location: https://www.tei-c.org/Vault/P5/Version 4.7.0a./
                <oneOrMore>
                   <ref name="tei_model.pLike"/>
                </oneOrMore>
-               <empty/>
+               <zeroOrMore>
+                  <empty/>
+               </zeroOrMore>
             </choice>
          </group>
+         <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
+                  id="repositories-msDesc-one_ms_singleton_max-constraint-rule-4">
+            <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:rng="http://relaxng.org/ns/structure/1.0"
+                      xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                      xmlns:xi="http://www.w3.org/2001/XInclude"
+                      context="tei:msContents|tei:physDesc|tei:history|tei:additional">
+               <sch:let name="gi" value="name(.)"/>
+               <sch:report test="preceding-sibling::*[ name(.) eq $gi ]                           and                           not( following-sibling::*[ name(.) eq $gi ] )">
+          Only one <sch:name/> is allowed as a child of <sch:value-of select="name(..)"/>.
+        </sch:report>
+            </sch:rule>
+         </pattern>
          <attribute name="type">
             <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">indicates whether it contains the 'long' or 'short' form of the repository's name</a:documentation>
             <choice>
@@ -4698,7 +4712,7 @@ TEI Edition Location: https://www.tei-c.org/Vault/P5/Version 4.7.0a./
             </zeroOrMore>
          </group>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="repositories-msIdentifier-msId_minimal-constraint-report-3">
+                  id="repositories-msIdentifier-msId_minimal-constraint-report-4">
             <rule context="tei:msIdentifier">
                <report xmlns:rng="http://relaxng.org/ns/structure/1.0"
                        xmlns:sch="http://purl.oclc.org/dsdl/schematron"
